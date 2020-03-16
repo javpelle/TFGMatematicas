@@ -1,0 +1,86 @@
+\documentclass[11pt, oneside]{book}
+%------------------------
+%------- PAQUETES -------
+%------------------------
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[T1]{fontenc}
+
+% Citas a pie de página de bibliografía
+\usepackage[backend=bibtex,style=verbose-trad2]{biblatex}
+
+% \overset y otras
+\usepackage{amsmath}
+
+% Para \mathbb etc.
+\usepackage{amssymb}
+
+% Para inserción de imágenes
+\usepackage{graphicx}
+
+% Para definición de teoremas
+\usepackage{amsthm}
+
+%------------------------
+%------- TEOREMAS -------
+%------------------------
+
+\newtheorem{teor}{Teorema} % Estilo de texto cursivo
+
+\theoremstyle{definition} % Cambio del estilo de los teoremas a normal
+\newtheorem{proposicion}{\textbf{Proposici\'on}}
+\newtheorem{defi}{\textbf{Definición}}
+\newtheorem{corolario}{Corolario}
+\newtheorem{figura}{Figura}
+\newtheorem*{lema}{Lema}
+\newtheorem*{ejem}{\underline{Ejemplo}}
+\newtheorem*{nota}{Nota}
+\newtheorem*{observacion}{Observación}
+
+%------------------------
+%------- COMANDOS -------
+%------------------------
+
+% Conjuntos y constantes matemáticas
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\oversim}[1]{\overset{_\sim}{#1}}
+\newcommand{\sucesion}[2]{\left\{#1_{#2}\right\}^\infty_{#2 = 1}}
+\newcommand{\sucesionelement}[2]{\left\{#1\right\}^\infty_{#2 = 1}}
+
+% Para poner datos encima y/o debajo de implica
+\newcommand{\ximplies}[2]{\underset{#2}{\overset{#1}\implies}}
+\newcommand{\xiff}[2]{\underset{#2}{\overset{#1}\iff}}
+\newcommand{\ximpliedby}[2]{\underset{#2}{\overset{#1}\impliedby}}
+
+% Producto escalar y norma
+\newcommand{\dotproduct}[2]{<#1,#2>}
+\newcommand{\norm}[1]{\left|\left|#1\right|\right|}
+
+% Funciones y info debajo de funciones
+\newcommand{\function}[3]{#1\colon #2\longrightarrow #3}
+\newcommand{\xfunction}[4]{\underset{#4}{{#1\colon #2\longrightarrow #3}}}
+
+% Introducir información de igualdad debajo
+\newcommand{\equals}[2]{\underset{#2}{\underset{\shortparallel}{#1}}}
+
+% Comandos para palabras dentro de ecuaciones $ $ o \[ \]
+\newcommand{\y}{\mathrm{\ y\ }}
+\newcommand{\cte}{\mathrm{cte}}
+\newcommand{\rg}{\mathrm{rg}}
+\newcommand{\id}{\mathrm{id}}
+
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+
+
+\title{Introducción a la Computación Cuántica con Qiskit}
+\author{Javier Pellejero Ortega}

@@ -1,18 +1,28 @@
-\input{chapters/configuracion.tex}
+\input{configuration/configuration.tex}
+
+\bibliography{bibliography/bibliography}
 
 \begin{document}
 
 \input{chapters/Portada.tex}
 
-\chapter*{Prefacio}
-\addcontentsline{toc}{chapter}{Prefacio}
+\input{chapters/Prefacio.tex}
 	
-\chapter*{Resumen}
-\addcontentsline{toc}{chapter}{Resumen}
+\input{chapters/Resumen.tex}
 	
-\chapter*{Abstract}
-\addcontentsline{toc}{chapter}{Abstract}
+\input{chapters/Abstract.tex}
 
 \mainmatter % Empieza a numerar en números arábigos 
+
+\input{chapters/Capitulo1.tex}
+
+Hola\autocite[1]{echenique2001auditoria}
+$\equals{2}{3}$
+
+
+\printbibliography
+
+
+
 
 \end{document}
