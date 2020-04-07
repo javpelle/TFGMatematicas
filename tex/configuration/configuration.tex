@@ -3,12 +3,16 @@
 %------- PAQUETES -------
 %------------------------
 
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\setlength{\parskip}{1em}
+
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 \usepackage[T1]{fontenc}
 
 % Citas a pie de página de bibliografía
-\usepackage[backend=bibtex,style=verbose-trad2]{biblatex}
+\usepackage[backend=bibtex, style=alphabetic, citestyle=verbose]{biblatex}
+\usepackage{csquotes}
 
 % \overset y otras
 \usepackage{amsmath}
@@ -48,6 +52,7 @@
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\C}{\mathbb{C}}
+\newcommand{\orden}[1]{\mathcal{O}\left(#1\right)}
 
 \newcommand{\oversim}[1]{\overset{_\sim}{#1}}
 \newcommand{\sucesion}[2]{\left\{#1_{#2}\right\}^\infty_{#2 = 1}}

@@ -1,6 +1,16 @@
 \chapter{Introducción histórica}
 
-Comencemos dando unas pinceladas sobre los antecedentes a los temas a tratar. Nos centraremos primero en la computación cuántica.
+Comencemos dando unas pinceladas sobre la relativamente corta historia de la computación cuántica.
 
-\section{Un breve repaso a la historia de la computación cuántica}
+\section{Historia de la computación cuántica}
+La computación cuántica se sustenta en las leyes de la mecánica cuántica que empezaron a desarrollarse a principios del siglo XX. Sin embargo, no fue hasta 1982 cuando se planteó el uso de sus propiedades en la computación. El premio \textit{Nobel} Richard Feynman estudiaba el modelado para la simulación de efectos cuánticos en un ordenador clásico y observó que algunos de dichos efectos no podían simularse eficientemente. Se planteó entonces si el uso de las propiedades de la mecánica cuántica en el mundo computacional podrían suponer un significativo aumento del poder de cálculo de los ordenadores clásicos.\autocite{feynman1982modeling}
 
+Estas suposiciones de Feynman generaron un pequeño interés meramente teórico; llevarlo a la práctica suponía construir máquinas que aprovecharan los efectos cuánticos, lo cual se antojaba difícil y además, dentro del marco teórico, tampoco se sabía demasiado bien cómo formular algoritmos cuánticos que mejoraran los clásicos.
+
+Fue en 1994 cuando Peter Shor publicó un algoritmo cuántico que factorizaba enteros en tiempo polinómico \autocite{shor1994algorithms}. Esto supuso una pequeña revolución, los algoritmos criptográficos más importantes se basan en la dureza del problema de factorizar enteros de gran tamaño que tiene una complejidad exponencial.
+
+A raíz del logro de Shor, multitud de científicos se interesaron por el estudio de la computación cuántica y comenzó así una carrera que perdura hasta nuestros días para construir ordenadores cuánticos capaz de ejecutar este y otros algoritmos que empezaron a surgir.
+
+Previamente al gran descubrimiento de Shor, David Deutsch y Richard Jozsa ya habían llamado a la puerta de los algoritmos cuánticos, en 1992 concretamente \autocite{deutsch1992rapid}. Presentaron un algoritmo cuántico relativamente sencillo para un problema concreto: sea una función $\function{f}{\{0,1\}^n}{\{0,1\}}$ de la que sólo sabemos que, o bien es constante o bien es balanceada (devuelve 0 para la mitad de las entradas y 1 para la otra mitad), queremos determinar de qué tipo es.
+
+Pese a lo inocente del problema, si queremos resolverlo de manera clásica, nos encontramos con un algoritmo que debe verificar en caso peor $2^{n-1}+1$ entradas; Es decir, tiene complejidad exponencial. El de Deutsch y Jozsa tenía coste constante, tan sólo hace falta una evaluación. 
