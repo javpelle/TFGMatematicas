@@ -3,7 +3,10 @@
 %------- PAQUETES -------
 %------------------------
 
+% Establecemos el tamaño de página y márgenes
 \usepackage[a4paper, total={6in, 8in}]{geometry}
+
+% Establecemos la distancia entre párrafos
 \setlength{\parskip}{1em}
 
 \usepackage[utf8]{inputenc}
@@ -11,11 +14,14 @@
 \usepackage[T1]{fontenc}
 
 % Citas a pie de página de bibliografía
-\usepackage[backend=bibtex, style=alphabetic, citestyle=verbose]{biblatex}
+\usepackage[backend=bibtex]{biblatex}
 \usepackage{csquotes}
 
-% \overset y otras
+% \overset, numeración de teoremas y otras
 \usepackage{amsmath}
+
+% Para cambiar numeración de "enumerate"
+\usepackage{enumitem}
 
 % Para \mathbb etc.
 \usepackage{amssymb}
@@ -30,17 +36,16 @@
 %------- TEOREMAS -------
 %------------------------
 
-\newtheorem{teor}{Teorema} % Estilo de texto cursivo
+\newtheorem{thm}{Teorema}[chapter] % Estilo de texto cursivo
 
 \theoremstyle{definition} % Cambio del estilo de los teoremas a normal
-\newtheorem{proposicion}{\textbf{Proposici\'on}}
-\newtheorem{defi}{\textbf{Definición}}
-\newtheorem{corolario}{Corolario}
-\newtheorem{figura}{Figura}
+\newtheorem{proposition}[thm]{Proposición}
+\newtheorem{definition}[thm]{Definición}
+\newtheorem{corolario}[thm]{Corolario}
+\newtheorem{example}[thm]{Ejemplo}
+\newtheorem{observation}[thm]{Observación}
 \newtheorem*{lema}{Lema}
-\newtheorem*{ejem}{\underline{Ejemplo}}
 \newtheorem*{nota}{Nota}
-\newtheorem*{observacion}{Observación}
 
 %------------------------
 %------- COMANDOS -------
@@ -48,10 +53,12 @@
 
 % Conjuntos y constantes matemáticas
 \newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
 \newcommand{\e}{\mathrm{e}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Q}{\mathbb{Q}}
-\newcommand{\C}{\mathbb{C}}
+
 \newcommand{\orden}[1]{\mathcal{O}\left(#1\right)}
 
 \newcommand{\oversim}[1]{\overset{_\sim}{#1}}
@@ -64,7 +71,7 @@
 \newcommand{\ximpliedby}[2]{\underset{#2}{\overset{#1}\impliedby}}
 
 % Producto escalar y norma
-\newcommand{\dotproduct}[2]{<#1,#2>}
+\newcommand{\dotproduct}[2]{\langle#1,#2\rangle}
 \newcommand{\norm}[1]{\left|\left|#1\right|\right|}
 
 % Funciones y info debajo de funciones

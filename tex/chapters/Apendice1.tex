@@ -1,0 +1,98 @@
+\chapter{Espacios normados y con producto interno}
+
+Para definir con precisión qué es un espacio de Hilbert, necesitamos definir una serie de conceptos previos básicos. Dichos conceptos son estudiados en los primeros cursos del grado de Matemáticas.
+
+Pese a que son definiciones y desarrollos ampliamente conocidos, son expuestos a continuación los estrictamente necesarios por si el lector precisara recordarlos. El material presentado se extrae fundamentalmente de Lokenath Debnath, Piotr Mikusinski y col. \textit{Introduction to Hilbert spaces with applications} y de las notas propias cosechadas en diferentes asignaturas.
+
+\section{Espacios vectoriales}
+
+Habitualmente se estudian tanto espacios vectoriales reales como complejos. Denotamos $\R$ al cuerpo de los reales y $\C$ al de los complejos y nos referiremos a cada uno de sus elementos como \textbf{escalar}. En caso de que no queremos hacer distinción del cuerpo con el que trabajemos lo denotaremos por $\K:=\R$ o $\C$.
+
+\begin{definition} Un \textbf{espacio vectorial} es un conjunto no vacío $E$ que consta de las operaciones:
+\begin{itemize}
+\item \textbf{Suma}. $(x,y)\mapsto x+y$ de $E\times E$ en $E$.
+\item \textbf{Multiplicación por escalar}. $(\lambda,y)\mapsto \lambda x$ de $\K\times E$ en $E$.
+\end{itemize}
+que verifican para todo $x,y,z\in E$ y para todo $\alpha,\beta\in\K$ que:
+\begin{enumerate}[label=\alph*)]
+\item $x + y = y + x$.
+\item $(x + y) + z = x + (y + z)$.
+\item Para todo $x,y\in E$ existe $z\in E$ tal que $x+z=y$.
+\item $\alpha(\beta x)=(\alpha\beta)x$.
+\item $(\alpha + \beta)x=\alpha x +\beta x$.
+\item $\alpha (x + y) =\alpha x +\alpha y$.
+\item $1x = x$.
+\end{enumerate}
+\end{definition}
+
+De este definición se obtienen algunos resultados interesantes que no comentaremos aquí. Nos limitaremos a ejemplificar qué ocurre en el caso de los complejos que es el cuerpo con el que trataremos.
+
+\begin{example} $\K=\R$ o $\C$ son los espacios vectoriales más simples con las operaciones suma y multiplicación habituales. Además podemos definir $\R^n$ y $\C^n$ como:
+\[\R^n:=\{(x_1,x_2,...,x_n): x_1,x_2,...,x_n\in\K\}\]
+\[\C^n:=\{(z_1,z_2,...,z_n): z_1,z_2,...,z_n\in\K\}\]
+En particular, $\C^{2^n}$ es un espacio vectorial.
+\end{example}
+
+\section{Espacios normados}
+
+\begin{definition} Sea $E$ un espacio vectorial, denominamos a la función $\function{\norm\cdot}{E}{\R}$ tal que $x\mapsto\norm{x}$ como \textbf{norma} si verifica:
+\begin{enumerate}[label=\alph*)]
+\item Si $\norm{x}=0$ entonces $x=0$.
+\item $\norm{\lambda x}=|\lambda|\norm{x}$ para todo $\lambda\in\K$ y para todo $x\in E$.
+\item $\norm{x+y}\leq \norm{x} + \norm{y}$ para todo $x,y\in E$, que denominamos \textbf{desigualdad triangular}.
+\end{enumerate}
+
+Denotamos como \textbf{espacio normado} a un espacio vectorial dotado de norma.
+\end{definition}
+
+\begin{definition} Sea una sucesión de elementos $\{x_n\}$ de un espacio normado, decimos que es una \textbf{sucesión de Cauchy} si verifica que para todo $\varepsilon>0$ existe un $M>0$ tal que $\norm{x_m-x_n}<\varepsilon$ para todos $m,n>M$.
+\end{definition}
+
+\begin{definition} Decimos que es un espacio normado es \textbf{completo} si toda sucesión de Cauchy en $E$ converge a un elemento de $E$. En dicho caso, denominamos a tal espacio normado \textbf{espacio de \textit{Banach}}.
+\end{definition}
+
+\begin{example} $\K=\R$ o $\C$ son los espacios vectoriales más simples con las operaciones suma y multiplicación habituales. Además podemos definir $\R^n$ y $\C^n$ como:
+\[\R^n:=\{(x_1,x_2,...,x_n): x_1,x_2,...,x_n\in\K\}\]
+\[\C^n:=\{(z_1,z_2,...,z_n): z_1,z_2,...,z_n\in\K\}\]
+En particular, $\C^{2^n}$ es un espacio vectorial.
+\end{example}
+
+\section{Espacios con producto interno}
+
+\begin{definition} Sea $E$ un espacio vectorial complejo, definimos la aplicación $\function{\dotproduct{\cdot}{\cdot}}{E\times E}{\C}$ como \textbf{producto interior} o \textbf{producto escalar} de $E$ si verifica para todo $x,y,z\in E$ y para todo $\alpha,\beta\in\C$:
+\begin{enumerate}[label=\alph*)]
+\item $\dotproduct{x}{y}=\overline{\dotproduct{y}{x}}$.
+\item $\dotproduct{\alpha x + \beta y}{z}= \alpha \dotproduct{x}{y} + \beta \dotproduct{y}{z}$.
+\item $\dotproduct{x}{x}\geq 0$.
+\item $\dotproduct{x}{x}= 0$ implica que $x=0$.
+\end{enumerate}
+
+Decimos que un espacio vectorial (no necesariamente complejo) provisto de producto interno es un \textbf{espacio con producto interno} o \textbf{espacio prehilbert}.
+\end{definition}
+
+\begin{observation} Hemos definido el producto interno sobre un espacio vectorial complejo; Sin embargo, no hay problema si lo sustituimos por uno real en la definición. Basta definir el producto como $\function{\dotproduct{\cdot}{\cdot}}{E\times E}{\R}$ y ver que en la primera condición se verifica
+\[\dotproduct{x}{y}=\overline{\dotproduct{y}{x}}=\dotproduct{y}{x}.\]
+
+El resto de condiciones están bien definidas en el caso de $\R$.
+\end{observation}
+
+\begin{proposition} Todo espacio con producto interno es también un espacio normado con la norma $\norm{x}:=\sqrt{\dotproduct{x}{x}}$.
+\begin{proof} Tenemos que probar las tres condiciones vistas en la \textbf{Definición A.3}.
+\begin{enumerate}[label=\alph*)]
+\item $0 = \norm{x} = \sqrt{\dotproduct{x}{x}}$ implica que $x=0$.
+\item $\norm{\lambda x} = \sqrt{\dotproduct{\lambda x}{\lambda x}} = \sqrt{\lambda\overline{\lambda}\dotproduct{x}{x}}=|\lambda|\norm{x}$.
+\item Para la tercera condición necesitamos hacer uso de la \textbf{desigualdad de Schwarz} que presentamos a continuación. No incluiremos su demostración pese a no tener dificultad.
+
+\begin{thm} \textbf{Desigualdad de Schwarz}. Sean $x$ e $y$ cualquiera de un espacio dotado de producto interno, tenemos:
+\begin{equation}
+|\dotproduct{x}{y}|\leq\norm{x}\norm{y}.
+\end{equation}
+\end{thm}
+Una vez introducida la desigualdad, tenemos:
+\[\norm{x+y}^2 = \dotproduct{x}{x} + \dotproduct{x}{y} + \overline{\dotproduct{x}{y}} + \dotproduct{y}{y} = \dotproduct{x}{x} + 2\mathrm{Re}\dotproduct{x}{y} + \dotproduct{y}{y} \leq\]
+\[\leq \dotproduct{x}{x} + 2|\dotproduct{x}{y}| + \dotproduct{y}{y} = \norm{x}^2+ 2|\dotproduct{x}{y}|+\norm{y}^2\leq\]
+\[\overset{\mathrm{(A\centerdot1)}}{\leq}\norm{x}^2+ 2\norm{x}\norm{y}+\norm{y}^2 = \left(\norm{x}+\norm{y}\right)^2\]
+Lo que concluye la demostración.
+\end{enumerate}
+\end{proof}
+\end{proposition}
