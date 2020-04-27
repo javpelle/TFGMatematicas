@@ -13,9 +13,12 @@
 \usepackage[spanish]{babel}
 \usepackage[T1]{fontenc}
 
-% Citas a pie de página de bibliografía
-\usepackage[backend=bibtex]{biblatex}
+% Bibliografía
+\usepackage[backend=bibtex,style=authoryear,citestyle=authoryear]{biblatex}
 \usepackage{csquotes}
+
+% Visualización de marcadores en el lector PDF
+\usepackage{bookmark}
 
 % \overset, numeración de teoremas y otras
 \usepackage{amsmath}
@@ -44,6 +47,7 @@
 \newtheorem{corolario}[thm]{Corolario}
 \newtheorem{example}[thm]{Ejemplo}
 \newtheorem{observation}[thm]{Observación}
+\newtheorem{postulate}{Postulado} % Numeración general sin subíndices
 \newtheorem*{lema}{Lema}
 \newtheorem*{nota}{Nota}
 
@@ -52,12 +56,14 @@
 %------------------------
 
 % Conjuntos y constantes matemáticas
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\K}{\mathbb{K}}
-\newcommand{\e}{\mathrm{e}}
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}} % Reales
+\newcommand{\C}{\mathbb{C}} % Complejos
+\newcommand{\K}{\mathbb{K}} % Cuerpo K (reales o complejos)
+\newcommand{\Sp}{\mathbb{S}} % Esfera
+\newcommand{\e}{\mathrm{e}} % número e
+\newcommand{\N}{\mathbb{N}} % Naturales
+\newcommand{\Q}{\mathbb{Q}} % Racionales
+\newcommand{\B}{\mathcal{B}} % Base
 
 \newcommand{\orden}[1]{\mathcal{O}\left(#1\right)}
 
@@ -73,6 +79,14 @@
 % Producto escalar y norma
 \newcommand{\dotproduct}[2]{\langle#1,#2\rangle}
 \newcommand{\norm}[1]{\left|\left|#1\right|\right|}
+
+% Notación de Dirac
+\newcommand{\ket}[1]{\left|#1\right\rangle}
+\newcommand{\bra}[1]{\left\langle#1\right|}
+\newcommand{\braket}[2]{\left\langle#1|#2\right\rangle}
+
+% Vectores
+\newcommand{\twovector}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}} % Vector de dim 2
 
 % Funciones y info debajo de funciones
 \newcommand{\function}[3]{#1\colon #2\longrightarrow #3}
