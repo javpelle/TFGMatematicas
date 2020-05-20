@@ -5,17 +5,17 @@ Antes de adentrarnos en la computación cuántica es conveniente tratar con las 
 Toda esta física esconde muchas matemáticas que, por tanto, no serán presentadas en este capítulo. Pese a ello, es idóneo ver los cimientos de dicho marco teórico que podemos resumir en las propiedades y operadores que presentan los números complejos como espacio de \textit{Hilbert} que se asientan en el conocimiento construido en el capítulo anterior.
 
 \section{Espacios de Hilbert}
-\begin{definition} Definimos un \textbf{espacio de \textit{Hilbert}} como un espacio dotado de producto interior cuyo espacio normado que define con la norma $\norm{x}:=\sqrt{\dotproduct{x}{x}}$ es completo.
+\begin{definition} Definimos un \textbf{espacio de \textit{Hilbert}} como un espacio dotado de producto interno cuyo espacio normado que define con la norma $\norm{x}:=\sqrt{\dotproduct{x}{x}}$ es completo.
 \end{definition}
 
-\begin{example} $\C$ es un espacio de \textit{Hilbert}. Es completo con la norma inducida por el producto interno $\dotproduct{x}{y}=x\overline{y}$, donde $\overline{y}$ denota el conjugado de $y$. Una prueba de esto es tomar una sucesión de \textit{Cauchy} $\{z_n\}=\{x_n+iy_n\}$ y por ser $\R$ completo, $\{x_n\}$ e $\{y_n\}$ convergen en $\R$ y por tanto $\{z_n\}$ lo hace en $\C$.
+\begin{example} \label{ex:ex32} $\C$ es un espacio de \textit{Hilbert}. Es completo con la norma inducida por el producto interno $\dotproduct{x}{y}=x\overline{y}$, donde $\overline{y}$ denota el conjugado de $y$. Una prueba de esto es tomar una sucesión de \textit{Cauchy} $\{z_n\}=\{x_n+iy_n\}$ y por ser $\R$ completo, $\{x_n\}$ e $\{y_n\}$ convergen en $\R$ y por tanto $\{z_n\}$ lo hace en $\C$.
 
 Lo mismo ocurre para $\C^n$ con
 \begin{equation}\dotproduct{x}{y}=\sum^{n}_{k=1}x_k\overline{y_k},\mathrm{\ con\ } x=(x_1,...,x_n), y=(y_1,...,y_n).
 \end{equation}
 \end{example}
 
-Uno de los primeros conceptos estudiados en álgebra lineal es el de base de un espacio vectorial que no es más que una familia de vectores $\B$ de $E$ linealmente independiente para la que cada elemento $x\in E$ puede escribirse de la forma $\sum_{n=1}^m\lambda_nx_n$ donde $x_n\in\B$ y $\lambda_n$ son escalares para cada $1\leq n\leq m$. Decimos que $(\lambda_1,...,\lambda_n)$ son las coordenadas de $x$ respecto de la base $\B$ de $E$.
+Uno de los primeros conceptos estudiados en álgebra lineal es el de base de un espacio vectorial que no es más que una familia de vectores $\B$ de $E$ linealmente independiente para la que cada elemento $x\in E$ puede escribirse de forma única como $\sum_{n=1}^m\lambda_nx_n$ donde $x_n\in\B$ y $\lambda_n$ son escalares para cada $1\leq n\leq m$. Decimos que $(\lambda_1,...,\lambda_n)$ son las coordenadas de $x$ respecto de la base $\B$ de $E$.
 
 Cuando el espacio está dotado de un producto interno, podemos obligar a que los elementos nuestra base sean ortogonales y más concretamente ortonormales. Este es el caso de la habitual base canónica en $\C^n$ o $\R^n$, pero evidentemente no es la única. Este tipo de bases cobrarán gran importancia cuando más adelante expliquemos la noción de medida de un qubit.
 
@@ -24,7 +24,7 @@ Cuando el espacio está dotado de un producto interno, podemos obligar a que los
 Nótese que hemos usado una definición de base para un espacio vectorial de dimensión finita.
 \end{definition}
 
-\begin{example} Adicionalmente a la base canónica, un ejemplo de base ortonormal muy importante en $\C^2$ es el de $\left\{\left(\frac{1}{\sqrt{2}},\frac{1}{\sqrt{2}}\right),\left(\frac{1}{\sqrt{2}},-\frac{1}{\sqrt{2}}\right)\right\}$ o, equivalentemente respecto a la base canónica, $\left\{\frac{1}{\sqrt{2}}\left(\textbf{e}_1 + \textbf{e}_2\right),\frac{1}{\sqrt{2}}\left(\textbf{e}_1 - \textbf{e}_2\right)\right\}$ con $e_1=(1,0)$ y $e_2=(0,1)$.
+\begin{example} \label{ex:ex34} Adicionalmente a la base canónica, un ejemplo de base ortonormal muy importante en $\C^2$ es el de $\left\{\left(\frac{1}{\sqrt{2}},\frac{1}{\sqrt{2}}\right),\left(\frac{1}{\sqrt{2}},-\frac{1}{\sqrt{2}}\right)\right\}$ o, equivalentemente respecto a la base canónica, $\left\{\frac{1}{\sqrt{2}}\left(\textbf{e}_1 + \textbf{e}_2\right),\frac{1}{\sqrt{2}}\left(\textbf{e}_1 - \textbf{e}_2\right)\right\}$ con $e_1=(1,0)$ y $e_2=(0,1)$.
 \end{example}
 
 \section{Aplicaciones lineales en espacios de Hilbert}
@@ -36,7 +36,7 @@ Nótese que hemos usado una definición de base para un espacio vectorial de dim
 \end{itemize}
 \end{definition}
 
-Aunque la definición anterior considera multitud de aplicaciones sobre distintos espacios vectoriales, nosotros estamos interesados únicamente en isomorfismos sobre $\C$-espacios vectoriales, concretamente de \textit{Hilbert}, idénticos. Esto es $\function{f}{\C^n}{\C^n}$.
+Aunque la definición anterior considera multitud de aplicaciones sobre distintos espacios vectoriales, nosotros estamos interesados únicamente en isomorfismos sobre $\C$-espacios vectoriales, concretamente de \textit{Hilbert}. Esto es $\function{f}{\C^n}{\C^n}$.
 
 Las aplicaciones lineales entre espacios vectoriales de dimensión finita suelen ser asociadas a una matriz que hace las veces de operador y que al multiplicar a un vector del espacio de entrada en cierta base, otorga el correspondiente elemento en el espacio de salida en la base requerida. Para facilitarnos las construcciones de dichas matrices, nos limitaremos a isomorfismos, tomando una misma base ortonormal para los espacios de entrada y salida.
 
@@ -77,9 +77,9 @@ Como hemos mencionado antes, una aplicación lineal queda totalmente determinada
 
 \section{Producto tensorial}
 
-Para terminar el marco matemático, presentamos el producto tensorial. Dados dos espacios de \textit{Hilbert} (en realidad nos basta con que sean espacios vectoriales, pero les exigimos esta condición por comodidad) $V$ y $W$ de dimensiones $m$ y $n$ respectivamente, definimos  el \textbf{producto tensorial de $V$ y $W$}, denotado $V\otimes W$, como un espacio vectorial de dimension $mn$.
+Para terminar el marco matemático, presentamos el producto tensorial. Dados dos espacios de \textit{Hilbert} (en realidad nos basta con que sean espacios vectoriales, pero les exigimos esta condición por comodidad) $V$ y $W$ de dimensiones $m$ y $n$ respectivamente, definimos  el \textbf{producto tensorial de $V$ y $W$}, denotado $V\otimes W$, como un espacio vectorial de dimensión $mn$.
 
-Antes de continuar, veamos como se aplica el producto tensorial a dos matrices cualesquiera $A$ de dimensiones $m\times n$ y $B$ de dimensiones $p\times q$.
+Antes de continuar, veamos cómo se aplica el producto tensorial a dos matrices cualesquiera $A$ de dimensiones $m\times n$ y $B$ de dimensiones $p\times q$.
 \begin{equation}
 \begin{aligned}
 A\otimes B&=

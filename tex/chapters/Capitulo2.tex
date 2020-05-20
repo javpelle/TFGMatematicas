@@ -14,12 +14,12 @@ Habitualmente se estudian tanto espacios vectoriales reales como complejos. Deno
 \item \textbf{Suma}. $(x,y)\mapsto x+y$ de $E\times E$ en $E$.
 \item \textbf{Multiplicación por escalar}. $(\lambda,x)\mapsto \lambda x$ de $\K\times E$ en $E$.
 \end{itemize}
-$V$ con la operación suma es un \textbf{grupo abeliano}. Esto es, para todo $x,y,z\in E$ que verifican:
+El conjunto $E$ con la operación suma es un \textbf{grupo abeliano}. Esto es, para todo $x,y,z\in E$ se verifica:
 \begin{enumerate}[label=\alph*)]
 \item Conmutatividad. $x + y = y + x$.
 \item Asociatividad. $(x + y) + z = x + (y + z)$.
-\item Elemento neutro. $\exists 0\in V$ tal que $0+x=x+0=x$.
-\item Elemento opuesto. Dado $x\in V$, $\exists -x\in V$ tal que $x+(-x)=(-x)+x=0$.
+\item Elemento neutro. $\exists 0\in E$ tal que $0+x=x+0=x$.
+\item Elemento opuesto. Dado $x\in E$, $\exists -x\in E$ tal que $x+(-x)=(-x)+x=0$.
 \end{enumerate}
 Con respecto al producto por escalar se debe verificar, para todo $x,y\in E$ y para todo $\alpha,\beta\in\K$ que:
 \begin{enumerate}[label=\alph*)]
@@ -28,7 +28,7 @@ Con respecto al producto por escalar se debe verificar, para todo $x,y\in E$ y p
 \item $\alpha (x + y) =\alpha x +\alpha y$.
 \item $1x = x$.
 \end{enumerate}
-Nos referiremos cada uno de los elementos de $V$ como \textbf{vectores}.
+Nos referiremos cada uno de los elementos de $E$ como \textbf{vectores}.
 \end{definition}
 
 Existen numerosas construcciones y resultados que cubren libros completos acerca de los espacios vectoriales, tanto de dimensión finita como infinita. Nuestra intención es conducir un desarrollo rápido hacia un tipo concreto de ellos, los $\C$-espacios vectoriales finitos dotados de producto interno. Como veremos serán espacios de \textit{Hilbert}.
@@ -36,9 +36,16 @@ Existen numerosas construcciones y resultados que cubren libros completos acerca
 Antes de continuar nuestro veloz camino hacia nuestro mencionado objetivo, mostramos algunos ejemplos de espacios vectoriales muy comunes.
 
 \begin{example} $\K=\R$ o $\C$ son los espacios vectoriales más simples con las operaciones suma y multiplicación habituales. Además podemos definir $\R^n$ y $\C^n$ como:
-\[\R^n:=\{(x_1,x_2,...,x_n): x_1,x_2,...,x_n\in\K\}\]
-\[\C^n:=\{(z_1,z_2,...,z_n): z_1,z_2,...,z_n\in\K\}\]
-En particular, $\C^{2^n}$ es un espacio vectorial.
+
+\begin{equation}
+\begin{split}
+\R^n:=\{(x_1,x_2,...,x_n): x_1,x_2,...,x_n\in\R\} \\
+\C^n:=\{(z_1,z_2,...,z_n): z_1,z_2,...,z_n\in\C\}
+\end{split}
+\end{equation}
+
+donde si $x=(x_1,...,x_n),y=(y_1,...,y_n)\in\K^n=\R^n$ o $\C^n$ y $\lambda\in\K$ tenemos
+\[x+y=(x_1+y_1,...,x_n+y_n),\ \ \lambda x=(\lambda x_1,...,\lambda x_n).\]
 \end{example}
 
 \section{Espacios normados}
@@ -61,7 +68,7 @@ Denotamos como \textbf{espacio normado} a un espacio vectorial dotado de norma.
 
 \section{Espacios con producto interno}
 
-\begin{definition} Sea $E$ un espacio vectorial complejo, definimos la aplicación \\$\function{\dotproduct{\cdot}{\cdot}}{E\times E}{\C}$ como \textbf{producto interior} o \textbf{producto escalar} de $E$ si verifica, para todo $x,y,z\in E$ y para todo $\alpha,\beta\in\C$, que:
+\begin{definition} Sea $E$ un espacio vectorial complejo, definimos la aplicación \\$\function{\dotproduct{\cdot}{\cdot}}{E\times E}{\C}$ como \textbf{producto interno} o \textbf{producto escalar} de $E$ si verifica, para todo $x,y,z\in E$ y para todo $\alpha,\beta\in\C$, que:
 \begin{enumerate}[label=\alph*)]
 \item $\dotproduct{x}{y}=\overline{\dotproduct{y}{x}}$.
 \item $\dotproduct{\alpha x + \beta y}{z}= \alpha \dotproduct{x}{y} + \beta \dotproduct{y}{z}$.

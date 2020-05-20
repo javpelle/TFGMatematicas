@@ -1,1 +1,88 @@
-\chapter{Puertas cuánticas}
+\chapter{Puertas y paralelismo cuántico}
+
+En el capítulo anterior hemos establecido las bases de la computación cuántica. Hemos enunciado los postulados físicos sobre los que construimos dicha teoría y que se apoyan a su vez en todo el contexto matemático desarrollado en los capítulos previos. De los postulados, hemos utilizado el primero y el tercero para definir qué es un qubit, sus valores y sus posibles mediciones y el cuarto para definir un sistema con múltiples qubits.
+
+En cuanto al segundo, recordemos que nos decía que los estados de sistemas cerrados varían de acuerdo a transformaciones lineales unitarias. Recordemos que una aplicación lineal unitaria es aquella que verifica $UU^\dag=I$. En lo sucesivo, denominaremos a estas aplicaciones por el nombre de \textbf{puertas cuánticas}. Uno de los aspectos más relevantes de estas puertas es que tienen inversa dada por $U^{-1}=U^\dag$; Esto quiere decir que estas transformaciones \textbf{son reversibles}.
+
+Esto es algo novedoso. En computación clásica, la mayoría de puertas binarias, no sólo tienen un único bit de salida (por ser isomorfismos unitarios, nosotros tendremos los mismos qubits da salida que de entrada), sino que no son invertibles. Por ejemplo, tras aplicar una puerta \textit{AND} con salida cero, no podríamos volver a la situación  anterior a la transformación, pues tenemos 3 entradas posibles ((0,0), (1,0) y (0,1)).
+
+Antes de empezar con algunos ejemplos, vamos a ver un impedimento crucial que surge de la propiedad unitaria de las puertas: La imposibilidad de clonar un estado.
+
+\section{Teorema de no clonación}
+En computación clásica es altamente frecuente hacer uso de la copia del contenido de un bit (o variable) en otro bit (o variable) sin que esto suponga la destrucción de dicho contenido en el primero. Basta con obtener el valor del primer bit (o variable), lo que podemos denominar como medición clásica, y copiar su contenido en el segundo.
+
+Por lo visto anteriormente, es obvio que si queremos copiar un estado $\ket{\psi}=\alpha\ket{0}+\beta\ket{1}$ de un qubit en otro, no podemos medir. Por tanto sólo nos queda recurrir al uso de una (o varias) puerta cuántica. Sin embargo, no podemos tampoco conseguir nuestro objetivo mediante esta técnica
+
+\begin{thm} \textbf{Teorema de no clonación}. Un estado cuántico no puede ser copiado o clonado.
+\begin{proof}
+Procederemos por reducción al absurdo. Supongamos que existe una transformación lineal unitaria $U$ tal que $U(\ket{\psi0})=\ket{\psi\psi}$ para todo estado cuántico $\ket\psi$. Nótese que $U$ hace exactamente lo que pretendemos, copiar un estado.
+
+Sean ahora dos estados ortogonales $\ket{\phi_1}$ y $\ket{\phi_2}$ y un tercer estado que verifica $\ket{\phi_3}=\dfrac{1}{\sqrt{2}}(\ket{\phi_1}+\ket{\phi_2})$. Se verifica que $U(\ket{\phi_10})=\ket{\phi_1\phi_1}$ y $U(\ket{\phi_20})=\ket{\phi_2\phi_2}$. Ahora, por un lado tenemos,
+\[U(\ket{\phi_30})=\ket{\phi_3\phi_3}=\dfrac{1}{\sqrt{2}}(\ket{\phi_1}+\ket{\phi_2})\otimes\dfrac{1}{\sqrt{2}}(\ket{\phi_1}+\ket{\phi_2})=\dfrac{1}{2}(\ket{\phi_1\phi_1}+\ket{\phi_1\phi_2}+\ket{\phi_2\phi_1}+\ket{\phi_2\phi_2})\]
+
+mientras que por otro, usando la propiedad de linealidad,
+\[U(\ket{\phi_30})=\dfrac{1}{\sqrt{2}}\left(U(\ket{\phi_10})+U(\ket{\phi_20})\right)=\dfrac{1}{\sqrt{2}}\left(\ket{\phi_1\phi_1}+\ket{\phi_2\phi_2}\right)\]
+
+Por tanto, encontramos valores distintos para $U(\ket{\phi_30})$ y llegamos a absurdo, concluyendo la prueba.
+\end{proof}
+\end{thm}
+
+\section{Puertas de un qubit}
+
+Vamos a proceder a dar unos cuantos ejemplos de puertas que toman un qubit de entrada y, por tanto, de salida. Como hemos mencionado en varias ocasiones, estas puertas no son más que aplicaciones lineales unitarias. Por tanto, es común identificar las puertas, además de con su correspondiente nombre, con su matriz asociada. También suelen denotarse por las transformaciones que resultan de aplicarlas a los estados que constituyen una base del sistema (en el caso de un solo qubit, a $\ket0$ y $\ket1$). En nuestro caso usaremos ambas notaciones.
+
+En primer lugar tenemos las puertas asociadas a las \textbf{matrices de \textit{Pauli}}. Son un total de cuatro:
+\begin{itemize}
+\item $\gatetwo{I}{\ket0}{\ket1}$ con matriz asociada $\left(\begin{matrix}1&0\\ 0&1\end{matrix}\right)$. No se trata más que de la puerta cuántica asociada a la identidad.
+\item $\gatetwo{X}{\ket1}{\ket0}$ con matriz asociada $\left(\begin{matrix}0&1\\ 1&0\end{matrix}\right)$. La puerta cuántica $X$ es la operación negación.
+\item $\gatetwo{Z}{\ket0}{-\ket1}$ con matriz asociada $\left(\begin{matrix}0&1\\ 1&0\end{matrix}\right)$. La puerta cuántica $Z$ es una puerta de \textbf{cambio de fase}. Es la más representativa de este grupo. A continuación, hablaremos más sobre este tipo de puertas.
+\item $\gatetwo{Y}{-\ket1}{\ket0}$ con matriz asociada $\left(\begin{matrix}1&0\\ 0&-1\end{matrix}\right)$. La puerta $Y$ es una combinación de las puertas $Z$ y $X$ ($Y=ZX$).
+\end{itemize}
+
+Como acabamos de nombrar, $Z$ es una puerta de cambio de fase. Este tipo de puertas dejan invariante el estado $\ket0$, mientras que a $\ket1$ se le aplica un cambio de fase $e^{i\theta}\ket1$. La expresión general de esta puerta viene dada en función del parámetro $\theta$, que actúa como \textbf{desplazamiento}, de la siguiente forma:
+
+$\gatetwo{R_\theta}{\ \ \ \ \ket0}{e^{i\theta}\ket1}$ con matriz asociada $\left(\begin{matrix}1&0\\ 0&e^{i\theta}\end{matrix}\right)$.
+
+Las probabilidades de obtener $\ket0$ o $\ket1$ en un estado $\ket\psi$ y un estado $R_\theta(\ket\psi)$ son las mismas, pero los estados no son equivalentes. Es evidente que para $\theta=\pi$, $R_\theta=Z$. Otros valores comunes para $\theta$ son $\dfrac{\pi}{2},\dfrac{\pi}{4}$ y $\dfrac{\pi}{8}$.
+
+Acabando con esta sección, tenemos una de las puertas más importantes, la \textbf{puerta de \textit{Hadamard}}. Viene identificada por
+
+$\gatetwo{H}{\dfrac{1}{\sqrt{2}}(\ket0+\ket1)=\ket+}{\dfrac{1}{\sqrt{2}}(\ket0-\ket1)=\ket-}$ con matriz asociada $\left(\begin{matrix}\dfrac{1}{\sqrt{2}}&\dfrac{1}{\sqrt{2}}\\ \dfrac{1}{\sqrt{2}}&-\dfrac{1}{\sqrt{2}}\end{matrix}\right)$.
+
+Al final de la sección 4.3 hablamos sobre estos estados y lo importantes que son por su propiedad de equiprobabilidad de obtener los estados $\ket0$ y $\ket1$ tras medir. Puede que no parezca gran cosa aplicado a un qubit, pero si tenemos $n$ qubits todos ellos con estado $\ket0$ y les aplicamos a cada uno una puerta $H$ obtenemos
+\begin{equation}
+H(\ket0)\otimes H(\ket0)\otimes\hdots\otimes H(\ket0)=\dfrac{1}{\sqrt{2}}(\ket0+\ket1)\otimes\hdots\otimes\dfrac{1}{\sqrt{2}}(\ket0+\ket1)=\dfrac{1}{\sqrt{2^n}}\sum_{i=0}^{2^n-1}\ket{i}
+\end{equation}
+
+es decir, estamos consiguiendo $2^n$ estados en superposición. Vimos en la notación de la sección 3.3 que siendo $x$ un vector, $x^{\otimes k}$ es el producto tensorial consigo mismo $k$ veces. Esta notación se extiende a estados cuánticos $\ket\psi^{\otimes k}$ y también se aplica a puertas. En el caso anterior podemos denotar $H^{\otimes n}$ la aplicación de la puerta \textit{Hadamard} a los $n$ qubits. Además, también llamamos a este tipo de aplicación de la puerta de \textit{Hadamard} como \textit{\textbf{Walsh-Hadamard}} que definimos recursivamente como:
+
+\begin{equation}
+\left\{\begin{matrix}W_1&=&H\\W_{n+1}&=&H\otimes W_n\end{matrix}\right.
+\end{equation}
+
+\section{Puertas aplicadas sobre múltiples qubits}
+
+Si bien es cierto que la puerta \textit{Walsh-Hadamard} está definida para una entrada de varios qubits, puede ser descompuesta como producto tensorial de puertas más elementales. En esta sección veremos algunas puertas que no pueden ser descompuestas de esta forma. Son indispensables, por tanto, a la hora de conseguir los estados que en el capítulo anterior denominamos entrelazados.
+
+En primer lugar presentamos la puerta \textbf{\textit{Swap}}. Su funcionalidad es muy simple, se trata de una puerta para dos qubits que intercambia los estados de cada uno.
+
+\[\gatefour{\mathrm{SWAP}}{\ket{00}}{\ket{10}}{\ket{01}}{\ket{11}}\mathrm{\ con\ matriz\ asociada\ }\left(\begin{matrix}1&0&0&0\\0&0&1&0\\0&1&0&0\\0&0&0&1\end{matrix}\right)\]
+
+A continuación, mostramos un grupo muy relevante de puertas. Se trata de las \textbf{puertas controladas}, para al menos 2 qubits de entrada. En el caso de 2 qubits, uno de ellos actúa como controlador y queda inalterado tras la aplicación de la puerta y el otro sufre los efectos de una puerta $U$, de entrada un solo qubit, siempre y cuando el estado del qubit de control sea $\ket1$. Para el caso $n+1$, tenemos $n$ qubits de control y si todos ellos muestran el estado $\ket1$ se aplicará la puerta $U$ al restante.
+
+Podemos representar el caso general de la puerta $C(U)$ como
+
+\[C(U)\colon \begin{aligned}\ket{0x}&\longrightarrow&\ket{0x}\\\ket{1x}&\longrightarrow&\ket{1U(x)}\end{aligned} \mathrm{\ con\ matriz\ por\ bloques\ asociada\ }\left(\begin{array}{c|c}I&0\\\hline0&U\end{array}\right)\]
+
+La representante más utilizada de este grupo seguramente sea la puerta $C(X)$, más conocida como \textbf{CNOT}
+
+% Puertas controlled
+
+% Toffoli
+
+%\section{circuitos cuánticos}
+
+%\section{quantum gate arrays y paralelismo cuántico}
+%AND y NOT de la toffoli
+
+% U_f

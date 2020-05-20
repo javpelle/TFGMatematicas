@@ -21,12 +21,12 @@ La \textbf{notación de Dirac} o \textbf{notación \textit{bra-ket}} sirve para 
 
 Vamos a proceder a enunciar los postulados de los que hablábamos al principio de esta sección.
 
-\begin{postulate} Un sistema físico aislado es un espacio vectorial con coeficientes en los complejos dotado de producto interno (como vimos en el \textbf{Ejemplo 3.2} esto supone que se trata de un Espacio de \textit{Hilbert}). El sistema es completamente descrito por un estado que no es más que un vector unitario de dicho sistema.
+\begin{postulate} Un sistema físico aislado es un espacio vectorial con coeficientes en los complejos dotado de producto interno (como vimos en el ejemplo \ref{ex:ex32} esto supone que se trata de un Espacio de \textit{Hilbert}). El sistema es completamente descrito por un estado que no es más que un vector unitario de dicho sistema.
 \end{postulate}
 
 El postulado no dice nada sobre la dimensión del sistema, definiremos en la próxima sección como será nuestro sistema más elemental.
 
-\begin{postulate} La evolución de en dos instantes de un sistema cuántico cerrado viene dada por una transformación lineal unitaria. Es decir, el estado del sistema $\ket{\psi}$ en el instante $t_1$ se transforma en $\ket{\psi'}$ en $t_2$ por la aplicación lineal unitaria $U$ que depende únicamente de $t_1$ y $t_2$:
+\begin{postulate} La evolución de un sistema cuántico cerrado en dos instantes de tiempo viene dada por una transformación lineal unitaria. Es decir, el estado del sistema $\ket{\psi}$ en el instante $t_1$ se transforma en $\ket{\psi'}$ en $t_2$ por la aplicación lineal unitaria $U$ que depende únicamente de $t_1$ y $t_2$:
 \begin{equation}
 \ket{\psi'}=U\ket{\psi}
 \end{equation}
@@ -101,23 +101,22 @@ Mientras que en el caso de obtener $\ket{1}$, tendremos:
 
 Cabe señalar que los estados $e^{i\theta}\ket{\psi}$, con $\theta\in\R$ y $\ket{\psi}$ son \textbf{indistinguibles} [\cite[p.~93]{nielsen2001quantum}]. Basta ver que si $M_m$ es una aplicación de medida, entonces $\bra{\psi}e^{-i\theta}M_m^\dag M_m e^{i\theta}\ket{\psi}=\bra{\psi}M_m^\dag M_m\ket{\psi}$. Así, podemos sustituir en las anteriores ecuaciones $\dfrac{\alpha\ket{0}}{|\alpha|}$ y $\dfrac{\beta\ket{1}}{|\beta|}$ por $\ket{0}$ y $\ket{1}$ respectivamente.
 
+Podemos definir otros conjuntos de medida para otras bases ortonormales como las que vimos en el ejemplo \ref{ex:ex34}. Denotamos a esos elementos como $\ket+=\dfrac{1}{\sqrt{2}}(\ket0 + \ket1)$ y $\ket-=\dfrac{1}{\sqrt{2}}(\ket0 - \ket1)$. Así, si aplicamos una medición a $\ket+$ con el conjunto de medidas $\{M_{\ket{0}},M_{\ket{1}}\}$ obtendremos $\ket0$ o $\ket1$ con probabilidad idéntica de $\frac{1}{2}$, pero si lo hacemos mediante $\{M_{\ket{+}},M_{\ket{-}}\}$ obtendremos $\ket+$ con un certeza absoluta.
+
 Que el estado de un qubit no pueda ser observado como tal puede parecer algo poco intuitivo; que los posibles resultados obtenidos tras medir no difieran en número respecto a un bit clásico tampoco ayuda a creer que la computación cuántica ofrezca muchas ventajas sobre la clásica.
 
 Sin embargo, veremos que los estados de un qubit podrán ser transformados, no sólo de manera individual, sino en conjunto con otros qubits formando un sistema, y que dichas transformaciones provocarán unas propiedades en los estados que usaremos a nuestro favor para obtener mediciones satisfactorias.
 
-Antes de concluir esta sección vamos a resaltar dos estados cuánticos de relevancia, entre otras propiedades, por la equiprobabilidad de obtener los valores $\ket{0}$ y $\ket{1}$ al medir.
+Antes de concluir esta sección vamos a resaltar de nuevo los estados cuánticos $\ket+$ y $\ket-$ por una propiedad que dejamos entrever antes, la de equiprobabilidad de obtener los valores $\ket{0}$ y $\ket{1}$ al medir.
 
-Los estados en cuestión son $\dfrac{1}{\sqrt{2}}\ket{0} + \dfrac{1}{\sqrt{2}}\ket{1}$ y $\dfrac{1}{\sqrt{2}}\ket{0} - \dfrac{1}{\sqrt{2}}\ket{1}$. Podemos ver que si los hacemos corresponder con los vectores $\twovector{\frac{1}{\sqrt{2}}}{\frac{1}{\sqrt{2}}}$ y $\twovector{\frac{1}{\sqrt{2}}}{-\frac{1}{\sqrt{2}}}$ respectivamente, forman una base ortonormal de $\C^2$. Los denotaremos por $\ket{+}$ y $\ket{-}$.
 
 \section{Sistemas de múltiples qubits}
 
-Acabamos de ver qué es un qubit y hemos definido su estado como un vector unitario de $\C^2$ expresado como combinación lineal de la suma de dos elementos de una base ortonormal. Decimos que el estado $\ket{\psi}=\alpha\ket{0}+\beta\ket{1}$ es un \textbf{estado en superposición} si tanto $\alpha$ como $\beta$ son distintos de cero.
-
-En esta sección indagaremos sobre cómo es un sistema de múltiples qubits: cómo son sus estados, sus bases y sus posibles valores de medición.
+Acabamos de ver qué es un qubit y hemos definido su estado como un vector unitario de $\C^2$ expresado como combinación lineal de la suma de dos elementos de una base ortonormal. En esta sección indagaremos sobre cómo es un sistema de múltiples qubits: cómo son sus estados, sus bases y sus posibles valores de medición.
 
 Empecemos por el sistema. Un sistema de 2 qubits, en vista al cuarto postulado, será el producto tensorial de $\C^2\otimes\C^2$; Es decir, $\C^4$. Generalizando para el caso de $n$ qubits, el sistema resultante será un espacio equivalente a $\C^{2^n}$.
 
-En cuanto a una base para el sistema, en el caso de dos qubits, una base estaría formada por el conjunto $\{\ket{0}\otimes\ket{0},\ket{0}\otimes\ket{1},\ket{1}\otimes\ket{0},\ket{1}\otimes\ket{1}\}$ o, equivalentemente, $\{\ket{00},\ket{01},\ket{10},\\ \ket{11}\}$. En el caso general, la base estaría compuesta por $\{\ket{0},\ket{1},...,\ket{2^n-1}\}$\footnote{Nótese que en este caso utilizamos, para simplificar, la notación decimal}.
+En cuanto a una base para el sistema, en el caso de dos qubits, una base estaría formada por el conjunto $\{\ket{0}\otimes\ket{0},\ket{0}\otimes\ket{1},\ket{1}\otimes\ket{0},\ket{1}\otimes\ket{1}\}$ o, equivalentemente, $\{\ket{00},\ket{01},\ket{10},\\ \ket{11}\}$. En el caso general, la base estaría compuesta por $\{\ket{0},\ket{1},...,\ket{2^n-1}\}$\footnote{Nótese que en este caso utilizamos, para simplificar, la notación decimal.}.
 
 Sean ahora dos qubits con estados $\ket{\psi_1}=\alpha\ket{0}+\beta\ket{1}$ y $\ket{\psi_2}=\gamma\ket{0}+\delta\ket{1}$. Entonces, el estado del sistema formado por ambos qubits viene dado por:
 \[\ket{\psi}=\ket{\psi_1}\otimes\ket{\psi_2}=\alpha\gamma\ket{00}+\alpha\delta\ket{01}+\beta\gamma\ket{10}+\beta\delta\ket{11}\]

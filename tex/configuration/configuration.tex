@@ -92,6 +92,12 @@
 \newcommand{\function}[3]{#1\colon #2\longrightarrow #3}
 \newcommand{\xfunction}[4]{\underset{#4}{{#1\colon #2\longrightarrow #3}}}
 
+% Funcion que transforma estados |0> y |1>
+\newcommand{\gatetwo}[3]{#1\colon \begin{matrix}\ket0&\longrightarrow& #2\\ \ket1&\longrightarrow& #3\end{matrix}}
+
+% Funcion que transforma estados |00>, |01>, |10> y |11>
+\newcommand{\gatefour}[5]{#1\colon \begin{matrix} \ket{00}&\longrightarrow& #2\\ \ket{01}&\longrightarrow& #3\\ \ket{10}&\longrightarrow& #4\\ \ket{11}&\longrightarrow& #5 \end{matrix}}
+
 % Introducir información de igualdad debajo
 \newcommand{\equals}[2]{\underset{#2}{\underset{\shortparallel}{#1}}}
 
