@@ -51,6 +51,7 @@ $\gatetwo{H}{\dfrac{1}{\sqrt{2}}(\ket0+\ket1)=\ket+}{\dfrac{1}{\sqrt{2}}(\ket0-\
 
 Al final de la sección 4.3 hablamos sobre estos estados y lo importantes que son por su propiedad de equiprobabilidad de obtener los estados $\ket0$ y $\ket1$ tras medir. Puede que no parezca gran cosa aplicado a un qubit, pero si tenemos $n$ qubits todos ellos con estado $\ket0$ y les aplicamos a cada uno una puerta $H$ obtenemos
 \begin{equation}
+\label{eq:eq51}
 H(\ket0)\otimes H(\ket0)\otimes\hdots\otimes H(\ket0)=\dfrac{1}{\sqrt{2}}(\ket0+\ket1)\otimes\hdots\otimes\dfrac{1}{\sqrt{2}}(\ket0+\ket1)=\dfrac{1}{\sqrt{2^n}}\sum_{i=0}^{2^n-1}\ket{i}
 \end{equation}
 
@@ -74,15 +75,114 @@ Podemos representar el caso general de la puerta $C(U)$ como
 
 \[C(U)\colon \begin{aligned}\ket{0x}&\longrightarrow&\ket{0x}\\\ket{1x}&\longrightarrow&\ket{1U(x)}\end{aligned} \mathrm{\ con\ matriz\ por\ bloques\ asociada\ }\left(\begin{array}{c|c}I&0\\\hline0&U\end{array}\right)\]
 
-La representante más utilizada de este grupo seguramente sea la puerta $C(X)$, más conocida como \textbf{CNOT}
+La representante más característica de este grupo es la puerta $C(X)$, más conocida como \textbf{CNOT}.
 
-% Puertas controlled
+\[\gatefour{\mathrm{C_{not}}}{\ket{00}}{\ket{01}}{\ket{11}}{\ket{10}}\mathrm{\ con\ matriz\ asociada\ }\left(\begin{matrix}1&0&0&0\\0&1&0&0\\0&0&0&1\\0&0&1&0\end{matrix}\right)\]
 
-% Toffoli
+Es usada en multitud de ámbitos, como para lograr el estado entrelazado $\dfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})$. Basta con aplicar a un sistema de dos qubits inicializado en $\ket{00}$ una puerta de \textit{Hadamard} al primer qubit y tras esto, una puerta CNOT con control el primer qubit.
 
-%\section{circuitos cuánticos}
+\begin{equation}
+\begin{split}
+\mathrm{C_{not}}(H(\ket0)\otimes\ket0)&=\mathrm{C_{not}}\left(\dfrac{1}{\sqrt{2}}(\ket0+\ket1)\otimes\ket0\right)\\
+&=\dfrac{1}{\sqrt{2}}\mathrm{C_{not}}(\ket{00}+\ket{10})=\dfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})
+\end{split}
+\end{equation}
 
-%\section{quantum gate arrays y paralelismo cuántico}
-%AND y NOT de la toffoli
+Veremos al final de este capítulo algunos ejemplos en los que interviene este estado entrelazado. Lo denominamos \textbf{par EPR} en referencia a \textit{Einstein}, \textit{Podolsky} y \textit{Rosen} y su artículo publicado en 1935 [\cite{einstein1935can}] en el que se cuestionaba la completitud y veracidad de los principios cuánticos tras la proposición de un experimento, en el que intervenía dicho estado cuántico, que supuestamente violaba la teoría de la relatividad. Pese a lo relevante del tema, concierne principalmente a la física, por lo que no nos detendremos más en el mismo.
 
-% U_f
+Por último, tenemos la puerta \textbf{CCNOT} o puerta \textbf{\textit{Toffoli}} una puerta de 3 qubits controlada que identificamos como
+
+\[T\ket{xyz}=\left\{\begin{aligned}
+\ket{xyX(z)}&\mathrm{\ si\ } x=1\mathrm{\ e\ } y=1\\
+\ket{xyz}&\mathrm{\ en\ otro\ caso.}\end{aligned}\right. \mathrm{\ con\ matriz\ por\ bloques\ asociada\ }\left(\begin{array}{c|c|c}I&0&0\\\hline0&I&0\\\hline0&0&X\end{array}\right)\]
+
+Esta puerta tiene vital importancia a la hora de introducir elementos de la computación clásica en la cuántica. Retomaremos esta puerta en la sección \ref{sec:sec55}.
+
+\section{circuitos cuánticos}
+
+A nivel de bit en computación clásica estamos acostumbrados a representar sistemas y sus puertas mediante diagramas de circuitos. Lo mismo ocurre en la computación cuántica. Usamos circuitos para representar combinaciones de puertas y facilitar de manera visual el entendimiento de la construcción realizada.
+
+Las puertas de un solo qubit se representan generalmente mediante la letra que la identifica insertada en un rectángulo. Así tenemos para las puertas
+
+\[\Qcircuit @C=1em{&\gate{I}&\qw}\ \ \Qcircuit @C=1em{&\gate{X}&\qw}\ \ \Qcircuit @C=1em{&\gate{Y}&\qw}\ \ \Qcircuit @C=1em{&\gate{Z}&\qw}\ \ \Qcircuit @C=1em{&\gate{R_\theta}&\qw}\ \ \Qcircuit @C=1em{&\gate{H}&\qw}\]
+
+que representan a las puertas $I$,$X$,$Y$,$Z$,$R_\theta$ y $H$ respectivamente. En cuanto a las puertas de más de un qubit existen formas diferentes de representación en función de cada una. Los qubits de control de las puertas controladas se representan con el símbolo $\bullet$ y la puerta $U$ de manera habitual. Sin embargo, en el caso de que dicha puerta sea $X$ como en CNOt y en \textit{Toffoli} se dibuja el símbolo $\oplus$.
+
+\[\Qcircuit @C=1em @R=.7em{&\ctrl{1}&\qw\\&\gate{U}&\qw}\ \ \Qcircuit @C=1em @R=.7em{&\ctrl{1}&\qw\\&\targ&\qw}\ \ \Qcircuit @C=1em @R=.7em{&\ctrl{1}&\qw\\&\ctrl{1}&\qw\\&\targ&\qw}\]
+
+Las representaciones anteriores hacen referencia a una puerta genérica $C(U)$, una CNOT y una \textit{Toffoli} respectivamente. En cuanto a la puerta \textit{SWAP} se representa del siguiente modo:
+
+\[\Qcircuit @C=1.5em @R=1.5em{&\qswap&\qw\\&\qswap\qwx&\qw}\]
+
+En la figura \ref{fig:fig51} podemos ver un ejemplo de la representación de la aplicación de una puerta \textit{Hadamard} a 5 qubits. Este tipo de diagramas serán usados frecuentemente en las secciones y capítulos venideros.
+
+\begin{figure}[!htb]
+\[\Qcircuit @R=0.7em@C=1em{
+\lstick{\ket{0}}&\gate{H}&\qw\\
+\lstick{\ket{0}}&\gate{H}&\qw\\
+\lstick{\ket{0}}&\gate{H}&\qw\\
+\lstick{\ket{0}}&\gate{H}&\qw\\
+\lstick{\ket{0}}&\gate{H}&\qw
+}\]
+\caption{Aplicación de una puerta \textit{Walsh-Hadamard} $H^{\otimes 5}$ o $W_5$.}
+\label{fig:fig51}
+\end{figure}
+
+\section{Quantum gate arrays y paralelismo cuántico}
+\label{sec:sec55}
+
+Hemos definido la puerta \textit{Toffoli} y ahora vamos a ver dos propiedades muy importantes acerca de la misma: que puede actuar como las puertas clásicas AND y NOT. Dados dos bits clásicos de entrada $x$ e $y$, la puerta AND devolverá 1 si tanto $x$ como $y$ valen 1 y 0 en caso contrario. La puerta clásica NOT actúa sobre un único bit negando el valor de entrada, es decir, devuelve 1 si el valor de entrada es 0 y 0 si la entrada es 1. La construcción análoga desde un punto de vista cuántico de estas puertas se consigue de este modo:
+
+\begin{equation}
+\begin{split}
+\mathrm{AND:\ }&T\ket{x,y,0}=\ket{x,y,x\wedge y}\\
+\mathrm{NOT:\ }&T\ket{x,x,0}=\ket{x,x,\neg x}
+\end{split}
+\end{equation}
+
+AND y NOT forman un conjunto universal de puertas; es decir, podemos construir cualquier otra puerta clásica usando combinaciones de ambas. Por tanto la puerta \textit{Toffoli} es suficiente para construir cualquier circuito clásico (es importante recalcar que no es suficiente para construir cualquier circuito cuántico). En base a esto tenemos dos hechos importantes. El primero es que podemos definir una máquina universal de \textit{Turing} sobre el contexto de un sistema cuántico [\cite{bernstein1997quantum}]. El segundo debido a \textit{David Deutsch} en 1985 es que dada cualquier función clásica computable, podemos conseguir una combinación de puertas cuánticas (por tanto reversibles) que emulen a dicha función [\cite{deutsch1985quantum}].
+
+A causa de este último hecho, dada una función clásica $\function{f}{\{0,1\}^m}{\{0,1\}^k}$ debe existir un conjunto de puertas cuya composición, denotada por $U_f$, sea una implementación cuántica de $f$. Denominamos a dicha $U_f$ como \textbf{matriz de puertas cuánticas} más conocido, en inglés, por \textbf{\textit{quantum gatearray}}. La transformación $U_f$ actúa sobre $m+k$ qubits y se define para que verifique
+
+\begin{equation}
+\function{U_f}{\ket{x,y}}{\ket{x,f(x)\oplus y}}\mathrm{\ con\ }x\in\{0,1\}^m,y\in\{0,1\}^k
+\end{equation}
+
+donde $\oplus$ denota la operación lógica XOR. Verificando la condición anterior, es unitaria puesto que $U_fU_f=I$. Basta ver que 
+
+\begin{equation}
+U_fU_f\ket{x,y}=U_f\ket{x,f(x)\oplus y}=\ket{x,f(x)\oplus(f(x)\oplus y)}=\ket{x,y}.
+\end{equation}
+
+Así, tomando $y=\ket{0\hdots0}$, obtenemos $U_f\ket{x,0}=\ket{x,f(x)}$. Sin embargo, esta construcción no tiene nada de novedosa respecto a la computación clásica y no hay, a priori, ningún tipo de mejora sobre el orden de complejidad de realizar una evaluación de $f$. Nuestra innovación se arraiga en la ventaja de la computación cuántica de poder tener estado en superposición y es que $\ket x$ puede ser un estado formado por muchos elementos de $\{0,1\}^m$ e, incluso, todo ellos simultáneamente.
+
+Si tomamos $m$ qubits con estado inicial $\ket{0\hdots0}$ y aplicamos sobre cada uno de ellos una puerta \textit{Hadamard}, obtendremos en base a la ecuación \ref{eq:eq51} el estado
+
+\[\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}\ket{i}\]
+
+que junto a $k$ qubits adicionales en estado $\ket{0\hdots0}$ y una transformación $U_f$ originan el resultado:
+
+\begin{equation}
+\begin{split}
+U_f\left(\left(\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}\ket{i}\right)\otimes\ket0\right)&=U_f\left(\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}\ket{i,0}\right)\\&=\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}U_f\ket{i,0}=\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}\ket{i,f(i)}
+\end{split}
+\end{equation}
+
+Es decir, por la linealidad de las transformación $U_f$ hemos logrado obtener en un solo cómputo los resultados de todas las posibles entradas que admite $f$. A este poder de cómputo lo denominamos \textbf{paralelismo cuántico}, podemos ver un circuito representativo de lo visto anteriormente en la figura \ref{fig:fig52}.
+
+\begin{figure}[!htb]
+\[\Qcircuit @R=1.5em@C=1em{
+\lstick{\ket{0}} & {/^m}\qw & \gate{H^{\otimes m}}& \qw & \multigate{1}{U_f} & \qw \\
+\lstick{\ket{0}} & {/^k}\qw & \qw                 & \qw & \ghost{U_f}        & \qw  
+}\]
+\caption{Paralelismo cuántico sobre $U_f$.}
+\label{fig:fig52}
+\end{figure}
+
+Sin embargo, hemos de recordar que la medición con la que obtenemos información de un estado cuántico sólo nos permitirá conocer un único valor $\ket{i,f(i)}$, $0\leq i\leq 2^m-1$, colapsando a dicho estado con probabilidad $\frac{1}{\sqrt{2^m}}$ lo que de nuevo nos deja en el cálculo de un único cómputo en una ejecución de $U_f$ lo que no parece mejorar los algoritmos clásicos.
+
+Pese a esto, existen técnicas que logran amplitudes mayores (y por tanto también lo serán sus probabilidades) para ciertos estados objetivos que verifiquen algunas propiedades de nuestro interés como en el caso del algoritmo de \textit{Grover}. % Acabar párrafo explicando en una o dos líneas Grover
+
+% Introducir Shor
+
+\section{Algunos algoritmos/experimentos cuanticos}
