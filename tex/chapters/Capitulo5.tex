@@ -1,188 +1,108 @@
-\chapter{Puertas y paralelismo cuántico}
+\chapter{Introducción a \textit{Qiskit}}
 
-En el capítulo anterior hemos establecido las bases de la computación cuántica. Hemos enunciado los postulados físicos sobre los que construimos dicha teoría y que se apoyan a su vez en todo el contexto matemático desarrollado en los capítulos previos. De los postulados, hemos utilizado el primero y el tercero para definir qué es un qubit, sus valores y sus posibles mediciones y el cuarto para definir un sistema con múltiples qubits.
+En este capítulo haremos una introducción al lenguaje cuántico \textit{Qiskit}. Los contenidos que trataremos están en su mayoría extraídos de su documentación [\cite{qiskit2020doc}]. Podemos decir que no es un lenguaje en sí mismo, sino un marco de trabajo de código abierto que hace uso del lenguaje \textit{Python}. Existen otras versiones para los lenguajes \textit{Javascript} [\cite{qiskit2017javscript}] y \textit{Swift} [\cite{qiskit2017swift}], pero nosotros haremos uso de \textit{Python}.
 
-En cuanto al segundo, recordemos que nos decía que los estados de sistemas cerrados varían de acuerdo a transformaciones lineales unitarias. Recordemos que una aplicación lineal unitaria es aquella que verifica $UU^\dag=I$. En lo sucesivo, denominaremos a estas aplicaciones por el nombre de \textbf{puertas cuánticas}. Uno de los aspectos más relevantes de estas puertas es que tienen inversa dada por $U^{-1}=U^\dag$; Esto quiere decir que estas transformaciones \textbf{son reversibles}.
+Presentaremos además el código en \textit{Qiskit} correspondiente a los algoritmos \textit{codificación superdensa} y \textit{teleportación cuántica} vistos en el capítulo anterior.
 
-Esto es algo novedoso. En computación clásica, la mayoría de puertas binarias, no sólo tienen un único bit de salida (por ser isomorfismos unitarios, nosotros tendremos los mismos qubits da salida que de entrada), sino que no son invertibles. Por ejemplo, tras aplicar una puerta \textit{AND} con salida cero, no podríamos volver a la situación  anterior a la transformación, pues tenemos 3 entradas posibles ((0,0), (1,0) y (0,1)).
+\section{``Elementos'' de \textit{Qiskit}}
+\label{sec:sec51}
 
-Antes de empezar con algunos ejemplos, vamos a ver un impedimento crucial que surge de la propiedad unitaria de las puertas: La imposibilidad de clonar un estado.
+\textit{Qiskit} se divide en 4 módulos, denominados ``elementos''. En primer lugar tenemos a \textit{Qiskit Terra}, el más extenso, que constituye la base sobre la que se sostienen los otros tres módulos. Encontramos en él las clases y librerías  suficientes para crear nuestros primeros programas cuánticos. Destacamos tres submódulos empezando por \textit{Circuit}, que gestiona todo lo referente a la construcción de un circuito, como registros para qubits y bits clásicos, puertas o mediciones; \textit{Providers}, que gestiona la ejecución de programas cuánticos ya sea en simulador o en máquina real y gestiona también los resultados obtenidos; por último, \textit{Visualization}, que nos permite visualizar circuitos e histogramas de los resultados obtenidos además de la representación de estados cuánticos internos de un circuito siempre que utilicemos ciertos simuladores.
 
-\section{Teorema de no clonación}
-En computación clásica es altamente frecuente hacer uso de la copia del contenido de un bit (o variable) en otro bit (o variable) sin que esto suponga la destrucción de dicho contenido en el primero. Basta con obtener el valor del primer bit (o variable), lo que podemos denominar como medición clásica, y copiar su contenido en el segundo.
+Continuamos con \textit{Qiskit Aer} que incluye una serie de simuladores que pueden ser ejecutados en nuestro ordenador. Podemos resumirlos en tres: \textit{Qasm Simulator}, ideal para la mayoría de casos y pensado para realizar múltiples veces una misma ejecución; \textit{Statevector Simulator}, que devuelve el vector complejo que identifica el estado cuántico final del sistema y \textit{Unitary Simulator}, que retorna la matriz unitaria representante del sistema. Qiskit presenta también un módulo para el tratamiento de ruido y errores, \textit{Qiskit Ignis}. Debido a la inestabilidad de los ordenadores cuánticos reales en la actualidad debido a interferencias entre las partículas que conforman el sistema cuántico y las del exterior, es recomendable que el cómputo de nuestro sistema sea en el menor tiempo posible y aplicando el menor número de puertas. \textit{Ignis} proporciona herramientas para tratar de optimizar nuestro circuito con este y otros fines. En último lugar tenemos \textit{Qiskit Aqua} que engloba algoritmos y herramientas que pueden ser usados para aplicaciones reales en física, química, finanzas, aprendizaje automático u optimización. Una vista rápida por su documentación basta para ver lo escueto de este módulo, en parte por todo el desarrollo que aún queda por hacer en estos ámbitos.
 
-Por lo visto anteriormente, es obvio que si queremos copiar un estado $\ket{\psi}=\alpha\ket{0}+\beta\ket{1}$ de un qubit en otro, no podemos medir. Por tanto sólo nos queda recurrir al uso de una (o varias) puerta cuántica. Sin embargo, no podemos tampoco conseguir nuestro objetivo mediante esta técnica
+En nuestra andadura por \textit{Qiksit} nos bastará con el uso de los dos primeros módulos, suficientes para escribir nuestro programa y ejecutarlo tanto en simulador como en un computador cuántico real.
 
-\begin{thm} \textbf{Teorema de no clonación}. Un estado cuántico no puede ser copiado o clonado.
-\begin{proof}
-Procederemos por reducción al absurdo. Supongamos que existe una transformación lineal unitaria $U$ tal que $U(\ket{\psi0})=\ket{\psi\psi}$ para todo estado cuántico $\ket\psi$. Nótese que $U$ hace exactamente lo que pretendemos, copiar un estado.
+\section{Codificación superdensa y teleportación en \textit{Qiskit}}
+\begin{figure}[htb!]
+\begin{lstlisting}[language=Python]
+from qiskit import *
 
-Sean ahora dos estados ortogonales $\ket{\phi_1}$ y $\ket{\phi_2}$ y un tercer estado que verifica $\ket{\phi_3}=\dfrac{1}{\sqrt{2}}(\ket{\phi_1}+\ket{\phi_2})$. Se verifica que $U(\ket{\phi_10})=\ket{\phi_1\phi_1}$ y $U(\ket{\phi_20})=\ket{\phi_2\phi_2}$. Ahora, por un lado tenemos,
-\[U(\ket{\phi_30})=\ket{\phi_3\phi_3}=\dfrac{1}{\sqrt{2}}(\ket{\phi_1}+\ket{\phi_2})\otimes\dfrac{1}{\sqrt{2}}(\ket{\phi_1}+\ket{\phi_2})=\dfrac{1}{2}(\ket{\phi_1\phi_1}+\ket{\phi_1\phi_2}+\ket{\phi_2\phi_1}+\ket{\phi_2\phi_2})\]
-
-mientras que por otro, usando la propiedad de linealidad,
-\[U(\ket{\phi_30})=\dfrac{1}{\sqrt{2}}\left(U(\ket{\phi_10})+U(\ket{\phi_20})\right)=\dfrac{1}{\sqrt{2}}\left(\ket{\phi_1\phi_1}+\ket{\phi_2\phi_2}\right)\]
-
-Por tanto, encontramos valores distintos para $U(\ket{\phi_30})$ y llegamos a absurdo, concluyendo la prueba.
-\end{proof}
-\end{thm}
-
-\section{Puertas de un qubit}
-
-Vamos a proceder a dar unos cuantos ejemplos de puertas que toman un qubit de entrada y, por tanto, de salida. Como hemos mencionado en varias ocasiones, estas puertas no son más que aplicaciones lineales unitarias. Por tanto, es común identificar las puertas, además de con su correspondiente nombre, con su matriz asociada. También suelen denotarse por las transformaciones que resultan de aplicarlas a los estados que constituyen una base del sistema (en el caso de un solo qubit, a $\ket0$ y $\ket1$). En nuestro caso usaremos ambas notaciones.
-
-En primer lugar tenemos las puertas asociadas a las \textbf{matrices de \textit{Pauli}}. Son un total de cuatro:
-\begin{itemize}
-\item $\gatetwo{I}{\ket0}{\ket1}$ con matriz asociada $\left(\begin{matrix}1&0\\ 0&1\end{matrix}\right)$. No se trata más que de la puerta cuántica asociada a la identidad.
-\item $\gatetwo{X}{\ket1}{\ket0}$ con matriz asociada $\left(\begin{matrix}0&1\\ 1&0\end{matrix}\right)$. La puerta cuántica $X$ es la operación negación.
-\item $\gatetwo{Z}{\ket0}{-\ket1}$ con matriz asociada $\left(\begin{matrix}0&1\\ 1&0\end{matrix}\right)$. La puerta cuántica $Z$ es una puerta de \textbf{cambio de fase}. Es la más representativa de este grupo. A continuación, hablaremos más sobre este tipo de puertas.
-\item $\gatetwo{Y}{-\ket1}{\ket0}$ con matriz asociada $\left(\begin{matrix}1&0\\ 0&-1\end{matrix}\right)$. La puerta $Y$ es una combinación de las puertas $Z$ y $X$ ($Y=ZX$).
-\end{itemize}
-
-Como acabamos de nombrar, $Z$ es una puerta de cambio de fase. Este tipo de puertas dejan invariante el estado $\ket0$, mientras que a $\ket1$ se le aplica un cambio de fase $e^{i\theta}\ket1$. La expresión general de esta puerta viene dada en función del parámetro $\theta$, que actúa como \textbf{desplazamiento}, de la siguiente forma:
-
-$\gatetwo{R_\theta}{\ \ \ \ \ket0}{e^{i\theta}\ket1}$ con matriz asociada $\left(\begin{matrix}1&0\\ 0&e^{i\theta}\end{matrix}\right)$.
-
-Las probabilidades de obtener $\ket0$ o $\ket1$ en un estado $\ket\psi$ y un estado $R_\theta(\ket\psi)$ son las mismas, pero los estados no son equivalentes. Es evidente que para $\theta=\pi$, $R_\theta=Z$. Otros valores comunes para $\theta$ son $\dfrac{\pi}{2},\dfrac{\pi}{4}$ y $\dfrac{\pi}{8}$.
-
-Acabando con esta sección, tenemos una de las puertas más importantes, la \textbf{puerta de \textit{Hadamard}}. Viene identificada por
-
-$\gatetwo{H}{\dfrac{1}{\sqrt{2}}(\ket0+\ket1)=\ket+}{\dfrac{1}{\sqrt{2}}(\ket0-\ket1)=\ket-}$ con matriz asociada $\left(\begin{matrix}\dfrac{1}{\sqrt{2}}&\dfrac{1}{\sqrt{2}}\\ \dfrac{1}{\sqrt{2}}&-\dfrac{1}{\sqrt{2}}\end{matrix}\right)$.
-
-Al final de la sección 4.3 hablamos sobre estos estados y lo importantes que son por su propiedad de equiprobabilidad de obtener los estados $\ket0$ y $\ket1$ tras medir. Puede que no parezca gran cosa aplicado a un qubit, pero si tenemos $n$ qubits todos ellos con estado $\ket0$ y les aplicamos a cada uno una puerta $H$ obtenemos
-\begin{equation}
-\label{eq:eq51}
-H(\ket0)\otimes H(\ket0)\otimes\hdots\otimes H(\ket0)=\dfrac{1}{\sqrt{2}}(\ket0+\ket1)\otimes\hdots\otimes\dfrac{1}{\sqrt{2}}(\ket0+\ket1)=\dfrac{1}{\sqrt{2^n}}\sum_{i=0}^{2^n-1}\ket{i}
-\end{equation}
-
-es decir, estamos consiguiendo $2^n$ estados en superposición. Vimos en la notación de la sección 3.3 que siendo $x$ un vector, $x^{\otimes k}$ es el producto tensorial consigo mismo $k$ veces. Esta notación se extiende a estados cuánticos $\ket\psi^{\otimes k}$ y también se aplica a puertas. En el caso anterior podemos denotar $H^{\otimes n}$ la aplicación de la puerta \textit{Hadamard} a los $n$ qubits. Además, también llamamos a este tipo de aplicación de la puerta de \textit{Hadamard} como \textit{\textbf{Walsh-Hadamard}} que definimos recursivamente como:
-
-\begin{equation}
-\left\{\begin{matrix}W_1&=&H\\W_{n+1}&=&H\otimes W_n\end{matrix}\right.
-\end{equation}
-
-\section{Puertas aplicadas sobre múltiples qubits}
-
-Si bien es cierto que la puerta \textit{Walsh-Hadamard} está definida para una entrada de varios qubits, puede ser descompuesta como producto tensorial de puertas más elementales. En esta sección veremos algunas puertas que no pueden ser descompuestas de esta forma. Son indispensables, por tanto, a la hora de conseguir los estados que en el capítulo anterior denominamos entrelazados.
-
-En primer lugar presentamos la puerta \textbf{\textit{Swap}}. Su funcionalidad es muy simple, se trata de una puerta para dos qubits que intercambia los estados de cada uno.
-
-\[\gatefour{\mathrm{SWAP}}{\ket{00}}{\ket{10}}{\ket{01}}{\ket{11}}\mathrm{\ con\ matriz\ asociada\ }\left(\begin{matrix}1&0&0&0\\0&0&1&0\\0&1&0&0\\0&0&0&1\end{matrix}\right)\]
-
-A continuación, mostramos un grupo muy relevante de puertas. Se trata de las \textbf{puertas controladas}, para al menos 2 qubits de entrada. En el caso de 2 qubits, uno de ellos actúa como controlador y queda inalterado tras la aplicación de la puerta y el otro sufre los efectos de una puerta $U$, de entrada un solo qubit, siempre y cuando el estado del qubit de control sea $\ket1$. Para el caso $n+1$, tenemos $n$ qubits de control y si todos ellos muestran el estado $\ket1$ se aplicará la puerta $U$ al restante.
-
-Podemos representar el caso general de la puerta $C(U)$ como
-
-\[C(U)\colon \begin{aligned}\ket{0x}&\longrightarrow&\ket{0x}\\\ket{1x}&\longrightarrow&\ket{1U(x)}\end{aligned} \mathrm{\ con\ matriz\ por\ bloques\ asociada\ }\left(\begin{array}{c|c}I&0\\\hline0&U\end{array}\right)\]
-
-La representante más característica de este grupo es la puerta $C(X)$, más conocida como \textbf{CNOT}.
-
-\[\gatefour{\mathrm{C_{not}}}{\ket{00}}{\ket{01}}{\ket{11}}{\ket{10}}\mathrm{\ con\ matriz\ asociada\ }\left(\begin{matrix}1&0&0&0\\0&1&0&0\\0&0&0&1\\0&0&1&0\end{matrix}\right)\]
-
-Es usada en multitud de ámbitos, como para lograr el estado entrelazado $\dfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})$. Basta con aplicar a un sistema de dos qubits inicializado en $\ket{00}$ una puerta de \textit{Hadamard} al primer qubit y tras esto, una puerta CNOT con control el primer qubit.
-
-\begin{equation}
-\begin{split}
-\mathrm{C_{not}}(H(\ket0)\otimes\ket0)&=\mathrm{C_{not}}\left(\dfrac{1}{\sqrt{2}}(\ket0+\ket1)\otimes\ket0\right)\\
-&=\dfrac{1}{\sqrt{2}}\mathrm{C_{not}}(\ket{00}+\ket{10})=\dfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})
-\end{split}
-\end{equation}
-
-Veremos al final de este capítulo algunos ejemplos en los que interviene este estado entrelazado. Lo denominamos \textbf{par EPR} en referencia a \textit{Einstein}, \textit{Podolsky} y \textit{Rosen} y su artículo publicado en 1935 [\cite{einstein1935can}] en el que se cuestionaba la completitud y veracidad de los principios cuánticos tras la proposición de un experimento, en el que intervenía dicho estado cuántico, que supuestamente violaba la teoría de la relatividad. Pese a lo relevante del tema, concierne principalmente a la física, por lo que no nos detendremos más en el mismo.
-
-Por último, tenemos la puerta \textbf{CCNOT} o puerta \textbf{\textit{Toffoli}} una puerta de 3 qubits controlada que identificamos como
-
-\[T\ket{xyz}=\left\{\begin{aligned}
-\ket{xyX(z)}&\mathrm{\ si\ } x=1\mathrm{\ e\ } y=1\\
-\ket{xyz}&\mathrm{\ en\ otro\ caso.}\end{aligned}\right. \mathrm{\ con\ matriz\ por\ bloques\ asociada\ }\left(\begin{array}{c|c|c}I&0&0\\\hline0&I&0\\\hline0&0&X\end{array}\right)\]
-
-Esta puerta tiene vital importancia a la hora de introducir elementos de la computación clásica en la cuántica. Retomaremos esta puerta en la sección \ref{sec:sec55}.
-
-\section{circuitos cuánticos}
-
-A nivel de bit en computación clásica estamos acostumbrados a representar sistemas y sus puertas mediante diagramas de circuitos. Lo mismo ocurre en la computación cuántica. Usamos circuitos para representar combinaciones de puertas y facilitar de manera visual el entendimiento de la construcción realizada.
-
-Las puertas de un solo qubit se representan generalmente mediante la letra que la identifica insertada en un rectángulo. Así tenemos para las puertas
-
-\[\Qcircuit @C=1em{&\gate{I}&\qw}\ \ \Qcircuit @C=1em{&\gate{X}&\qw}\ \ \Qcircuit @C=1em{&\gate{Y}&\qw}\ \ \Qcircuit @C=1em{&\gate{Z}&\qw}\ \ \Qcircuit @C=1em{&\gate{R_\theta}&\qw}\ \ \Qcircuit @C=1em{&\gate{H}&\qw}\]
-
-que representan a las puertas $I$,$X$,$Y$,$Z$,$R_\theta$ y $H$ respectivamente. En cuanto a las puertas de más de un qubit existen formas diferentes de representación en función de cada una. Los qubits de control de las puertas controladas se representan con el símbolo $\bullet$ y la puerta $U$ de manera habitual. Sin embargo, en el caso de que dicha puerta sea $X$ como en CNOt y en \textit{Toffoli} se dibuja el símbolo $\oplus$.
-
-\[\Qcircuit @C=1em @R=.7em{&\ctrl{1}&\qw\\&\gate{U}&\qw}\ \ \Qcircuit @C=1em @R=.7em{&\ctrl{1}&\qw\\&\targ&\qw}\ \ \Qcircuit @C=1em @R=.7em{&\ctrl{1}&\qw\\&\ctrl{1}&\qw\\&\targ&\qw}\]
-
-Las representaciones anteriores hacen referencia a una puerta genérica $C(U)$, una CNOT y una \textit{Toffoli} respectivamente. En cuanto a la puerta \textit{SWAP} se representa del siguiente modo:
-
-\[\Qcircuit @C=1.5em @R=1.5em{&\qswap&\qw\\&\qswap\qwx&\qw}\]
-
-En la figura \ref{fig:fig51} podemos ver un ejemplo de la representación de la aplicación de una puerta \textit{Hadamard} a 5 qubits. Este tipo de diagramas serán usados frecuentemente en las secciones y capítulos venideros.
-
-\begin{figure}[!htb]
-\[\Qcircuit @R=0.7em@C=1em{
-\lstick{\ket{0}}&\gate{H}&\qw\\
-\lstick{\ket{0}}&\gate{H}&\qw\\
-\lstick{\ket{0}}&\gate{H}&\qw\\
-\lstick{\ket{0}}&\gate{H}&\qw\\
-\lstick{\ket{0}}&\gate{H}&\qw
-}\]
-\caption{Aplicación de una puerta \textit{Walsh-Hadamard} $H^{\otimes 5}$ o $W_5$.}
-\label{fig:fig51}
+def codificacionSuperdensa(qc, qr, bits):
+    if bits < 0 or bits > 3:
+        return "El valor de bits debe ser 0, 1, 2 o 3."
+    
+    # Par EPR. Puerta de Hadamard al primer qubit y luego Cnot.
+    qc.h(qr[0])
+    qc.cx(qr[0], qr[1])
+    
+    # Alice aplica puerta a su qubit conforme al valor de bits
+    if bits == 0:
+        pass
+    elif bits == 1:
+        qc.x(qr[0])
+    elif bits == 2:
+        qc.y(qr[0])
+    else: # bites == 3
+        qc.z(qr[0])
+        
+    # Alice transmite el qubit a Bob que aplica Cnot y luego Hadamard al qubit recibido
+    qc.cx(qr[0], qr[1])
+    qc.h(qr[0])
+    
+    # Medimos
+    qc.measure_all()
+    
+qr = QuantumRegister(2)
+qc = QuantumCircuit(qr)
+value = 2
+codificacionSuperdensa(qc, qr, value)
+\end{lstlisting}
+\caption{Implementación de codificación superdensa en \textit{Qiskit}.}
+\label{fig:code51}
 \end{figure}
 
-\section{Quantum gate arrays y paralelismo cuántico}
-\label{sec:sec55}
-
-Hemos definido la puerta \textit{Toffoli} y ahora vamos a ver dos propiedades muy importantes acerca de la misma: que puede actuar como las puertas clásicas AND y NOT. Dados dos bits clásicos de entrada $x$ e $y$, la puerta AND devolverá 1 si tanto $x$ como $y$ valen 1 y 0 en caso contrario. La puerta clásica NOT actúa sobre un único bit negando el valor de entrada, es decir, devuelve 1 si el valor de entrada es 0 y 0 si la entrada es 1. La construcción análoga desde un punto de vista cuántico de estas puertas se consigue de este modo:
-
-\begin{equation}
-\begin{split}
-\mathrm{AND:\ }&T\ket{x,y,0}=\ket{x,y,x\wedge y}\\
-\mathrm{NOT:\ }&T\ket{x,x,0}=\ket{x,x,\neg x}
-\end{split}
-\end{equation}
-
-AND y NOT forman un conjunto universal de puertas; es decir, podemos construir cualquier otra puerta clásica usando combinaciones de ambas. Por tanto la puerta \textit{Toffoli} es suficiente para construir cualquier circuito clásico (es importante recalcar que no es suficiente para construir cualquier circuito cuántico). En base a esto tenemos dos hechos importantes. El primero es que podemos definir una máquina universal de \textit{Turing} sobre el contexto de un sistema cuántico [\cite{bernstein1997quantum}]. El segundo debido a \textit{David Deutsch} en 1985 es que dada cualquier función clásica computable, podemos conseguir una combinación de puertas cuánticas (por tanto reversibles) que emulen a dicha función [\cite{deutsch1985quantum}].
-
-A causa de este último hecho, dada una función clásica $\function{f}{\{0,1\}^m}{\{0,1\}^k}$ debe existir un conjunto de puertas cuya composición, denotada por $U_f$, sea una implementación cuántica de $f$. Denominamos a dicha $U_f$ como \textbf{matriz de puertas cuánticas} más conocido, en inglés, por \textbf{\textit{quantum gatearray}}. La transformación $U_f$ actúa sobre $m+k$ qubits y se define para que verifique
-
-\begin{equation}
-\function{U_f}{\ket{x,y}}{\ket{x,f(x)\oplus y}}\mathrm{\ con\ }x\in\{0,1\}^m,y\in\{0,1\}^k
-\end{equation}
-
-donde $\oplus$ denota la operación lógica XOR. Verificando la condición anterior, es unitaria puesto que $U_fU_f=I$. Basta ver que 
-
-\begin{equation}
-U_fU_f\ket{x,y}=U_f\ket{x,f(x)\oplus y}=\ket{x,f(x)\oplus(f(x)\oplus y)}=\ket{x,y}.
-\end{equation}
-
-Así, tomando $y=\ket{0\hdots0}$, obtenemos $U_f\ket{x,0}=\ket{x,f(x)}$. Sin embargo, esta construcción no tiene nada de novedosa respecto a la computación clásica y no hay, a priori, ningún tipo de mejora sobre el orden de complejidad de realizar una evaluación de $f$. Nuestra innovación se arraiga en la ventaja de la computación cuántica de poder tener estado en superposición y es que $\ket x$ puede ser un estado formado por muchos elementos de $\{0,1\}^m$ e, incluso, todo ellos simultáneamente.
-
-Si tomamos $m$ qubits con estado inicial $\ket{0\hdots0}$ y aplicamos sobre cada uno de ellos una puerta \textit{Hadamard}, obtendremos en base a la ecuación \ref{eq:eq51} el estado
-
-\[\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}\ket{i}\]
-
-que junto a $k$ qubits adicionales en estado $\ket{0\hdots0}$ y una transformación $U_f$ originan el resultado:
-
-\begin{equation}
-\begin{split}
-U_f\left(\left(\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}\ket{i}\right)\otimes\ket0\right)&=U_f\left(\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}\ket{i,0}\right)\\&=\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}U_f\ket{i,0}=\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}\ket{i,f(i)}
-\end{split}
-\end{equation}
-
-Es decir, por la linealidad de las transformación $U_f$ hemos logrado obtener en un solo cómputo los resultados de todas las posibles entradas que admite $f$. A este poder de cómputo lo denominamos \textbf{paralelismo cuántico}, podemos ver un circuito representativo de lo visto anteriormente en la figura \ref{fig:fig52}.
-
-\begin{figure}[!htb]
-\[\Qcircuit @R=1.5em@C=1em{
-\lstick{\ket{0}} & {/^m}\qw & \gate{H^{\otimes m}}& \qw & \multigate{1}{U_f} & \qw \\
-\lstick{\ket{0}} & {/^k}\qw & \qw                 & \qw & \ghost{U_f}        & \qw  
-}\]
-\caption{Paralelismo cuántico sobre $U_f$.}
-\label{fig:fig52}
+\begin{figure}[htb!]
+\begin{lstlisting}[language=Python]
+backend = Aer.get_backend('qasm_simulator')
+ex = execute(qc, backend = backend, shots = 1)
+ex.result().get_counts()
+\end{lstlisting}
+\caption{Instrucciones para la ejecución de un circuito en \textit{Qiskit} y obtención de los resultados.}
+\label{fig:code52}
 \end{figure}
 
-Sin embargo, hemos de recordar que la medición con la que obtenemos información de un estado cuántico sólo nos permitirá conocer un único valor $\ket{i,f(i)}$, $0\leq i\leq 2^m-1$, colapsando a dicho estado con probabilidad $\frac{1}{\sqrt{2^m}}$ lo que de nuevo nos deja en el cálculo de un único cómputo en una ejecución de $U_f$ lo que no parece mejorar los algoritmos clásicos.
+Hemos hablado brevemente de algunas de las librerías y funcionalidades de \textit{Qiskit} y no queremos acabar este capítulo sin ver unos ejemplos en dicho lenguaje. En primer lugar presentamos en la figura \ref{fig:code51} el código que implementa \textit{codificación superdensa} visto en el capítulo anterior. Podemos ver que es tan simple como crear un circuito (clase QuantumCircuit) que toma como parámetros una instancia de QuantumRegister que gestiona los qubits y, opcionalmente, una instancia de ClassicalRegister que gestiona bits clásicos donde se almacenan las mediciones. En nuestro caso hemos obviado este último parámetro pues el método \textit{measure\_all()} es suficiente para medir todos los qubits. Tras esto basta con ir añadiendo las puertas que precisemos usando para ello, si es necesario, instrucciones clásicas de \textit{Python} como \textit{if}, \textit{for} o \textit{while}. Una de las principales características de \textit{Qiskit} respecto a otros lenguajes cuánticos es que el código mostrado crea el circuito pero no lo está ejecutando, sino que tras su creación debemos llamar al método \textit{execute()} que toma por parámetros el propio circuito, el \textit{backend} donde es ejecutado o el número de ejecuciones, entre otros (véase la figura \ref{fig:code52}). Esto es muy cómodo si realmente no queremos ejecutar el circuito en un simulador en nuestro ordenador y queremos utilizar para ello una de las máquinas de IBM disponibles en línea. Sin embargo, acarrea también un grave problema y es que nuestro circuito no puede depender de los valores obtenidos por las mediciones realizadas en el sistema.
 
-Pese a esto, existen técnicas que logran amplitudes mayores (y por tanto también lo serán sus probabilidades) para ciertos estados objetivos que verifiquen algunas propiedades de nuestro interés como en el caso del algoritmo de \textit{Grover}. % Acabar párrafo explicando en una o dos líneas Grover
 
-% Introducir Shor
+Por ejemplo, en el algoritmo de teleportación cuántica, la puerta final aplicada por Bob depende de las mediciones obtenidas y enviadas por Alice. No podemos usar una combinación de sentencias condicionales como hemos hecho en codificación superdensa, puesto que en el momento de insertar la puerta de Bob, el circuito no se está ejecutando y desconocemos las mediciones correspondientes a Alice. \textit{Qiskit} soluciona esto con la implementación de unas puertas controladas especiales que toman un bit clásico de control en lugar de un qubit. Sin embargo, este tipo de instrucción sólo funciona en simuladores; los ordenadores cuánticos de IBM no soportan instrucciones tras mediciones.
+\begin{figure}[tb!]
+\begin{lstlisting}[language=Python]
+from qiskit import *
 
-\section{Algunos algoritmos/experimentos cuanticos}
+def teleportacion(qc, qr, crz, crx):
+    # Par EPR. Puerta de Hadamard a qr[1] y luego Cnot.
+    qc.h(qr[1])
+    qc.cx(qr[1], qr[2])
+    
+    # Alice aplica Cnot (control qr[0]) y Hadamard a qr[0]
+    qc.cx(qr[0], qr[1])
+    qc.h(qr[0])
+    
+    # Medimos
+    qc.measure(qr[0], crz)
+    qc.measure(qr[1], crx)
+        
+    # Alice manda las mediciones a Bob y aplica
+    # X si el segundo qubit es 1 (01)
+    # Z si el primer qubit es 1 (10)
+    # Y = XZ si ambos son 1 (11)
+    qc.x(qr[2]).c_if(crx, 1)
+    qc.z(qr[2]).c_if(crz, 1)
+
+qr = QuantumRegister(3)
+crx = ClassicalRegister(1)
+crz = ClassicalRegister(1)
+qc = QuantumCircuit(qr, crz, crx)
+
+# Antes de llamar al algoritmo debemos poner el qubit
+# qr[0] que queremos mandar al estado deseado. Lo
+# dejamos en |0>.
+
+teleportacion(qc, qr, crz, crx)
+\end{lstlisting}
+\caption{Implementación de teleportación cuántica en \textit{Qiskit}.}
+\label{fig:code53}
+\end{figure}
+
+Una solución a este problema es aplicar el \textit{Principio de Medición Diferida} [\cite{nielsen2001quantum}]. El principio nos dice que cualquier medición realizada en una etapa intermedia de un circuito puede ser pospuesta al final del mismo y si dichas mediciones son usadas en puertas de control, estas pueden ser sustituidas por las puertas de control cuánticas usuales. En nuestro caso, hemos de notar que los cálculos realizados tras la medición que prueban el correcto funcionamiento del algoritmo de teleportación sólo son una división de casos en función del estado obtenido y por tanto el algoritmo funciona de igual manera si no se realizan dichas mediciones. La diferencia es meramente experimental, si antes Alice mandaba a Bob dos bits clásicos, ahora solo puede enviar sus dos qubits.  En la figura \ref{fig:code53} se muestra el código del algoritmo de teleportación ejecutable en simulador.
