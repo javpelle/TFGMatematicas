@@ -1,6 +1,6 @@
 \chapter{Introducción a la computación cuántica}
 
-Hemos desarrollado una serie de herramientas matemáticas y ahora toca desarrollar por qué lo hemos hecho. Esto no es tarea fácil pues se mete de lleno en el marco teórico de la mecánica cuántica. Este marco se sustenta principalmente en 6 postulados, mientras que \textit{Michael A. Nielsen} y \textit{Isaac L. Chuang} los reducen a cuatro [\cite{nielsen2001quantum}]. Estos cuatro postulados serán los cimientos de nuestra teoría de la computación cuántica. Antes de exponerlos, vamos a comentar un tipo de notación muy empleada en el mundo de la física cuántica y que usaremos constantemente a partir de ahora.
+Hemos desarrollado una serie de herramientas matemáticas y ahora toca desarrollar por qué lo hemos hecho. Esto no es tarea fácil pues se mete de lleno en el marco teórico de la mecánica cuántica. Este marco se sustenta principalmente en 6 postulados [\cite{cohen1977quantum}], mientras que \textit{Michael A. Nielsen} y \textit{Isaac L. Chuang} los reducen a cuatro [\cite{nielsen2001quantum}]. Estos cuatro postulados serán los cimientos de nuestra teoría de la computación cuántica. Antes de exponerlos, vamos a comentar un tipo de notación muy empleada en el mundo de la física cuántica y que usaremos constantemente a partir de ahora.
 
 \section{Notación de Dirac}
 
@@ -19,29 +19,29 @@ La \textit{notación de Dirac} o \textit{notación bra-ket} sirve para denotar u
 
 Vamos a proceder a enunciar los postulados mencionados al principio de este capítulo.
 
-\begin{postulate} Un sistema físico aislado es un espacio vectorial con coeficientes en los complejos dotado de producto interno (como vimos en el ejemplo \ref{ex:ex32} esto supone que se trata de un Espacio de \textit{Hilbert}). El sistema es completamente descrito por un estado que no es más que un vector unitario de dicho sistema.
+\begin{postulate} Un sistema físico aislado es un espacio vectorial con coeficientes en los complejos dotado de producto interno (como vimos en el ejemplo \ref{ex:ex32}, esto supone que se trata de un Espacio de \textit{Hilbert}). El sistema es completamente descrito por un estado que no es más que un vector unitario de dicho sistema.
 \end{postulate}
 
-El postulado no dice nada sobre la dimensión del sistema, definiremos en la próxima sección como será nuestro sistema más elemental.
+El postulado no dice nada sobre la dimensión del sistema. Definiremos en la próxima sección como será nuestro sistema más elemental.
 
-\begin{postulate} La evolución de un sistema cuántico cerrado en dos instantes de tiempo viene dada por una transformación lineal unitaria. Es decir, el estado del sistema $\ket{\psi}$ en el instante $t_1$ se transforma en $\ket{\psi'}$ en $t_2$ por la aplicación lineal unitaria $U$ que depende únicamente de $t_1$ y $t_2$:
+\begin{postulate} La evolución de un sistema cuántico cerrado en dos instantes de tiempo viene dada por una transformación lineal unitaria. Es decir, el estado del sistema $\ket{\psi}$ en el instante~$t_1$ se transforma en $\ket{\psi'}$ en~$t_2$ por la aplicación lineal unitaria $U$ que depende únicamente de $t_1$ y $t_2$:
 \[\ket{\psi'}=U\ket{\psi}\]
 \end{postulate}
 
 \begin{postulate} Las medidas de un sistema cuántico son descritas por un conjunto $\{M_m \}$ de \textit{aplicaciones de medida}. Cada índice $m$ se identifica con un posible valor para dicha medición que ocurre, para un estado $\ket\psi$, con una probabilidad de 
 \[p(m)=\bra{\psi}M_m^\dag M_m\ket{\psi}\]
-
-tras la medición, el estado del sistema se convierte en
-\[\dfrac{M_m\ket{\psi}}{\sqrt{\bra{\psi}M_m^\dag M_m\ket{\psi}}}.\]
+%
+Tras la medición, el estado del sistema se convierte en
+\[\dfrac{M_m\ket{\psi}}{\sqrt{\bra{\psi}M_m^\dag M_m\ket{\psi}}}\]
 
 Por otro lado, las aplicaciones de medida deben satisfacer la \textit{ecuación de completitud} que enunciamos como:
 \[\sum_m M_m^\dag M_m = I\]
 
-Por tanto, como $\psi$ tiene norma 1, se verifica que la suma de las probabilidades de cada valor de medición posible es 1.
-\[\sum_m p(m)=\sum_m \bra{\psi}M_m^\dag M_m\ket{\psi} = 1.\]
+Por tanto, como $\psi$ tiene norma 1, se verifica que la suma de las probabilidades de cada valor de medición posible es 1, es decir,
+\[\sum_m p(m)=\sum_m \bra{\psi}M_m^\dag M_m\ket{\psi} = 1\]
 \end{postulate}
 
-Lo primero que debemos resaltar de este postulado es que hay una transformación del estado cuántico del sistema que no viene dada por una aplicación unitaria. Sin embargo, estamos contemplando que el sistema, a diferencia de lo que ocurre en el postulado 2,  no es cerrado; Esto indica que la medición es una interacción externa. Veremos en la siguiente sección un ejemplo de medida de estados ortonormales sobre un qubit. Es importante recalcar que no podremos definir mediciones distinguibles si los valores no son ortogonales [\cite[p.~87]{nielsen2001quantum}]. 
+Lo primero que debemos resaltar de este postulado es que hay una transformación del estado cuántico del sistema que no viene dada por una aplicación unitaria. Sin embargo, estamos contemplando que el sistema, a diferencia de lo que ocurre en el postulado 2,  no es cerrado. Esto indica que la medición es una interacción externa. Veremos en la siguiente sección un ejemplo de medida de estados ortonormales sobre un qubit. Es importante recalcar que no podremos definir mediciones distinguibles si los valores no son ortogonales [\cite[p.~87]{nielsen2001quantum}]. 
 
 \begin{postulate} El sistema resultante de la composición de dos o más sistemas físicos es el producto tensorial de los mismos. Si denotamos a estos sistemas por $1,2,...,n$ representados por los vectores unitarios $\ket{\psi_i}$ para todo $i=1,2,...,n$, entonces el estado del sistema final total es $\ket{\psi_1}\otimes\ket{\psi_2}\otimes\hdots\otimes\ket{\psi_n}$.
 
@@ -51,10 +51,10 @@ Estos postulados justifican el desarrollo de los dos capítulos anteriores que n
 \section{Qubits}
 \label{sec:sec43}
 
-Un \textbf{qubit}  es el elemento de información mínima en la teoría de computación cuántica. No entraremos en cómo se puede representar dicho elemento físicamente en el mundo real. Al igual que un bit clásico se corresponde con un estado que típicamente puede ser 0 o 1, lo mismo ocurre con un qubit. Denotamos a dichos posibles estados por $\ket{0}$ y $\ket{1}$ y se corresponderán respectivamente con los elementos de una base ortonormal de $\C^2$. De ser necesario darles forma vectorial, los identificaremos normalmente con los vectores $\twovector{1}{0}$ y $\twovector{0}{1}$. Además de en estos posibles estados, y es aquí donde reside la diferencia con respecto al bit clásico, un qubit puede estar en una combinación lineal de los mismos que denominamos \textbf{superposición} y escribimos:
+Un \textit{qubit}  es el elemento de información mínima en la teoría de computación cuántica. No entraremos en cómo se puede representar dicho elemento físicamente en el mundo real. Al igual que un bit clásico se corresponde con un estado que típicamente puede ser~0 o~1, lo mismo ocurre con un qubit. Denotamos a dichos posibles estados por $\ket{0}$ y $\ket{1}$ y se corresponderán respectivamente con los elementos de una base ortonormal de $\C^2$. De ser necesario darles forma vectorial, los identificaremos normalmente con los vectores $\twovector{1}{0}$ y $\twovector{0}{1}$. Además de en estos posibles estados, y es aquí donde reside la diferencia con respecto al bit clásico, un qubit puede estar en una combinación lineal de los mismos que denominamos \textit{superposición} y escribimos:
 \[\ket{\psi}=\alpha\ket{0}+\beta\ket{1}\]
 
-donde $\alpha$ y $\beta$ son números complejos que verifican $|\alpha|^2+|\beta|^2=1$. Podemos decir así que el estado de un qubit es un vector unitario de $\C^2$, o equivalentemente, un elemento de la 3-esfera, subconjunto de $\C^2$ que definimos como:
+\noindent donde $\alpha$ y $\beta$ son números complejos que verifican $|\alpha|^2+|\beta|^2=1$. Podemos decir así que el estado de un qubit es un vector unitario de $\C^2$ o, equivalentemente, un elemento de la 3-esfera, subconjunto de $\C^2$ que definimos como:
 \[\Sp^3=\left\{ (z_1,z_2)\in\C^2:|z_1|^2+|z_2|^2=1 \right\}\]
 
 Como vemos, hasta ahora nos hemos ceñido a definir un sistema físico cuántico que verifica las directrices del primer postulado. Veamos qué pasa cuando tratamos de medir un qubit y cómo se ajusta este proceso al postulado 3. Un bit clásico puede ser medido para saber su estado en cualquier momento. Dicha medición otorgará, por tanto, uno de los dos posibles estados. La medición en un qubit con estado $\ket{\psi}=\alpha\ket{0}+\beta\ket{1}$ no nos posibilita conocer los valores de $\alpha$ y $\beta$. Vamos a definir las aplicaciones de medida correspondientes a los estados ortonormales $\ket{0}$ y $\ket{1}$.
@@ -66,32 +66,30 @@ M_{\ket{1}}=\ket{1}\bra{1}=\left(\begin{matrix}0&0\\0&1\end{matrix}\right)
 \]
 
 Se verifica la ecuación de completitud ($M_{\ket{0}}^\dag M_{\ket{0}} + M_{\ket{1}}^\dag M_{\ket{1}}=I$) y la probabilidad de obtener $\ket{0}$ tras una medición es $p(\ket{0})=\bra{\psi}M_{\ket{0}}^\dag M_{\ket{0}}\ket{\psi}=\overline{\alpha}\alpha = |\alpha|^2$. Análogamente, $p(\ket{1})=|\beta|^2$. Se obtiene también la igualdad
-\[p(\ket{0})+p(\ket{1})=|\alpha|^2+|\beta|^2=1.\]
+\[p(\ket{0})+p(\ket{1})=|\alpha|^2+|\beta|^2=1\]
 
-Por último, si la medición obtuvo $\ket{0}$, el estado del sistema tras la medida será:
-\begin{equation}
-\dfrac{M_{\ket{0}}\ket{\psi}}{\sqrt{\bra{\psi}M_{\ket{0}}^\dag M_{\ket{0}}\ket{\psi}}}=\dfrac{\alpha\ket{0}}{|\alpha|}.
-\end{equation}
+Por último, si la medición obtuvo $\ket{0}$, el estado del sistema tras la medida será
+$$\dfrac{M_{\ket{0}}\ket{\psi}}{\sqrt{\bra{\psi}M_{\ket{0}}^\dag M_{\ket{0}}\ket{\psi}}}=\dfrac{\alpha\ket{0}}{|\alpha|}.
+$$
+mientras que en el caso de obtener $\ket{1}$, tendremos
+$$\dfrac{M_{\ket{1}}\ket{\psi}}{\sqrt{\bra{\psi}M_{\ket{1}}^\dag M_{\ket{1}}\ket{\psi}}}=\dfrac{\beta\ket{1}}{|\beta|}.
+$$
 
-Mientras que en el caso de obtener $\ket{1}$, tendremos:
-\begin{equation}
-\dfrac{M_{\ket{1}}\ket{\psi}}{\sqrt{\bra{\psi}M_{\ket{1}}^\dag M_{\ket{1}}\ket{\psi}}}=\dfrac{\beta\ket{1}}{|\beta|}.
-\end{equation}
-
-Cabe señalar que los estados $e^{i\theta}\ket{\psi}$, con $\theta\in\R$ y $\ket{\psi}$ son \textbf{indistinguibles} [\cite[p.~93]{nielsen2001quantum}]. Basta ver que si $M_m$ es una aplicación de medida, entonces $\bra{\psi}e^{-i\theta}M_m^\dag M_m e^{i\theta}\ket{\psi}=\bra{\psi}M_m^\dag M_m\ket{\psi}$. Así, podemos sustituir en las anteriores ecuaciones $\dfrac{\alpha\ket{0}}{|\alpha|}$ y $\dfrac{\beta\ket{1}}{|\beta|}$ por $\ket{0}$ y $\ket{1}$ respectivamente.
+Cabe señalar que los estados de la forma $e^{i\theta}\ket{\psi}$, con $\theta\in\R$ y $\ket{\psi}$ son \textit{indistinguibles} [\cite[p.~93]{nielsen2001quantum}]. Basta ver que si $M_m$ es una aplicación de medida, entonces $$\bra{\psi}e^{-i\theta}M_m^\dag M_m e^{i\theta}\ket{\psi}=\bra{\psi}M_m^\dag M_m\ket{\psi}$$ 
+Así, podemos sustituir en las anteriores ecuaciones $\dfrac{\alpha\ket{0}}{|\alpha|}$ y $\dfrac{\beta\ket{1}}{|\beta|}$ por $\ket{0}$ y $\ket{1}$, respectivamente.
 
 Podemos definir otros conjuntos de medida para otras bases ortonormales como las que vimos en el ejemplo \ref{ex:ex34}. Denotamos a esos elementos como $\ket+:=\dfrac{1}{\sqrt{2}}(\ket0 + \ket1)$ y $\ket-:=\dfrac{1}{\sqrt{2}}(\ket0 - \ket1)$. Así, si aplicamos una medición a $\ket+$ con el conjunto de medidas $\{M_{\ket{0}},M_{\ket{1}}\}$ obtendremos $\ket0$ o $\ket1$ con probabilidad idéntica de $\frac{1}{2}$, pero si lo hacemos mediante $\{M_{\ket{+}},M_{\ket{-}}\}$ obtendremos $\ket+$ con un certeza absoluta.
 
 Que el estado de un qubit no pueda ser observado como tal puede parecer algo poco intuitivo; que los posibles resultados obtenidos tras medir no difieran en número respecto a un bit clásico tampoco ayuda a creer que la computación cuántica ofrezca muchas ventajas sobre la clásica. Sin embargo, veremos que los estados de un qubit podrán ser transformados, no sólo de manera individual, sino en conjunto con otros qubits formando un sistema, y que dichas transformaciones provocarán unas propiedades en los estados que usaremos a nuestro favor para obtener mediciones satisfactorias.
 
-Antes de concluir esta sección vamos a resaltar de nuevo los estados cuánticos $\ket+$ y $\ket-$ por una propiedad que dejamos entrever antes, la de equiprobabilidad de obtener los valores $\ket{0}$ y $\ket{1}$ al medir.
+Antes de concluir esta sección vamos a resaltar de nuevo los estados cuánticos $\ket+$ y $\ket-$ por una propiedad que dejamos entrever antes: la  equiprobabilidad de obtener los valores $\ket{0}$ y $\ket{1}$ al medir.
 
 
 \section{Sistemas de múltiples qubits}
 
-Acabamos de ver qué es un qubit y hemos definido su estado como un vector unitario de $\C^2$ expresado como combinación lineal de la suma de dos elementos de una base ortonormal. En esta sección indagaremos sobre cómo es un sistema de múltiples qubits: cómo son sus estados, sus bases y sus posibles valores de medición.
+Acabamos de ver qué es un qubit y hemos definido su estado como un vector unitario de~$\C^2$ expresado como combinación lineal de la suma de dos elementos de una base ortonormal. En esta sección indagaremos sobre cómo es un sistema de múltiples qubits: cómo son sus estados, sus bases y sus posibles valores de medición.
 
-Empecemos por el sistema. Un sistema de 2 qubits, en vista al cuarto postulado, será el producto tensorial de $\C^2\otimes\C^2$, es decir, $\C^4$. Generalizando para el caso de $n$ qubits, el sistema resultante será un espacio equivalente a $\C^{2^n}$. En cuanto a una base para estos sistemas, en el caso de dos qubits, estaría formada por el conjunto $\{\ket{0}\otimes\ket{0},\ket{0}\otimes\ket{1},\ket{1}\otimes\ket{0},\ket{1}\otimes\ket{1}\}$ o, equivalentemente, $\{\ket{00},\ket{01},\ket{10},\ket{11}\}$. En el caso general, la base estaría compuesta por $\{\ket{0},\ket{1},...,\ket{2^n-1}\}$\footnote{Nótese que en este caso utilizamos, para simplificar, la notación decimal.}.
+Empecemos por el sistema. Un sistema de 2 qubits, en vista al cuarto postulado, será el producto tensorial de $\C^2\otimes\C^2$, es decir, $\C^4$. Generalizando para el caso de $n$ qubits, el sistema resultante será un espacio equivalente a $\C^{2^n}$. En cuanto a una base para estos sistemas, en el caso de dos qubits, estaría formada por el conjunto $\{\ket{0}\otimes\ket{0},\ket{0}\otimes\ket{1},\ket{1}\otimes\ket{0},\ket{1}\otimes\ket{1}\}$ o, equivalentemente, $\{\ket{00},\ket{01},\ket{10},\ket{11}\}$. En el caso general, la base estaría compuesta por $\{\ket{0},\ket{1},...,\ket{2^n-1}\}$. Nótese que en este caso utilizamos, para simplificar, la notación decimal.
 
 Sean ahora dos qubits con estados $\ket{\psi_1}=\alpha\ket{0}+\beta\ket{1}$ y $\ket{\psi_2}=\gamma\ket{0}+\delta\ket{1}$. Entonces, el estado del sistema formado por ambos qubits viene dado por:
 \[\ket{\psi}=\ket{\psi_1}\otimes\ket{\psi_2}=\alpha\gamma\ket{00}+\alpha\delta\ket{01}+\beta\gamma\ket{10}+\beta\delta\ket{11}\]
@@ -102,33 +100,33 @@ Debemos comprobar que $\ket{\psi}$ sea unitario para que verifique el primer pos
 |\alpha\gamma|^2+|\alpha\delta|^2+|\beta\gamma|^2+|\beta\delta|^2&=\alpha\gamma\overline{\alpha\gamma}+\alpha\delta\overline{\alpha\delta}+\beta\gamma\overline{\beta\gamma}+\beta\delta\overline{\beta\delta}\\
 &=\alpha\overline{\alpha}(\gamma\overline{\gamma}+\delta\overline{\delta})+\beta\overline{\beta}(\gamma\overline{\gamma}+\delta\overline{\delta})\\
 &=|\alpha|^2(|\gamma|^2+|\delta|^2)+|\beta|^2(|\gamma|^2+|\delta|^2)\\
-&=|\alpha|^2+|\beta|^2=1.
+&=|\alpha|^2+|\beta|^2=1
 \end{split}
 \]
 
-Definimos el caso general para $n$ qubits de la misma manera; así, el estado resultante $\ket\psi=\alpha_0\ket{0\hdots0}+\hdots+\alpha_{2^n-1}\ket{1\hdots1}$ verifica $\sum_{i=0}^{2^n-1}|\alpha_i|^2=1$. Por tanto, si medimos dicho estado obtendremos el valor $\ket{i}$ con probabilidad $|\alpha_i|^2$ y, en ese caso, el estado colapsará tras la medición a $\ket{i}$. Hemos de señalar que algunos estados no pueden ser alcanzados por medio de la composición de dos sistemas por separado. Un ejemplo de esto es el estado $\ket{\psi}=\dfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})$, no existen $\ket{\psi_1}=\alpha\ket{0}+\beta\ket{1}$ y $\ket{\psi_2}=\gamma\ket{0}+\delta\ket{0}$ tales que $\ket{\psi_1}\otimes\ket{\psi_2}=\ket{\psi}$. Si así fuera tendríamos
+Definimos el caso general para $n$ qubits de la misma manera. De esta forma, el estado resultante $\ket\psi=\alpha_0\ket{0\hdots0}+\hdots+\alpha_{2^n-1}\ket{1\hdots1}$ verifica $\sum_{i=0}^{2^n-1}|\alpha_i|^2=1$. Por tanto, si medimos dicho estado obtendremos el valor $\ket{i}$ con probabilidad $|\alpha_i|^2$ y, en ese caso, el estado colapsará tras la medición a $\ket{i}$. Hemos de señalar que algunos estados no pueden ser alcanzados por medio de la composición de dos sistemas por separado. Un ejemplo de esto es el estado $\ket{\psi}=\dfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})$. De hecho, no existen $\ket{\psi_1}=\alpha\ket{0}+\beta\ket{1}$ y $\ket{\psi_2}=\gamma\ket{0}+\delta\ket{0}$ tales que $\ket{\psi_1}\otimes\ket{\psi_2}=\ket{\psi}$ porque si existieran dichos valores  tendríamos
 \[(\alpha\ket{0}+\beta\ket{1})\otimes(\gamma\ket{0}+\delta\ket{0})=\alpha\gamma\ket{00}+\alpha\delta\ket{01}+\beta\gamma\ket{10}+\beta\delta\ket{11}\]
+%
+Para que $\ket{01}$ desaparezca de la ecuación se debe cumplir $\alpha =0$ o  $\gamma=0$, pero esto anularía también $\ket{00}$ o $\ket{11}$. A este tipo de estados se les denomina por \textit{estado entrelazado}. En caso contrario, si el estado de un sistema de más de un qubit puede ponerse como producto tensorial de estados correspondientes a sistemas más simples, lo denominamos \textit{estado producto}.
 
-y por tanto, para que $\ket{01}$ desaparezca de la ecuación, bien $\alpha =0$ o bien $\gamma=0$, pero esto anularía también $\ket{00}$ o $\ket{11}$. A este tipo de estados se les denomina por \textit{estado entrelazado}. En caso contrario, si el estado de un sistema de más de un qubit puede ponerse como producto tensorial de estados correspondientes a sistemas más simples, lo denominamos \textit{estado producto}.
+Hasta ahora hemos establecido las bases de la computación cuántica y hemos enunciado los postulados físicos sobre los que construimos dicha teoría y que se apoyan a su vez en todo el contexto matemático desarrollado en los capítulos previos. De los postulados, hemos utilizado hasta ahora el primero y el tercero para definir qué es un qubit, sus valores y sus posibles mediciones y el cuarto para definir un sistema con múltiples qubits.
 
-Hemos establecido las bases de la computación cuántica. Hemos enunciado los postulados físicos sobre los que construimos dicha teoría y que se apoyan a su vez en todo el contexto matemático desarrollado en los capítulos previos. De los postulados, hemos utilizado hasta ahora el primero y el tercero para definir qué es un qubit, sus valores y sus posibles mediciones y el cuarto para definir un sistema con múltiples qubits.
-
-En cuanto al segundo, recordemos que nos decía que los estados de sistemas cerrados varían de acuerdo a transformaciones lineales unitarias. Recordemos que una aplicación lineal unitaria es aquella que verifica $UU^\dag=I$. En lo sucesivo, denominaremos a estas aplicaciones por el nombre de \textit{puertas cuánticas}. Uno de los aspectos más relevantes de estas puertas es que tienen inversa dada por $U^{-1}=U^\dag$. Esto quiere decir que estas transformaciones son reversibles y supone algo novedoso. En computación clásica, la mayoría de puertas binarias no sólo tienen un único bit de salida (por ser isomorfismos unitarios, nosotros tendremos los mismos qubits da salida que de entrada), sino que no son invertibles. Por ejemplo, tras aplicar una puerta \textit{AND} con salida cero, no podríamos volver a la situación  anterior a la transformación, pues tenemos 3 entradas posibles ($(0,0)$, $(1,0)$ y $(0,1)$). Antes de empezar con las puertas cuánticas más importantes, vamos a ver un impedimento crucial que surge de la propiedad unitaria de las puertas: La imposibilidad de clonar un estado.
+En cuanto al segundo, recordemos que nos decía que los estados de sistemas cerrados varían de acuerdo a transformaciones lineales unitarias. Recordemos que una aplicación lineal unitaria es aquella que verifica $UU^\dag=I$. En lo sucesivo, denominaremos a estas aplicaciones por el nombre de \textit{puertas cuánticas}. Uno de los aspectos más relevantes de estas puertas es que tienen inversa dada por $U^{-1}=U^\dag$. Esto quiere decir que estas transformaciones son reversibles y supone algo novedoso. En computación clásica, la mayoría de puertas binarias no sólo tienen un único bit de salida (por ser isomorfismos unitarios, nosotros tendremos los mismos qubits de salida que de entrada), sino que no son invertibles. Por ejemplo, tras aplicar una puerta \textit{AND} con salida cero, no podríamos volver a la situación  anterior a la transformación, pues tenemos 3 entradas posibles ($(0,0)$, $(1,0)$ y $(0,1)$). Antes de empezar con las puertas cuánticas más importantes, vamos a ver un impedimento crucial que surge de la propiedad unitaria de las puertas: la imposibilidad de clonar un estado.
 
 \section{Teorema de no clonación}
-En computación clásica es altamente frecuente hacer uso de la copia del contenido de un bit (o variable) en otro bit (o variable) sin que esto suponga la destrucción de dicho contenido en el primero. Basta con obtener el valor del primer bit (o variable), lo que podemos denominar como medición clásica, y copiar su contenido en el segundo. Por lo visto anteriormente, es obvio que si queremos copiar un estado $\ket{\psi}=\alpha\ket{0}+\beta\ket{1}$ de un qubit en otro, no podemos hacer uso de la medición pues corrompería su estado. Por tanto sólo nos queda recurrir al uso de una (o varias) puerta cuántica. Sin embargo, no podemos tampoco conseguir nuestro objetivo mediante esta técnica
+En computación clásica es altamente frecuente hacer uso de la copia del contenido de un bit (o variable) en otro bit (o variable) sin que esto suponga la destrucción de dicho contenido en el primero. Basta con obtener el valor del primer bit (o variable), lo que podemos denominar como medición clásica, y copiar su contenido en el segundo. Por lo visto anteriormente, es obvio que si queremos copiar un estado $\ket{\psi}=\alpha\ket{0}+\beta\ket{1}$ de un qubit en otro, no podemos hacer uso de la medición pues corrompería su estado. Por tanto sólo nos queda recurrir al uso de una o varias puertas cuánticas. Sin embargo, no podemos tampoco conseguir nuestro objetivo mediante esta técnica
 
-\begin{thm} \textbf{Teorema de no clonación}. Un estado cuántico no puede ser copiado o clonado.
+\begin{thm} \textit{Teorema de no clonación}. Un estado cuántico no puede ser copiado o clonado.
 \begin{proof}
 Procederemos por reducción al absurdo. Supongamos que existe una transformación lineal unitaria $U$ tal que $U(\ket{\psi0})=\ket{\psi\psi}$ para todo estado cuántico $\ket\psi$. Nótese que $U$ hace exactamente lo que pretendemos, copiar un estado.
 
 Sean ahora dos estados ortogonales $\ket{\phi_1}$ y $\ket{\phi_2}$ y un tercer estado que verifica $\ket{\phi_3}=\dfrac{1}{\sqrt{2}}(\ket{\phi_1}+\ket{\phi_2})$. Se verifica que $U(\ket{\phi_10})=\ket{\phi_1\phi_1}$ y $U(\ket{\phi_20})=\ket{\phi_2\phi_2}$. Ahora, por un lado tenemos,
 \[U(\ket{\phi_30})=\ket{\phi_3\phi_3}=\dfrac{1}{\sqrt{2}}(\ket{\phi_1}+\ket{\phi_2})\otimes\dfrac{1}{\sqrt{2}}(\ket{\phi_1}+\ket{\phi_2})=\dfrac{1}{2}(\ket{\phi_1\phi_1}+\ket{\phi_1\phi_2}+\ket{\phi_2\phi_1}+\ket{\phi_2\phi_2})\]
-
-mientras que por otro, usando la propiedad de linealidad,
+%
+mientras que por otro, usando la propiedad de linealidad, tenemos
 \[U(\ket{\phi_30})=\dfrac{1}{\sqrt{2}}\left(U(\ket{\phi_10})+U(\ket{\phi_20})\right)=\dfrac{1}{\sqrt{2}}\left(\ket{\phi_1\phi_1}+\ket{\phi_2\phi_2}\right)\]
 
-Por tanto, encontramos valores distintos para $U(\ket{\phi_30})$ y llegamos a absurdo, concluyendo la prueba.
+Por tanto, encontramos valores distintos para $U(\ket{\phi_30})$ y llegamos a absurdo, concluyendo la demostración.
 \end{proof}
 \end{thm}
 
@@ -146,28 +144,28 @@ En primer lugar tenemos las puertas asociadas a las \textit{matrices de Pauli}. 
 
 Como acabamos de nombrar, $Z$ es una puerta de cambio de fase. Este tipo de puertas dejan invariante el estado $\ket0$, mientras que a $\ket1$ se le aplica un cambio de fase $e^{i\theta}\ket1$. La expresión general de esta puerta viene dada en función del parámetro $\theta$, que actúa como \textit{desplazamiento}, de la siguiente forma:
 
-$\gatetwo{R_\theta}{\ \ \ \ \ket0}{e^{i\theta}\ket1}$ con matriz asociada $\left(\begin{matrix}1&0\\ 0&e^{i\theta}\end{matrix}\right)$.
+$\gatetwo{R_\theta}{\ \ \ \ \ket0}{e^{i\theta}\ket1}$ con matriz asociada $\left(\begin{matrix}1&0\\ 0&e^{i\theta}\end{matrix}\right)$
 
 Las probabilidades de obtener $\ket0$ o $\ket1$ en un estado $\ket\psi$ y un estado $R_\theta(\ket\psi)$ son las mismas, pero los estados no son equivalentes. Es evidente que para $\theta=\pi$, $R_\theta=Z$. Otros valores comunes para $\theta$ son $\dfrac{\pi}{2},\dfrac{\pi}{4}$ y $\dfrac{\pi}{8}$.
 
-Acabando con esta sección, tenemos una de las puertas más importantes, la \textit{puerta de Hadamard}. Viene identificada por
+Acabando con esta sección, tenemos una de las puertas más importantes, la \textit{puerta de Hadamard}. Viene definida por
 
-$\gatetwo{H}{\dfrac{1}{\sqrt{2}}(\ket0+\ket1)=\ket+}{\dfrac{1}{\sqrt{2}}(\ket0-\ket1)=\ket-}$ con matriz asociada $\left(\begin{matrix}\dfrac{1}{\sqrt{2}}&\dfrac{1}{\sqrt{2}}\\ \dfrac{1}{\sqrt{2}}&-\dfrac{1}{\sqrt{2}}\end{matrix}\right)$.
+$\gatetwo{H}{\dfrac{1}{\sqrt{2}}(\ket0+\ket1)=\ket+}{\dfrac{1}{\sqrt{2}}(\ket0-\ket1)=\ket-}$ con matriz asociada $\left(\begin{matrix}\dfrac{1}{\sqrt{2}}&\dfrac{1}{\sqrt{2}}\\ \dfrac{1}{\sqrt{2}}&-\dfrac{1}{\sqrt{2}}\end{matrix}\right)$
 
-Al final de la sección \ref{sec:sec43} hablamos sobre estos estados y lo importantes que son por su propiedad de equiprobabilidad de obtener los estados $\ket0$ y $\ket1$ tras medir. Puede que no parezca gran cosa aplicado a un qubit, pero si tenemos $n$ qubits todos ellos con estado $\ket0$ y les aplicamos a cada uno una puerta $H$ obtenemos
+Al final de la sección~\ref{sec:sec43} hablamos sobre estos estados y lo importantes que son por su propiedad de equiprobabilidad a la hora de obtener los estados $\ket0$ y $\ket1$ tras medir. Puede que no parezca gran cosa aplicado a un qubit, pero si tenemos $n$ qubits todos ellos con estado $\ket0$ y les aplicamos a cada uno una puerta $H$ obtenemos
 \begin{equation}
 \label{eq:eq43}
 H(\ket0)\otimes H(\ket0)\otimes\hdots\otimes H(\ket0)=\dfrac{1}{\sqrt{2}}(\ket0+\ket1)\otimes\hdots\otimes\dfrac{1}{\sqrt{2}}(\ket0+\ket1)=\dfrac{1}{\sqrt{2^n}}\sum_{i=0}^{2^n-1}\ket{i}
 \end{equation}
-
-es decir, estamos consiguiendo $2^n$ estados en superposición. Vimos en la notación de la sección \ref{sec:sec33} que siendo $x$ un vector, $x^{\otimes k}$ es el producto tensorial consigo mismo $k$ veces. Esta notación se extiende a estados cuánticos $\ket\psi^{\otimes k}$ y también se aplica a puertas. En el caso anterior podemos denotar $H^{\otimes n}$ la aplicación de la puerta \textit{Hadamard} a los $n$ qubits. Además, también llamamos a este tipo de aplicación de la puerta de \textit{Hadamard} como \textit{Walsh-Hadamard} que definimos recursivamente como:
+%
+es decir, estamos consiguiendo $2^n$ estados en superposición. Vimos en la notación de la sección \ref{sec:sec33} que siendo $x$ un vector, $x^{\otimes k}$ es el producto tensorial consigo mismo $k$ veces. Esta notación se extiende a estados cuánticos $\ket\psi^{\otimes k}$ y también se aplica a puertas. En el caso anterior podemos denotar por $H^{\otimes n}$ a la aplicación de la puerta \textit{Hadamard} a los $n$ qubits. Además, también llamamos a este tipo de aplicación de la puerta de \textit{Hadamard} como \textit{Walsh-Hadamard}, que definimos recursivamente como:
 \[ \begin{split} W_1&=H\\ W_{n+1}&=H\otimes W_n \end{split} \]
 
 \section{Puertas aplicadas sobre múltiples qubits}
 
 Si bien es cierto que la puerta \textit{Walsh-Hadamard} está definida para una entrada de varios qubits, puede ser descompuesta como producto tensorial de puertas más elementales. En esta sección veremos algunas puertas que no pueden ser descompuestas de esta forma. Son indispensables, por tanto, a la hora de conseguir los estados que en el capítulo anterior denominamos entrelazados.
 
-En primer lugar presentamos la puerta \textit{Swap}. Su funcionalidad es muy simple, se trata de una puerta para dos qubits que intercambia los estados de cada uno.
+En primer lugar presentamos la puerta \textit{Swap}. Su funcionalidad es muy simple:  intercambia los estados de dos qubits.
 \[\gatefour{\mathrm{SWAP}}{\ket{00}}{\ket{10}}{\ket{01}}{\ket{11}}\mathrm{\ con\ matriz\ asociada\ }\left(\begin{matrix}1&0&0&0\\0&0&1&0\\0&1&0&0\\0&0&0&1\end{matrix}\right)\]
 
 A continuación, mostramos un grupo muy relevante de puertas. Se trata de las \textit{puertas controladas} para al menos 2 qubits de entrada. En el caso de 2 qubits, uno de ellos actúa como controlador y queda inalterado tras la aplicación de la puerta y el otro sufre los efectos de una puerta $U$, de entrada un solo qubit, siempre y cuando el estado del qubit de control sea $\ket1$. Para el caso $n+1$, tenemos $n$ qubits de control y si todos ellos muestran el estado $\ket1$ se aplicará la puerta $U$ al restante. Podemos representar el caso general de dos qubits como la puerta $C(U)$:
@@ -178,13 +176,13 @@ La representante más característica de este grupo es la puerta $C(X)$, más co
 
 \[\gatefour{\mathrm{C_{not}}}{\ket{00}}{\ket{01}}{\ket{11}}{\ket{10}}\mathrm{\ con\ matriz\ asociada\ }\left(\begin{matrix}1&0&0&0\\0&1&0&0\\0&0&0&1\\0&0&1&0\end{matrix}\right)\]
 
-Es usada en multitud de ámbitos, como para lograr el estado entrelazado $\dfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})$. Basta con aplicar a un sistema de dos qubits inicializado en $\ket{00}$ una puerta de \textit{Hadamard} al primer qubit y tras esto, una puerta C$_\textrm{not}$ con control el primer qubit.
-\begin{equation}
-\begin{split}
+Esta puerta se usa en multitud de ámbitos. Por ejemplo,  la podemos emplear  para lograr el estado entrelazado $\dfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})$. Basta con aplicar a un sistema de dos qubits inicializado en $\ket{00}$ una puerta de \textit{Hadamard} al primer qubit y tras esto, una puerta C$_\textrm{not}$ con control el primer qubit.
+%
+$$\begin{array}{ll}
 \mathrm{C_{not}}(H(\ket0)\otimes\ket0)&=\mathrm{C_{not}}\left(\dfrac{1}{\sqrt{2}}(\ket0+\ket1)\otimes\ket0\right)\\
 &=\dfrac{1}{\sqrt{2}}\mathrm{C_{not}}(\ket{00}+\ket{10})=\dfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})
-\end{split}
-\end{equation}
+\end{array}
+$$
 
 Veremos al final de este capítulo algunos ejemplos en los que interviene este estado entrelazado. Lo denominamos \textit{par EPR} en referencia a \textit{Einstein}, \textit{Podolsky} y \textit{Rosen} y su artículo publicado en 1935 [\cite{einstein1935can}] en el que se cuestionaba la completitud y veracidad de los principios cuánticos tras la proposición de un experimento, en el que intervenía dicho estado cuántico, que supuestamente violaba la teoría de la relatividad. Pese a lo relevante del tema, concierne principalmente a la física, por lo que no nos detendremos más en el mismo.
 
@@ -195,18 +193,17 @@ Por último, tenemos la puerta \textit{CC(X)} o puerta \textit{Toffoli} una puer
 
 Esta puerta tiene vital importancia a la hora de introducir elementos de la computación clásica en la cuántica. Retomaremos esta puerta en la sección \ref{sec:sec49}.
 
-\section{circuitos cuánticos}
+\section{Circuitos cuánticos}
 
 A nivel de bit en computación clásica estamos acostumbrados a representar sistemas y sus puertas mediante diagramas de circuitos. Lo mismo ocurre en la computación cuántica. Usamos circuitos para representar combinaciones de puertas y facilitar de manera visual el entendimiento de la construcción realizada.
 
-Las puertas de un solo qubit se representan generalmente mediante la letra que la identifica insertada en un rectángulo. Así tenemos para las puertas
+Las puertas de un solo qubit se representan generalmente mediante la letra que la identifica insertada en un rectángulo. Así tenemos, de izquierda a derecha, la representación gráfica para las puertas $I$, $X$, $Y$, $Z$, $R_\theta$ y $H$ y para la medición de un qubit.
+\[\Qcircuit @C=1em{&\gate{I}&\qw}\ \hspace*{1.5em} \Qcircuit @C=1em{&\gate{X}&\qw}\ \hspace*{1.5em} \Qcircuit @C=1em{&\gate{Y}&\qw}\ \hspace*{1.5em} \Qcircuit @C=1em{&\gate{Z}&\qw}\ \hspace*{1.5em} \Qcircuit @C=1em{&\gate{R_\theta}&\qw}\ \hspace*{1.5em} \Qcircuit @C=1em{&\gate{H}&\qw}\ \hspace*{1.5em} \Qcircuit @C=1em{&\meter&\qw}\]
 
-\[\Qcircuit @C=1em{&\gate{I}&\qw}\ \ \Qcircuit @C=1em{&\gate{X}&\qw}\ \ \Qcircuit @C=1em{&\gate{Y}&\qw}\ \ \Qcircuit @C=1em{&\gate{Z}&\qw}\ \ \Qcircuit @C=1em{&\gate{R_\theta}&\qw}\ \ \Qcircuit @C=1em{&\gate{H}&\qw}\]
+En cuanto a las puertas de más de un qubit, existen formas diferentes de representación en función de cada una. Los qubits de control de las puertas controladas se representan con el símbolo $\bullet$ y la puerta $U$ se asocia al qubit objetivo. Sin embargo, en el caso de que dicha puerta sea $X$, como en C$_\textrm{not}$ y \textit{Toffoli}, se dibuja el símbolo $\oplus$.
+\[\Qcircuit @C=1em @R=.7em{&\ctrl{1}&\qw\\&\gate{U}&\qw}\ \hspace*{1.5em} \Qcircuit @C=1em @R=.7em{&\ctrl{1}&\qw\\&\targ&\qw}\ \hspace*{1.5em} \Qcircuit @C=1em @R=.7em{&\ctrl{1}&\qw\\&\ctrl{1}&\qw\\&\targ&\qw}\]
 
-que representan a las puertas $I$,$X$,$Y$,$Z$,$R_\theta$ y $H$ respectivamente. En cuanto a las puertas de más de un qubit existen formas diferentes de representación en función de cada una. Los qubits de control de las puertas controladas se representan con el símbolo $\bullet$ y la puerta $U$ se asocia al qubit objetivo. Sin embargo, en el caso de que dicha puerta sea $X$ como en C$_\textrm{not}$ y \textit{Toffoli} se dibuja el símbolo $\oplus$.
-\[\Qcircuit @C=1em @R=.7em{&\ctrl{1}&\qw\\&\gate{U}&\qw}\ \ \Qcircuit @C=1em @R=.7em{&\ctrl{1}&\qw\\&\targ&\qw}\ \ \Qcircuit @C=1em @R=.7em{&\ctrl{1}&\qw\\&\ctrl{1}&\qw\\&\targ&\qw}\]
-
-Las representaciones anteriores hacen referencia a una puerta genérica $C(U)$, una C$_\textrm{not}$ y una \textit{Toffoli} respectivamente. Por otro lado, la puerta Swap se representa del siguiente modo:
+Las representaciones anteriores hacen referencia a una puerta genérica $C(U)$, una C$_\textrm{not}$ y una \textit{Toffoli}, respectivamente. Por otro lado, la puerta \textit{Swap} se representa del siguiente modo:
 \[\Qcircuit @C=1.5em @R=1.5em{&\qswap&\qw\\&\qswap\qwx&\qw}\]
 
 En la figura \ref{fig:fig41} podemos ver un ejemplo de la representación de la aplicación de una puerta \textit{Hadamard} a 5 qubits. Este tipo de diagramas serán usados frecuentemente en las secciones y capítulos venideros.
@@ -232,22 +229,22 @@ Hemos definido la puerta \textit{Toffoli} y ahora vamos a ver dos propiedades mu
 \end{split}
 \]
 
-AND y NOT forman un conjunto universal de puertas; es decir, podemos construir cualquier otra puerta clásica usando combinaciones de ambas. Por tanto la puerta \textit{Toffoli} es suficiente para construir cualquier circuito clásico (es importante recalcar que no es suficiente para construir cualquier circuito cuántico). En base a esto tenemos dos hechos importantes. El primero es que podemos definir una máquina universal de \textit{Turing} sobre el contexto de un sistema cuántico [\cite{bernstein1997quantum}]. El segundo debido a David Deutsch en 1985 es que dada cualquier función clásica computable, podemos conseguir una combinación de puertas cuánticas (por tanto reversibles) que emulen a dicha función [\cite{deutsch1985quantum}]. A causa de este último hecho, dada una función clásica $\function{f}{\{0,1\}^m}{\{0,1\}^k}$ debe existir un conjunto de puertas cuya composición, denotada por $U_f$, sea una implementación cuántica de $f$. Denominamos a dicha $U_f$ como \textit{matriz de puertas cuánticas}, más conocido en inglés por \textit{quantum gatearray}. La transformación $U_f$ actúa sobre $m+k$ qubits y se define para que verifique
+En el marco clásico, AND y NOT forman un conjunto universal de puertas, es decir, podemos construir cualquier otra puerta clásica usando combinaciones de ambas. Por tanto, la puerta \textit{Toffoli} es suficiente para construir cualquier circuito clásico (es importante recalcar que no es suficiente para construir cualquier circuito cuántico). En base a esto tenemos dos hechos importantes. El primero es que podemos definir una máquina universal de \textit{Turing} sobre el contexto de un sistema cuántico [\cite{bernstein1997quantum}]. El segundo, debido a David Deutsch en 1985, es que dada cualquier función clásica computable, podemos conseguir una combinación de puertas cuánticas (por tanto reversibles) que emulen a dicha función [\cite{deutsch1985quantum}]. A causa de este último hecho, dada una función clásica $\function{f}{\{0,1\}^m}{\{0,1\}^k}$ debe existir un conjunto de puertas cuya composición, denotada por $U_f$, sea una implementación cuántica de $f$. Denominamos a dicha $U_f$ como \textit{matriz de puertas cuánticas}, más conocido en inglés por \textit{quantum gatearray}. La transformación $U_f$ actúa sobre $m+k$ qubits y se define para que verifique
 \[\function{U_f}{\ket{x,y}}{\ket{x,f(x)\oplus y}}\mathrm{\ con\ }x\in\{0,1\}^m,y\in\{0,1\}^k\]
-
+%
 donde $\oplus$ denota la operación lógica XOR. Verificando la condición anterior, es unitaria puesto que $U_fU_f=I$. Basta ver que
-\[U_fU_f\ket{x,y}=U_f\ket{x,f(x)\oplus y}=\ket{x,f(x)\oplus(f(x)\oplus y)}=\ket{x,y}.
+\[U_fU_f\ket{x,y}=U_f\ket{x,f(x)\oplus y}=\ket{x,f(x)\oplus(f(x)\oplus y)}=\ket{x,y}
 \]
 
-Así, tomando $y=\ket{0\hdots0}$, obtenemos $U_f\ket{x,0}=\ket{x,f(x)}$. Sin embargo, esta construcción no tiene nada de novedosa respecto a la computación clásica y no hay, a priori, ningún tipo de mejora sobre el orden de complejidad de realizar una evaluación de $f$. Nuestra innovación se arraiga en la ventaja de la computación cuántica de poder tener un estado en superposición y es que $\ket x$ puede ser un estado formado por muchos elementos de $\{0,1\}^m$ e, incluso, todo ellos simultáneamente. Si tomamos $m$ qubits con estado inicial $\ket{0\hdots0}$ y aplicamos sobre cada uno de ellos una puerta \textit{Hadamard}, obtendremos en base a la ecuación \ref{eq:eq43} el estado
+Así, tomando $y=\ket{0\hdots0}$, obtenemos $U_f\ket{x,0}=\ket{x,f(x)}$. Sin embargo, esta construcción no tiene nada de novedosa respecto a la computación clásica y no hay, a priori, ningún tipo de mejora sobre el orden de complejidad de realizar una evaluación de $f$. Nuestra innovación se arraiga en la ventaja de la computación cuántica de poder tener un estado en superposición y es que $\ket x$ puede ser un estado formado por muchos elementos de $\{0,1\}^m$ e, incluso, todo ellos simultáneamente. Si tomamos $m$ qubits con estado inicial $\ket{0\hdots0}$ y aplicamos sobre cada uno de ellos una puerta \textit{Hadamard}, obtendremos en base a la ecuación~\ref{eq:eq43} el estado
 \[\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}\ket{i}\]
-
+%
 que junto a $k$ qubits adicionales en estado $\ket{0}$ y la transformación $U_f$ originan el resultado:
 \[\begin{split}
 U_f\left(\left(\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}\ket{i}\right)\otimes\ket0\right)&=U_f\left(\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}\ket{i,0}\right)\\&=\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}U_f\ket{i,0}=\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}\ket{i,f(i)}
 \end{split}\]
 
-Es decir, por la linealidad de las transformación $U_f$ hemos logrado obtener en un solo cómputo los resultados de todas las posibles entradas que admite $f$. A este poder de cómputo lo denominamos \textbf{paralelismo cuántico}, podemos ver un circuito representativo de lo visto anteriormente en la figura \ref{fig:fig42}.
+Es decir, por la linealidad de las transformación $U_f$, hemos logrado obtener en un solo cómputo los resultados de todas las posibles entradas que admite $f$. A este poder de cómputo lo denominamos \textit{paralelismo cuántico} y podemos ver un circuito representativo de lo visto anteriormente en la figura~\ref{fig:fig42}.
 \begin{figure}[!htb]
 \[\Qcircuit @R=1.5em@C=1em{
 \lstick{\ket{0}} & {/^m}\qw & \gate{H^{\otimes m}}& \qw & \multigate{1}{U_f} & \qw \\
@@ -257,11 +254,11 @@ Es decir, por la linealidad de las transformación $U_f$ hemos logrado obtener e
 \label{fig:fig42}
 \end{figure}
 
-Sin embargo, hemos de recordar que la medición con la que obtenemos información de un estado cuántico sólo nos permitirá conocer un único valor $\ket{i,f(i)}$, $0\leq i\leq 2^m-1$, colapsando a dicho estado con probabilidad $\frac{1}{\sqrt{2^m}}$ lo que de nuevo nos deja en el cálculo de un único cómputo en una ejecución de $U_f$ lo que no parece mejorar los algoritmos clásicos. Pese a esto, existen técnicas que logran amplitudes mayores (y por tanto también lo serán sus probabilidades) para ciertos estados objetivos y que veremos brevemente en la sección \ref{sec:sec62}. También existen algoritmos deterministas que aprovechan el paralelismo cuántico como el de Deutsch-Jozsa (sección \ref{sec:sec61}).
+Sin embargo, hemos de recordar que la medición con la que obtenemos información de un estado cuántico sólo nos permitirá conocer un único valor $\ket{i,f(i)}$, $0\leq i\leq 2^m-1$, colapsando a dicho estado con probabilidad $\frac{1}{\sqrt{2^m}}$. Este hecho  nos deja de nuevo en el cálculo de un único cómputo en una ejecución de $U_f$, lo que no parece mejorar los algoritmos clásicos. Pese a esto, existen técnicas que logran amplitudes mayores (y por tanto también lo serán sus probabilidades) para ciertos estados objetivos y que veremos brevemente en la sección~\ref{sec:sec62}. También existen algoritmos deterministas que aprovechan el paralelismo cuántico como el de Deutsch-Jozsa (véase sección~\ref{sec:sec61}).
 
 \section{Algunos experimentos cuánticos}
 
-Estamos en disposición de realizar nuestros primeros algoritmos cuánticos. Para introducirnos a ellos vamos a ver dos sencillos experimentos en los que interviene un par EPR $\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})$. Ya vimos como generar este estado cuántico. La figura \ref{fig:fig43} se corresponde con el circuito necesario para su obtención.
+Estamos en disposición de realizar nuestros primeros algoritmos cuánticos. Para introducirnos a ellos, vamos a ver dos sencillos experimentos en los que interviene un par EPR $\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})$. Ya vimos como generar este estado cuántico. La figura \ref{fig:fig43} se corresponde con el circuito necesario para su obtención.
 \begin{figure}[!htb]
 \[\Qcircuit @R=1em@C=1em{
 \lstick{\ket{0}} & \qw & \gate{H} & \qw & \ctrl{1} & \qw \\
@@ -275,7 +272,7 @@ En base a este par proponemos los siguientes algoritmos que por su sencillez pod
 
 \subsection{Codificación superdensa}
 
-Supongamos que Alice y Bob tienen cada uno un qubit que constituyen un par EPR y cuyo estado lo denotamos por $\ket{\psi_0}=\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})$. Alice quiere transmitir a Bob dos bits clásicos cuyos posibles estados codificamos como 0, 1, 2 o 3. Dependiendo del valor a transmitir, Alice aplicará su qubit una de las siguientes puertas:
+Supongamos que Alice y Bob tienen cada uno un qubit que constituyen un par EPR y cuyo estado lo denotamos por $\ket{\psi_0}=\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})$. Alice quiere transmitir a Bob dos bits clásicos cuyos posibles estados codificamos como 0, 1, 2 o 3. Dependiendo del valor a transmitir, Alice aplicará a su qubit una de las siguientes puertas:
 
 \begin{itemize}
 \item $I$ si el valor a transmitir es 0. Obtenemos $\ket{\psi_0}=(I\otimes I)\ket{\psi_0}=\ket{\psi_0}$.
@@ -293,7 +290,7 @@ Ahora, Alice procede a enviar su qubit a Bob mediante un canal cuántico quien i
 \item $\mathrm{C_{not}}\ket{\psi_3}=\dfrac{1}{\sqrt{2}}(\ket{00}-\ket{10})=\dfrac{1}{\sqrt{2}}(\ket{0}-\ket{1})\otimes\ket0$.
 \end{itemize}
 
-\begin{figure}[!htb]
+\begin{figure}[t]
 \[\Qcircuit @R=1em@C=1em{
 & & & \ustick{\textrm{Alice}} & \gate{U} & \rstick{\textrm{Envío a Bob}}\qw\qwx[2] & & & & & \\
 \lstick{\ket0} & \gate{H} & \ctrl{1} & \qw \qwx[-1] & & & & & & & \\
@@ -304,23 +301,21 @@ Ahora, Alice procede a enviar su qubit a Bob mediante un canal cuántico quien i
 \label{fig:fig44}
 \end{figure}
 
-y seguidamente aplica una puerta de \textit{Hadamard} al primer qubit. Obtenemos:
+A continuación, se aplica una puerta \textit{Hadamard} al primer qubit, de forma que obtenemos:
 
 \begin{itemize}
 \item $H\left(\dfrac{1}{\sqrt{2}}(\ket{0}+\ket{1})\right)\otimes\ket0=\dfrac{1}{\sqrt{2}}\left(\dfrac{1}{\sqrt{2}}(\ket0+\ket1)+\dfrac{1}{\sqrt{2}}(\ket0-\ket1)\right)\otimes\ket0=\ket{00}$.
 \item $H\left(\dfrac{1}{\sqrt{2}}(\ket{1}+\ket{0})\right)\otimes\ket1=\dfrac{1}{\sqrt{2}}\left(\dfrac{1}{\sqrt{2}}(\ket0-\ket1)+\dfrac{1}{\sqrt{2}}(\ket0+\ket1)\right)\otimes\ket1=\ket{01}$.\item $H\left(\dfrac{1}{\sqrt{2}}(-\ket{1}+\ket{0})\right)\otimes\ket1=\dfrac{1}{\sqrt{2}}\left(-\dfrac{1}{\sqrt{2}}(\ket0-\ket1)+\dfrac{1}{\sqrt{2}}(\ket0+\ket1)\right)\otimes\ket0=\ket{11}$.\item $H\left(\dfrac{1}{\sqrt{2}}(\ket{0}-\ket{1})\right)\otimes\ket0=\dfrac{1}{\sqrt{2}}\left(\dfrac{1}{\sqrt{2}}(\ket0+\ket1)-\dfrac{1}{\sqrt{2}}(\ket0-\ket1)\right)\otimes\ket0=\ket{10}$.
 \end{itemize}
 
-Ahora Bob puede medir ambos qubits de manera determinista y decodificar el mensaje en función del estado cuántico obtenido: $\ket{00}$ se corresponde con el valor 0, $\ket{01}$ con 1, $\ket{11}$ con 2 y $\ket{10}$ con el 3. En la figura \ref{fig:fig44} podemos ver un circuito que esquematiza todo el proceso.
+Ahora Bob puede medir ambos qubits de manera determinista y decodificar el mensaje en función del estado cuántico obtenido: $\ket{00}$ se corresponde con el valor 0, $\ket{01}$ con 1, $\ket{11}$ con 2 y $\ket{10}$ con el 3. En la figura~\ref{fig:fig44} podemos ver un circuito que esquematiza todo el proceso.
 
 \subsection{Teleportación cuántica}
 
 De nuevo nos encontramos con que Alice y Bob tienen cada uno un qubit de un par EPR. Alice tiene un tercer qubit con estado desconocido $\ket\phi=\alpha\ket0+\beta\ket1$ que quiere transmitir a Bob disponiendo solo de un canal clásico por el que puede enviar dos bits. Denotamos de nuevo al estado del par EPR por $\ket{\psi_0}=\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})$. El estado inicial del sistema es por tanto:
-\begin{equation}
-\ket\phi\otimes\ket{\psi_0}=(\alpha\ket0+\beta\ket1)\otimes\left(\dfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})\right)=\dfrac{1}{\sqrt{2}}(\alpha\ket{000}+\alpha\ket{011}+\beta\ket{100}+\beta\ket{111})
-\end{equation}
-
-donde Alice está en posesión del primer y segundo qubit y Bob del tercero. Alice aplica ahora una puerta C$_\textrm{not}$ sobre el segundo qubit tomando como control el primero y después una puerta \textit{Hadamard} al primero, consiguiendo así:
+$$\ket\phi\otimes\ket{\psi_0}=(\alpha\ket0+\beta\ket1)\otimes\left(\dfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})\right)=\dfrac{1}{\sqrt{2}}(\alpha\ket{000}+\alpha\ket{011}+\beta\ket{100}+\beta\ket{111})
+$$
+donde Alice está en posesión del primer y segundo qubits y Bob del tercero. Alice aplica ahora una puerta C$_\textrm{not}$ sobre el segundo qubit tomando como control el primero y después una puerta \textit{Hadamard} al primero, consiguiendo así:
 \[
 \begin{split}
 &(H\otimes I\otimes I)(C_{\textrm{not}}\otimes I)(\ket\phi\otimes\ket{\psi_0})\\
@@ -340,9 +335,9 @@ Ahora Alice debe medir sus dos qubits obteniendo, de manera equiprobable, uno de
 11 & -\beta\ket0+\alpha\ket1 & Y \\
 \end{matrix}\]
 
-Independientemente del caso anterior en el que nos encontremos, el estado final obtenido tras la aplicación de la puerta correspondiente será de $\alpha\ket0+\beta\ket1=\ket\phi$, como queríamos. En la figura \ref{fig:fig45} se resume todo el proceso acontecido.
+Independientemente del caso anterior en el que nos encontremos, el estado final obtenido tras la aplicación de la puerta correspondiente será  $\alpha\ket0+\beta\ket1=\ket\phi$, como queríamos. En la figura \ref{fig:fig45} se resume todo el proceso acontecido.
 
-\begin{figure}[!htb]
+\begin{figure}[tb]
 \[\Qcircuit @R=1em@C=1em{
 \lstick{\ket\phi} &\qw&\qw&\qw                    &\ctrl{1}&\gate{H}&\meter &\controlo\cw\cwx[1] \\
                   &   &   &\ustick{\textrm{Alice}}&\targ   &\qw     &\meter &\controlo\cw\cwx[3] \\

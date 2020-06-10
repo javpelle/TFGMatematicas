@@ -1,19 +1,18 @@
 \chapter{Marco matemático de la computación cuántica}
 
-Antes de adentrarnos en la computación cuántica es conveniente tratar con las bases matemáticas que lo sustentan. Evitaremos en la mayor medida posible las cuestiones propias de la física de las que se nutre la mecánica cuántica y por ende la computación cuántica. Estos conocimientos físicos esconden muchas matemáticas que, por tanto, no serán presentadas en este capítulo. Pese a ello, es idóneo ver los cimientos de dicho marco teórico que podemos resumir en las propiedades y operadores que presentan los números complejos como espacio de \textit{Hilbert} que se asientan en el conocimiento construido en el capítulo anterior.
+Antes de adentrarnos en la computación cuántica es conveniente tratar con las bases matemáticas que la sustentan. Evitaremos, en la mayor medida posible, las cuestiones propias de la física de las que se nutre la mecánica cuántica y, por ende, la computación cuántica. Estos conocimientos físicos esconden muchos conceptos matemáticos que, por tanto, no serán presentados en este capítulo. Pese a ello, es idóneo ver los cimientos de dicho marco teórico que podemos resumir en las propiedades y operadores que presentan los números complejos como espacio de \textit{Hilbert} que se asientan en el conocimiento construido en el capítulo anterior.
 
 \section{Espacios de Hilbert}
-\begin{definition} Definimos un \textit{espacio de Hilbert} como un espacio dotado de producto interno cuyo espacio normado definido por la norma $\norm{x}:=\sqrt{\dotproduct{x}{x}}$ es completo.
+\begin{definition} Un \textit{espacio de Hilbert} es un espacio dotado de producto interno cuyo espacio normado, definido por la norma $\norm{x}:=\sqrt{\dotproduct{x}{x}}$, es completo.
 \end{definition}
 
 \begin{example} \label{ex:ex32} $\C$ es un espacio de \textit{Hilbert}. Es completo con la norma inducida por el producto interno $\dotproduct{x}{y}=x\overline{y}$, donde $\overline{y}$ denota el conjugado de $y$. Una prueba de esto es tomar una sucesión de \textit{Cauchy} $\{z_n\}=\{x_n+iy_n\}$ y por ser $\R$ completo, $\{x_n\}$ e $\{y_n\}$ convergen en $\R$ y por tanto $\{z_n\}$ lo hace en $\C$. Lo mismo ocurre para $\C^n$ con
-\begin{equation}\dotproduct{x}{y}=\sum^{n}_{k=1}x_k\overline{y_k},\mathrm{\ con\ } x=(x_1,...,x_n), y=(y_1,...,y_n).
-\end{equation}
-\end{example}
+$$\dotproduct{x}{y}=\sum^{n}_{k=1}x_k\overline{y_k},\mathrm{\ con\ } x=(x_1,...,x_n), y=(y_1,...,y_n).
+$$\end{example}
 
-Uno de los primeros conceptos estudiados en álgebra lineal es el de base de un espacio vectorial que no es más que una familia de vectores $\B$ de $E$ linealmente independiente para la que cada elemento $x\in E$ puede escribirse de forma única como $\sum_{n=1}^m\lambda_nx_n$ donde $x_n\in\B$ y $\lambda_n$ son escalares para cada $1\leq n\leq m$. Decimos que $(\lambda_1,...,\lambda_n)$ son las coordenadas de $x$ respecto de la base $\B$ de $E$. Cuando el espacio está dotado de un producto interno, podemos obligar a que los elementos nuestra base sean ortogonales y más concretamente ortonormales. Este es el caso de la habitual base canónica en $\C^n$ o $\R^n$, pero evidentemente no es la única. Este tipo de bases cobrarán gran importancia cuando más adelante expliquemos la noción de medida de un qubit.
+Uno de los primeros conceptos estudiados en álgebra lineal es el de {\it base de un espacio vectorial} que no es más que una familia de vectores $\B$ de $E$ linealmente independientes para la que cada elemento $x\in E$ puede escribirse de forma única como $\sum_{n=1}^m\lambda_nx_n$ donde $x_n\in\B$ y $\lambda_n$ son escalares para cada $1\leq n\leq m$. Decimos que $(\lambda_1,...,\lambda_n)$ son las coordenadas de $x$ respecto de la base $\B$ de $E$. Cuando el espacio está dotado de un producto interno, podemos obligar a que los elementos de nuestra base sean {\it ortogonales} y, más concretamente, {\it ortonormales}. Este es el caso de la habitual base canónica en $\C^n$ o $\R^n$, pero evidentemente no es la única. Este tipo de bases cobrarán gran importancia cuando más adelante expliquemos la noción de medida de un qubit.
 
-\begin{definition} Decimos que una base $\B$ de un espacio con producto interno $E$ es \textit{ortogonal} si para cualquiera $x,y\in\B$ distintos, se verifica $x\perp y$. Si además se verifica que $\norm{x}=1$ para todo $x\in\B$ decimos que la base es \textit{ortonormal}.
+\begin{definition} Decimos que una base $\B$ de un espacio con producto interno $E$ es \textit{ortogonal} si para cualquiera par de elementos $x,y\in\B$ distintos, se verifica $x\perp y$. Si además se verifica que $\norm{x}=1$ para todo $x\in\B$ decimos que la base es \textit{ortonormal}.
 
 Nótese que hemos usado una definición de base para un espacio vectorial de dimensión finita.
 \end{definition}
@@ -23,7 +22,7 @@ Nótese que hemos usado una definición de base para un espacio vectorial de dim
 
 \section{Aplicaciones lineales en espacios de Hilbert}
 
-\begin{definition} Sean $V$ y $W$ dos espacios vectoriales sobre el cuerpo $\K$, decimos que $\function{f}{V}{W}$ es una \textit{aplicación lineal} si verifica, para todo $x,y\in V$ y para todo $\alpha\in\K$, que:
+\begin{definition} Sean $V$ y $W$ dos espacios vectoriales sobre el cuerpo $\K$. Decimos que la función $\function{f}{V}{W}$ es una \textit{aplicación lineal} si verifica, para todo $x,y\in V$ y para todo $\alpha\in\K$, que:
 \begin{itemize}
 \item $f(x+y)=f(x)+f(y)$.
 \item $f(\alpha x)=\alpha f(x)$.
@@ -32,7 +31,7 @@ Nótese que hemos usado una definición de base para un espacio vectorial de dim
 
 Aunque la definición anterior considera multitud de aplicaciones sobre distintos espacios vectoriales, nosotros estamos interesados únicamente en isomorfismos sobre $\C$-espacios vectoriales, concretamente de \textit{Hilbert}. Esto es $\function{f}{\C^n}{\C^n}$.
 
-Las aplicaciones lineales entre espacios vectoriales de dimensión finita suelen ser asociadas a una matriz que hace las veces de operador y que al multiplicar a un vector del espacio de entrada en cierta base, otorga el correspondiente elemento en el espacio de salida en la base requerida. Para facilitarnos las construcciones de dichas matrices, nos limitaremos a isomorfismos, tomando una misma base ortonormal para los espacios de entrada y salida.
+Las aplicaciones lineales entre espacios vectoriales de dimensión finita suelen estar asociadas a una matriz que hace las veces de operador y que al multiplicar a un vector del espacio de entrada en cierta base, otorga el correspondiente elemento en el espacio de salida en la base requerida. Para facilitarnos las construcciones de dichas matrices, nos limitaremos a isomorfismos, tomando una misma base ortonormal para los espacios de entrada y salida.
 
 Sea $\function{f}{\C^n}{\C^n}$ un isomorfismo lineal y sea $\B=\{u_1,...,u_n\}$ una base ortonormal de $\C^n$. Consideramos las coordenadas respecto de $\B$ de los vectores $f(u_1),...,f(u_n)$.
 \[\left\{ \begin{array}{ll} f(u_1)=(a_{11},...,a_{n1})_\B \\...\\f(u_n)=(a_{1n},...,a_{nn})_\B \\ \end{array} \right.\]
@@ -41,29 +40,27 @@ La matriz asociada a $f$ respecto de la base $\B$ que buscamos es:
 
 \[A=\left(\begin{matrix} a_{11}&\hdots&a_{1n}\\ \vdots&\ddots&\vdots\\ a_{n1}&\hdots&a_{nn} \end{matrix}\right)\]
 
-En efecto, sea $x\in \C^n$ con coordenadas, respecto de $\B$, $(x_1,...,x_n)_\B$, entonces\newline $f(x)=f(x_1u_1+\hdots+x_nu_n)=f(x_1u_1)+\hdots+f(x_nu_n)=x_1f(u_1)+\hdots x_nf(u_n)$ y por tanto tenemos que se verifica la ecuación matricial $f(x)=Ax$ donde $f(x)$ y $x$ son las coordenadas respecto de $\B$ como vector columna.
+En efecto, sea $x\in \C^n$ con coordenadas, respecto de $\B$, $(x_1,...,x_n)_\B$. En este caso, se cumple la siguiente propiedad:
+$$f(x)=f(x_1u_1+\hdots+x_nu_n)=f(x_1u_1)+\hdots+f(x_nu_n)=x_1f(u_1)+\hdots x_nf(u_n)$$ 
 
-Por tanto, una aplicación lineal está totalmente determinada por su matriz asociada. Vamos a ver algunos tipos de aplicaciones que tienen unas fuertes propiedades que necesitaremos más adelante.
+De esta igualdad se deduce la ecuación matricial $f(x)=Ax$, donde $f(x)$ y $x$ son las coordenadas respecto de $\B$ como vector columna. Por tanto, una aplicación lineal está totalmente determinada por su matriz asociada. Vamos a ver algunos tipos de aplicaciones que tienen unas importantes propiedades que necesitaremos más adelante.
 
-\begin{definition} Sea $f$ un isomorfismo lineal en el espacio de \textit{Hilbert} $\C^n$ con matriz asociada $A$, definimos la \textit{aplicación adjunta de $f$} con matriz asociada denotada por $A^\dag$ como aquella que verifica, para todo $x,y\in\C^n$
-\begin{equation}
-\dotproduct{x}{Ay}=\dotproduct{A^\dag x}{y}\ \forall x,y\in\C^n.
-\end{equation}
+\begin{definition} Sea $f$ un isomorfismo lineal en el espacio de \textit{Hilbert} $\C^n$ con matriz asociada $A$. Definimos la \textit{aplicación adjunta de $f$} con matriz asociada denotada por $A^\dag$ como aquella que verifica, para todo $x,y\in\C^n$
+$$\dotproduct{x}{Ay}=\dotproduct{A^\dag x}{y}\ \forall x,y\in\C^n.
+$$
 
 Es sencillo de comprobar que la matriz asociada en cuestión viene dada por $A^\dag=(\overline{A})^t$ (la matriz conjugada traspuesta de $A$). Decimos que una aplicación es \textit{hermítica} si coincide con su adjunta o, matricialmente, $A=A^\dag$.
 \end{definition}
 
-Concluiremos esta sección viendo un tipo muy importante de aplicación lineal, las aplicaciones lineales unitarias. Antes, veremos un tipo más general.
+Concluiremos esta sección viendo un tipo muy importante de aplicación lineal: las aplicaciones lineales unitarias. Antes, veremos un tipo más general.
 
 \begin{definition} Decimos que una aplicación lineal con matriz asociada $A$ es \textit{normal} si verifica $AA^\dag=A^\dag A$. Véase, que si una aplicación es hermítica, entonces también es normal.
-\end{definition}
 
-\begin{definition} Decimos que una aplicación lineal con matriz asociada $U$ es \textit{unitaria} si verifica $UU^\dag=I$. Si satisface esta condición, también satisface $U^\dag U=I$ y por tanto también es normal.
+Decimos que una aplicación lineal con matriz asociada $U$ es \textit{unitaria} si verifica $UU^\dag=I$. Si satisface esta condición, también satisface $U^\dag U=I$ y, por tanto, también es normal.
 
 Una de sus propiedades más importantes es que preserva el producto escalar. Dados $x,y\in\C^n$, basta ver que
-\begin{equation}
-\dotproduct{Ux}{Uy}=(Ux)^t\overline{Uy}=x^t U^t\overline{U}\overline{y}=x^t (\overline{U}^t U)^t\overline{y}=x^t I^t\overline{y}=x^t\overline{y}=\dotproduct{x}{y}.
-\end{equation}
+$$\dotproduct{Ux}{Uy}=(Ux)^t\overline{Uy}=x^t U^t\overline{U}\overline{y}=x^t (\overline{U}^t U)^t\overline{y}=x^t I^t\overline{y}=x^t\overline{y}=\dotproduct{x}{y}.
+$$
 
 Esto supone que dada una base ortonormal $\B$, entonces $\{Ub: b\in B\}$ también constituye una base ortonormal si $U$ es una matriz asociada a una aplicación lineal unitaria.
 \end{definition}
@@ -76,8 +73,7 @@ Como hemos mencionado antes, una aplicación lineal queda totalmente determinada
 Para terminar el marco matemático, presentamos el producto tensorial. Dados dos espacios de \textit{Hilbert} (en realidad nos basta con que sean espacios vectoriales, pero les exigimos esta condición por comodidad) $V$ y $W$ de dimensiones $m$ y $n$ respectivamente, definimos  el \textit{producto tensorial de $V$ y $W$}, denotado $V\otimes W$, como un espacio vectorial de dimensión $mn$.
 
 Antes de continuar, veamos cómo se aplica el producto tensorial a dos matrices cualesquiera $A$ de dimensiones $m\times n$ y $B$ de dimensiones $p\times q$.
-\begin{equation}
-\begin{aligned}
+$$\begin{aligned}
 A\otimes B&=
 \left(\begin{matrix}
 A_{11}B & \hdots & A_{1n}B \\
@@ -95,39 +91,39 @@ A_{m1}B_{11} & \hdots & A_{m1}B_{1q} & \hdots & A_{mn}B_{11} & \hdots & A_{mn}B_
 A_{m1}B_{p1} & \hdots & A_{m1}B_{pq} & \hdots & A_{mn}B_{p1} & \hdots & A_{mn}B_{pq} \\
 \end{matrix}\right)
 \end{aligned}
-\end{equation}
+$$
 
-Por tanto, la matriz resultante $A\otimes B$ tiene dimensiones $mp\times nq$. En el caso de multiplicar vectores (como columnas) de tamaño $m$ y $n$, podemos aplicar el caso anterior tratándolos como matrices de dimensiones $m\times 1$ y $n\times 1$ respectivamente, resultando así un vector de tamaño $mn$.
+Por tanto, la matriz resultante $A\otimes B$ tiene dimensiones $mp\times nq$. En el caso de multiplicar vectores (como columnas) de tamaño $m$ y $n$, podemos aplicar el caso anterior tratándolos como matrices de dimensiones $m\times 1$ y $n\times 1$, respectivamente, resultando así un vector de tamaño $mn$.
 
 Retomando lo dejado anteriormente, dadas dos bases ortonormales $\B_V$ de $V$ y $\B_W$ de $W$ podemos construir una base ortonormal de $V\otimes W$ como el conjunto $\B=\{v\otimes w:v\in\B_V,w\in\B_W\}$. Por supuesto, cualquier combinación lineal de productos tensoriales de vectores de uno y otro espacio pertenecerán a $V\otimes W$. De hecho, se verifica:
 
 \begin{itemize}
-\item $\lambda (x\otimes y) = (\lambda x)\otimes y = x\otimes(\lambda y)$ para todos $\lambda\in\C,\ x\in V,\ y\in W$.
-\item $(x_1+x_2)\otimes y = x_1\otimes y+x_2\otimes y$ para todo $x_1,x_2\in V,\ y\in W$.
-\item $x \otimes(y_1 + y_2)= x\otimes y_1 + x\otimes y_2$ para todo $x\in V,\ y_1,y_2\in W$.
+\item $\lambda (x\otimes y) = (\lambda x)\otimes y = x\otimes(\lambda y)$, para todos $\lambda\in\C,\ x\in V,\ y\in W$.
+\item $(x_1+x_2)\otimes y = x_1\otimes y+x_2\otimes y$, para todo $x_1,x_2\in V,\ y\in W$.
+\item $x \otimes(y_1 + y_2)= x\otimes y_1 + x\otimes y_2$, para todo $x\in V,\ y_1,y_2\in W$.
 \end{itemize}
 
-Para dotar a $V\otimes W$ de estructura de espacio de \textit{Hilbert}, tenemos que definir un producto interno. Sea $\dotproduct{\cdot}{\cdot}_V$ y $\dotproduct{\cdot}{\cdot}_W$ los productos internos de $V$ y $W$ respectivamente, definimos el producto ineterno $\dotproduct{\cdot}{\cdot}$ de $V\otimes W$ como:
-\begin{equation}
-\dotproduct{v_1\otimes w_1}{v_2\otimes w_2}=\dotproduct{v_1}{v_2}_V\dotproduct{w_1}{w_2}_W,\ \forall v_1,v_2\in V,\ \forall w_1,w_2\in W.
-\end{equation}
+Para dotar a $V\otimes W$ de estructura de espacio de \textit{Hilbert}, tenemos que definir un producto interno. Sean $\dotproduct{\cdot}{\cdot}_V$ y $\dotproduct{\cdot}{\cdot}_W$ los productos internos de $V$ y $W$, respectivamente. Definimos el producto interno $\dotproduct{\cdot}{\cdot}$ de $V\otimes W$ como:
+$$\dotproduct{v_1\otimes w_1}{v_2\otimes w_2}=\dotproduct{v_1}{v_2}_V\dotproduct{w_1}{w_2}_W,\ \forall v_1,v_2\in V,\ \forall w_1,w_2\in W
+$$
 
-Añadimos una definición adicional. Sea $x$ un vector de un espacio de \textit{Hilbert}, usaremos la notación $x^{\otimes k}$ para denotar un producto tensorial de $x$ consigo mismo $k$ veces. Es decir,\newline
-$x^{\otimes k}=\overset{\underbrace{k\mathrm{\ veces}}}{x\otimes \hdots \otimes x}$.
+Añadimos una definición adicional. Sea $x$ un vector de un espacio de \textit{Hilbert}, usaremos la notación $x^{\otimes k}$ para denotar un producto tensorial de $x$ consigo mismo $k$ veces. Es decir,
+$$x^{\otimes k}=\overset{\underbrace{k\mathrm{\ veces}}}{x\otimes \hdots \otimes x}$$
 
-Por último, veamos qué pasa con los isomorfismos lineales. Sean $\function{A}{V}{V}$ y \newline $\function{B}{W}{W}$ isomorfismo lineales con matrices asociadas $A$ y $B$ y sean $x\in V$ e $y\in W$, la aplicación $\function{A\otimes B}{V\otimes W}{V\otimes W}$ definida como
+Por último, veamos qué pasa con los isomorfismos lineales. Consideremos dos isomorfismos lineales $\function{A}{V}{V}$ y \newline $\function{B}{W}{W}$,  con matrices asociadas $A$ y $B$, y sean $x\in V$ e $y\in W$. La aplicación $\function{A\otimes B}{V\otimes W}{V\otimes W}$ definida como
 \begin{equation}
 \label{eq:eq36}
 A\otimes B(x\otimes y) = Ax\otimes By
 \end{equation}
 es un isomorfismo lineal.
 
-Además, el producto tensorial de matrices unitarias da como resultado una matriz unitaria. Sea $U=U_1\otimes\hdots\otimes U_n$, donde $U_1,...,U_n$ son unitarias, veamos que $U$ también lo es:
-\[U^\dag U = (U_1^\dag\otimes\hdots\otimes U_n^\dag)(U_1\otimes\hdots\otimes U_n)=U_1^\dag U_1\otimes\hdots\otimes U_n^\dag U_n = I.\]
+Además, el producto tensorial de matrices unitarias da como resultado una matriz unitaria. Sea $U=U_1\otimes\hdots\otimes U_n$, donde $U_1,...,U_n$ son unitarias. Veamos que $U$ también lo es:
+\[U^\dag U = (U_1^\dag\otimes\hdots\otimes U_n^\dag)(U_1\otimes\hdots\otimes U_n)=U_1^\dag U_1\otimes\hdots\otimes U_n^\dag U_n = I\]
 
 Terminaremos este capítulo con la construcción de un producto tensorial de dos $\C$-espacios de \textit{Hilbert} y trabajaremos sobre él con un isomorfismo construido de igual manera.
 
-\begin{example} Sean $\C^2$ y $\C^4$ con sus respectivas bases canónicas $\{e_{2_1}:=(1,0),e_{2_2}:=(0,1)\}$ y $\{e_{4_1}:=(1,0,0,0),e_{4_2}:=(0,1,0,0), e_{4_3}:=(0,0,1,0),e_{4_4}:=(0,0,0,1)\}$, $\C^2\otimes\C^4$ tiene por base $\{e_{2_1}\otimes e_{4_1},e_{2_1}\otimes e_{4_2},e_{2_1}\otimes e_{4_3},e_{2_1}\otimes e_{4_4},e_{2_2}\otimes e_{4_1},e_{2_2}\otimes e_{4_2},e_{2_2}\otimes e_{4_3},e_{2_2}\otimes e_{4_4}\}$ que no es más que la base canónica de $\C^8$.
+\begin{example} Sean $\C^2$ y $\C^4$ con sus respectivas bases canónicas $\{e_{2_1}:=(1,0),e_{2_2}:=(0,1)\}$ y $\{e_{4_1}:=(1,0,0,0),e_{4_2}:=(0,1,0,0), e_{4_3}:=(0,0,1,0),e_{4_4}:=(0,0,0,1)\}$. Se cumple que $\C^2\otimes\C^4$ tiene por base $$\{e_{2_1}\otimes e_{4_1},e_{2_1}\otimes e_{4_2},e_{2_1}\otimes e_{4_3},e_{2_1}\otimes e_{4_4},e_{2_2}\otimes e_{4_1},e_{2_2}\otimes e_{4_2},e_{2_2}\otimes e_{4_3},e_{2_2}\otimes e_{4_4}\}$$ 
+que no es más que la base canónica de $\C^8$.
 
 Por tanto, $\C^2\otimes\C^4\equiv\C^8$. Sean $\function{X}{\C^2}{\C^2}$ y $\function{I}{\C^4}{\C^4}$ isomorfismos lineales con matrices asociadas $X=\left(\begin{matrix}
 0&1\\1&0\end{matrix}\right)$ y la matriz identidad $I_4$ respectivamente. La aplicación $\function{X\otimes I_4}{\C^8}{\C^8}$ tiene por matriz asociada

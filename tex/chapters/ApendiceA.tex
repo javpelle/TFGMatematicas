@@ -1,8 +1,86 @@
-\chapter{Código Qiskit del algoritmo de Deutsch-Jozsa}
+\chapter{Código Qiskit}
 \label{ap:ap1}
+Presentamos en este apéndice el código de algunos algoritmos y experimentos cuánticos que hacen uso de \textit{Qiskit} y se explican a lo largo de la memoria. La estructura de los dos primeros viene dada por la definición de una función que recibe un circuito  e inserta las puertas que establecidas por los experimentos, mientras que el tercero está estructurado como clase y tiene funcionalidades adicionales.
 
-Presentamos en este apéndice el código de la clase del lenguaje \textit{Python} que hace uso de \textit{Qiskit} que implementa y facilita el uso del algoritmo de Deutsch-Jozsa. Incluye la implementación cuántica de una función constante y otra balanceada para facilitar al usuario la prueba de dicho algoritmo. Esta clase es usada en los experimentos realizados en la sección~\ref{sec:sec61}.
+\section{Codificación superdensa}
+\label{sec:seca1}
 
+En primer lugar presentamos el código que implementa el experimento de codificación superdensa explicado en la sección~\ref{sec:sec52}.
+\begin{lstlisting}[language=Python]
+from qiskit import *
+
+def codificacionSuperdensa(qc, qr, bits):
+    if bits < 0 or bits > 3:
+        return "El valor de bits debe ser 0, 1, 2 o 3."
+    
+    # Par EPR. Puerta de Hadamard al primer qubit y luego Cnot.
+    qc.h(qr[0])
+    qc.cx(qr[0], qr[1])
+    
+    # Alice aplica puerta a su qubit conforme al valor de bits
+    if bits == 0:
+        pass
+    elif bits == 1:
+        qc.x(qr[0])
+    elif bits == 2:
+        qc.y(qr[0])
+    else: # bites == 3
+        qc.z(qr[0])
+        
+    # Alice transmite el qubit a Bob que aplica Cnot y luego Hadamard al qubit recibido
+    qc.cx(qr[0], qr[1])
+    qc.h(qr[0])
+    
+    # Medimos
+    qc.measure_all()
+    
+qr = QuantumRegister(2)
+qc = QuantumCircuit(qr)
+value = 2
+codificacionSuperdensa(qc, qr, value)
+\end{lstlisting}
+
+\section{Teleportación cuántica}
+\label{sec:seca2}
+Código del experimento de teleportación explicado en la sección~\ref{sec:sec52}.
+\begin{lstlisting}[language=Python]
+from qiskit import *
+
+def teleportacion(qc, qr, crz, crx):
+    # Par EPR. Puerta de Hadamard a qr[1] y luego Cnot.
+    qc.h(qr[1])
+    qc.cx(qr[1], qr[2])
+    
+    # Alice aplica Cnot (control qr[0]) y Hadamard a qr[0]
+    qc.cx(qr[0], qr[1])
+    qc.h(qr[0])
+    
+    # Medimos
+    qc.measure(qr[0], crz)
+    qc.measure(qr[1], crx)
+        
+    # Alice manda las mediciones a Bob y aplica
+    # X si el segundo qubit es 1 (01)
+    # Z si el primer qubit es 1 (10)
+    # Y = XZ si ambos son 1 (11)
+    qc.x(qr[2]).c_if(crx, 1)
+    qc.z(qr[2]).c_if(crz, 1)
+
+qr = QuantumRegister(3)
+crx = ClassicalRegister(1)
+crz = ClassicalRegister(1)
+qc = QuantumCircuit(qr, crz, crx)
+
+# Antes de llamar al algoritmo debemos poner el qubit
+# qr[0] que queremos mandar al estado deseado. Lo
+# dejamos en |0>.
+
+teleportacion(qc, qr, crz, crx)
+\end{lstlisting}
+
+\section{Algoritmo de Deutsch-Jozsa}
+\label{sec:seca3}
+Esta sección se corresponde con la clase del lenguaje \textit{Python} que hace uso de \textit{Qiskit} que implementa y facilita el uso del algoritmo de Deutsch-Jozsa. Incluye la implementación cuántica de una función constante y otra balanceada para facilitar al usuario la prueba de dicho algoritmo. Esta clase es usada en los experimentos realizados en la sección~\ref{sec:sec61}.
 \begin{lstlisting}[language=Python]
 from qiskit import *
 class DeutschJozsa:

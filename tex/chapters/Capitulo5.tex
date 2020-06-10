@@ -1,58 +1,49 @@
 \chapter{Introducción a \textit{Qiskit}}
 
-En este capítulo haremos una introducción al lenguaje cuántico \textit{Qiskit}. Los contenidos que trataremos están en su mayoría extraídos de su documentación [\cite{qiskit2020doc}]. Podemos decir que no es un lenguaje en sí mismo, sino un marco de trabajo de código abierto que hace uso del lenguaje \textit{Python}. Existen otras versiones para los lenguajes \textit{Javascript} [\cite{qiskit2017javscript}] y \textit{Swift} [\cite{qiskit2017swift}], pero nosotros haremos uso de \textit{Python}.
+En este capítulo haremos una introducción al lenguaje cuántico \textit{Qiskit}. Los contenidos que trataremos están en su mayoría extraídos de su documentación [\cite{qiskit2020doc}]. Podemos decir que no es un lenguaje en sí mismo, sino un marco de trabajo de código abierto que hace uso del lenguaje \textit{Python}. Existen otras versiones para los lenguajes \textit{Javascript} [\cite{qiskit2017javscript}] y \textit{Swift} [\cite{qiskit2017swift}], pero en esta memoria se considera \textit{Python}.
 
-Presentaremos además el código en \textit{Qiskit} correspondiente a los algoritmos \textit{codificación superdensa} y \textit{teleportación cuántica} vistos en el capítulo anterior.
+En esta breve introducción al lenguaje \textit{Qiskit} se presentará el código en \textit{Qiskit} correspondiente a los algoritmos \textit{codificación superdensa} y \textit{teleportación cuántica} vistos en el capítulo anterior.
 
 \section{``Elementos'' de \textit{Qiskit}}
 \label{sec:sec51}
 
-\textit{Qiskit} se divide en 4 módulos, denominados ``elementos''. En primer lugar tenemos a \textit{Qiskit Terra}, el más extenso, que constituye la base sobre la que se sostienen los otros tres módulos. Encontramos en él las clases y librerías  suficientes para crear nuestros primeros programas cuánticos. Destacamos tres submódulos empezando por \textit{Circuit}, que gestiona todo lo referente a la construcción de un circuito, como registros para qubits y bits clásicos, puertas o mediciones; \textit{Providers}, que gestiona la ejecución de programas cuánticos ya sea en simulador o en máquina real y gestiona también los resultados obtenidos; por último, \textit{Visualization}, que nos permite visualizar circuitos e histogramas de los resultados obtenidos además de la representación de estados cuánticos internos de un circuito siempre que utilicemos ciertos simuladores.
+\textit{Qiskit} se divide en 4 módulos, denominados ``elementos''. En primer lugar tenemos \textit{Qiskit Terra}, el más extenso, que constituye la base sobre la que se sostienen los otros tres módulos. Encontramos en él las clases y librerías  suficientes para crear nuestros primeros programas cuánticos. Destacamos tres submódulos empezando por \textit{Circuit}, que gestiona todo lo referente a la construcción de un circuito, como registros para qubits y bits clásicos, puertas o mediciones; \textit{Providers}, que gestiona la ejecución de programas cuánticos ya sea en simulador o en máquina real y gestiona también los resultados obtenidos; por último, \textit{Visualization}, que nos permite visualizar circuitos e histogramas de los resultados obtenidos además de la representación de estados cuánticos internos de un circuito siempre que utilicemos ciertos simuladores.
 
-Continuamos con \textit{Qiskit Aer} que incluye una serie de simuladores que pueden ser ejecutados en nuestro ordenador. Podemos resumirlos en tres: \textit{Qasm Simulator}, ideal para la mayoría de casos y pensado para realizar múltiples veces una misma ejecución; \textit{Statevector Simulator}, que devuelve el vector complejo que identifica el estado cuántico final del sistema y \textit{Unitary Simulator}, que retorna la matriz unitaria representante del sistema. Qiskit presenta también un módulo para el tratamiento de ruido y errores, \textit{Qiskit Ignis}. Debido a la inestabilidad de los ordenadores cuánticos reales en la actualidad debido a interferencias entre las partículas que conforman el sistema cuántico y las del exterior, es recomendable que el cómputo de nuestro sistema sea en el menor tiempo posible y aplicando el menor número de puertas. \textit{Ignis} proporciona herramientas para tratar de optimizar nuestro circuito con este y otros fines. En último lugar tenemos \textit{Qiskit Aqua} que engloba algoritmos y herramientas que pueden ser usados para aplicaciones reales en física, química, finanzas, aprendizaje automático u optimización. Una vista rápida por su documentación basta para ver lo escueto de este módulo, en parte por todo el desarrollo que aún queda por hacer en estos ámbitos.
+Continuamos con \textit{Qiskit Aer} que incluye una serie de simuladores que pueden ser ejecutados en un ordenador clásico. Podemos resumirlos en tres: \textit{Qasm Simulator}, ideal para la mayoría de casos y pensado para realizar múltiples veces una misma ejecución; \textit{Statevector Simulator}, que devuelve el vector complejo que identifica el estado cuántico final del sistema y \textit{Unitary Simulator}, que retorna la matriz unitaria representante del sistema. Qiskit presenta también un módulo para el tratamiento de ruido y errores, \textit{Qiskit Ignis}. Debido a la inestabilidad de los ordenadores cuánticos reales en la actualidad, por culpa de las interferencias entre las partículas que conforman el sistema cuántico y las del exterior, es recomendable que el cómputo de nuestro sistema se realice en el menor tiempo posible y aplicando el menor número de puertas. \textit{Ignis} proporciona herramientas para tratar de optimizar nuestro circuito con este y otros fines. En último lugar tenemos \textit{Qiskit Aqua} que engloba algoritmos y herramientas que pueden ser usados para aplicaciones reales en física, química, finanzas, aprendizaje automático u optimización. Una vista rápida por su documentación basta para ver lo escueto de este módulo, en parte por todo el desarrollo que aún queda por hacer en estos ámbitos.
 
-En nuestra andadura por \textit{Qiksit} nos bastará con el uso de los dos primeros módulos, suficientes para escribir nuestro programa y ejecutarlo tanto en simulador como en un computador cuántico real.
+En nuestra andadura por \textit{Qiksit} nos bastará con el uso de los dos primeros módulos, suficientes para escribir nuestro programa y ejecutarlo tanto en un simulador como en un computador cuántico real.
 
-\section{Codificación superdensa y teleportación en \textit{Qiskit}}
-\begin{figure}[htb!]
+\section{Sintaxis de Qiskit}
+
+\textit{Qiskit} es un conjunto de librerías de \textit{Python} y, por tanto, adopta la sintaxis propia de dicho lenguaje. \textit{Python}, además de ser un lenguaje de programación orientado a objetos e imperativo, se caracteriza por ser un lenguaje interpretado multiplataforma con tipado dinámico y por su simplicidad. Cuando escribimos cualquier tipo de código haciendo uso \textit{Qiskit} podemos aplicar cualquier instrucción o herramienta presente en \textit{Python}, desde instrucciones básicas como \texttt{for}, \texttt{if} o \texttt{while} hasta uso de funciones, tratamiento de excepciones o librerías externas.
+
+Como cualquier librería, \textit{Qiskit} está compuesto por un conjunto de clases con sus métodos, además de otras herramientas, y su propia sintaxis se resume en crear instancias de dichas clases para poder llamar a sus métodos. En general, un programa de \textit{Qiskit} comienza con con la creación de instancias de las clases \textit{QuantumRegister} que es un registro de qubits, \textit{ClassicalRegister} que es un registro de bits clásicos donde se almacenan las mediciones de uno o varios qubits y \textit{QuantumCircuit} que gestiona el circuito que vamos a crear y almacena los registros, ya sean clásicos o cuánticos. Las tres son clases pertenecientes a \textit{Qiskit Terra}. En la figura~\ref{fig:code51} podemos ver la inicialización general de un circuito. Podemos añadir registros no sólo durante la creación de la instancia del circuito, sino también después mediante el método \texttt{add\_register()}.
+
+\begin{figure}[b]
 \begin{lstlisting}[language=Python]
-from qiskit import *
-
-def codificacionSuperdensa(qc, qr, bits):
-    if bits < 0 or bits > 3:
-        return "El valor de bits debe ser 0, 1, 2 o 3."
-    
-    # Par EPR. Puerta de Hadamard al primer qubit y luego Cnot.
-    qc.h(qr[0])
-    qc.cx(qr[0], qr[1])
-    
-    # Alice aplica puerta a su qubit conforme al valor de bits
-    if bits == 0:
-        pass
-    elif bits == 1:
-        qc.x(qr[0])
-    elif bits == 2:
-        qc.y(qr[0])
-    else: # bites == 3
-        qc.z(qr[0])
-        
-    # Alice transmite el qubit a Bob que aplica Cnot y luego Hadamard al qubit recibido
-    qc.cx(qr[0], qr[1])
-    qc.h(qr[0])
-    
-    # Medimos
-    qc.measure_all()
-    
-qr = QuantumRegister(2)
-qc = QuantumCircuit(qr)
-value = 2
-codificacionSuperdensa(qc, qr, value)
+qr = QuantumRegister(5)
+cr = ClassicalRegister(5)
+qc = QuantumCircuit(qr, cr)
 \end{lstlisting}
-\caption{Implementación de codificación superdensa en \textit{Qiskit}.}
+\caption{Instrucciones para la creación de un circuito en \textit{Qiskit} y con sus registros.}
 \label{fig:code51}
 \end{figure}
 
-\begin{figure}[htb!]
+Para establecer las puerta cuánticas y mediciones de nuestro circuito basta con hacer uso de los métodos de la clase \textit{QuantumCiruit}. Tenemos, por ejemplo, los métodos \texttt{h()}, que implementa una puerta \textit{Hadamard}; \texttt{cx()} que implementa una puerta C$_\mathrm{not}$ o \texttt{measure()} que implementa una medición. Debemos incluir como parámetros de estas funciones los qubits y bits clásicos involucrados en las operaciones, según corresponda. Además tenemos otros métodos útiles como \texttt{initialize()}, que toma por parámetro un vector de complejos de tamaño la potencia de dos correspondiente con el número de qubits del circuito y cuya norma debe ser uno y establece dicho vector como estado del sistema (sólo funciona en simulador, evidentemente) o \texttt{draw()} que imprime una imagen representativa del sistema.
+
+Cabe destacar que una de las principales características de \textit{Qiskit} respecto a otros lenguajes cuánticos es que la utilización de estos métodos crea y modifica el circuito pero no lo está ejecutando, sino que tras su creación debemos llamar al método \texttt{execute()} que toma por parámetros el propio circuito, el \textit{backend} donde es ejecutado o el número de ejecuciones, entre otros (véase la figura~\ref{fig:code52}). Esto es muy cómodo si realmente no queremos ejecutar el circuito en un simulador en nuestro ordenador y queremos utilizar para ello una de las máquinas de IBM disponibles en línea. En cuanto al \textit{backend}, ya hemos hablado de los simuladores de \textit{Qiskit} en la sección anterior presentes en el ``elemento'' \textit{Qiskit Aer} y haremos uso de un ordenador cuántico en el capítulo~\ref{chapter6}. Además del simulador presente en la figura~\ref{fig:code52}, es muy común el uso del ya mencionado \textit{Statevector Simulator} cuya instancia del mismo puede ser obtenido mediante la instrucción
+\begin{lstlisting}[language=Python]
+backend = Aer.get_backend('statevector_simulator')
+\end{lstlisting}
+y que tras la ejecución del circuito en este simulador, podemos obtener el vector complejo que identifica el estado final del sistema con el método \texttt{get\_statevector()}:
+\begin{lstlisting}[language=Python]
+ex = execute(qc, backend = backend)
+ex.result().get_statevector()
+\end{lstlisting}
+
+Además de todos los métodos y herramientas mencionados anteriormente, \textit{Qiskit} cuenta con diversas utilidades para la impresión gráfica de vectores complejos, histogramas de resultados o los ya mencionados circuitos.
+
+\begin{figure}[tb]
 \begin{lstlisting}[language=Python]
 backend = Aer.get_backend('qasm_simulator')
 ex = execute(qc, backend = backend, shots = 1)
@@ -62,47 +53,11 @@ ex.result().get_counts()
 \label{fig:code52}
 \end{figure}
 
-Hemos hablado brevemente de algunas de las librerías y funcionalidades de \textit{Qiskit} y no queremos acabar este capítulo sin ver unos ejemplos en dicho lenguaje. En primer lugar presentamos en la figura \ref{fig:code51} el código que implementa \textit{codificación superdensa} visto en el capítulo anterior. Podemos ver que es tan simple como crear un circuito (clase QuantumCircuit) que toma como parámetros una instancia de QuantumRegister que gestiona los qubits y, opcionalmente, una instancia de ClassicalRegister que gestiona bits clásicos donde se almacenan las mediciones. En nuestro caso hemos obviado este último parámetro pues el método \textit{measure\_all()} es suficiente para medir todos los qubits. Tras esto basta con ir añadiendo las puertas que precisemos usando para ello, si es necesario, instrucciones clásicas de \textit{Python} como \textit{if}, \textit{for} o \textit{while}. Una de las principales características de \textit{Qiskit} respecto a otros lenguajes cuánticos es que el código mostrado crea el circuito pero no lo está ejecutando, sino que tras su creación debemos llamar al método \textit{execute()} que toma por parámetros el propio circuito, el \textit{backend} donde es ejecutado o el número de ejecuciones, entre otros (véase la figura \ref{fig:code52}). Esto es muy cómodo si realmente no queremos ejecutar el circuito en un simulador en nuestro ordenador y queremos utilizar para ello una de las máquinas de IBM disponibles en línea. Sin embargo, acarrea también un grave problema y es que nuestro circuito no puede depender de los valores obtenidos por las mediciones realizadas en el sistema.
+\section{Codificación superdensa y teleportación en \textit{Qiskit}}
+\label{sec:sec52}
 
+No queremos acabar este capítulo sin ver unos ejemplos en dicho lenguaje. En primer lugar presentamos en la sección~\ref{sec:seca1} del apéndice~\ref{ap:ap1} el código que implementa \textit{codificación superdensa} visto en el capítulo anterior. Podemos ver que es tan simple como crear un circuito (clase QuantumCircuit) que toma como parámetro una instancia de QuantumRegister que gestiona los qubits. En nuestro caso hemos prescindido del registro \textit{ClassicalRegister} pues el método \texttt{measure\_all()} es suficiente para medir todos los qubits, básicamente comprueba antes de la medición la existencia de dicho registro y, si no es el caso, añade uno del mismo tamaño que el número de qubits presentes en el circuito. Tras esto basta con ir añadiendo las puertas que precisemos. Nótese que hacemos uso de instrucciones propias de \textit{Python} como \texttt{if}, \texttt{elif} y \texttt{else}, además de la definición de funciones.
 
-Por ejemplo, en el algoritmo de teleportación cuántica, la puerta final aplicada por Bob depende de las mediciones obtenidas y enviadas por Alice. No podemos usar una combinación de sentencias condicionales como hemos hecho en codificación superdensa, puesto que en el momento de insertar la puerta de Bob, el circuito no se está ejecutando y desconocemos las mediciones correspondientes a Alice. \textit{Qiskit} soluciona esto con la implementación de unas puertas controladas especiales que toman un bit clásico de control en lugar de un qubit. Sin embargo, este tipo de instrucción sólo funciona en simuladores; los ordenadores cuánticos de IBM no soportan instrucciones tras mediciones.
-\begin{figure}[tb!]
-\begin{lstlisting}[language=Python]
-from qiskit import *
+Hemos mencionado la necesidad de llamar al método \texttt{execute()} para que un circuito cuántico se ejecute realmente, pero no hemos hablado de los inconvenientes que esto supone. Se trata de un grave problema y es que nuestro circuito no puede depender de los valores obtenidos por las mediciones realizadas en el sistema. Por ejemplo, en el algoritmo de teleportación cuántica, la puerta final aplicada por Bob depende de las mediciones obtenidas y enviadas por Alice. No podemos usar una combinación de sentencias condicionales como hemos hecho en codificación superdensa, puesto que en el momento de insertar la puerta de Bob, el circuito no se está ejecutando y desconocemos las mediciones correspondientes a Alice. \textit{Qiskit} soluciona esto con la implementación de unas puertas controladas especiales que toman como control un bit clásico en lugar de un qubit. En la sección~\ref{sec:seca3} se muestra el código del algoritmo de teleportación ejecutable en simulador mediante el uso de este tipo de puertas.
 
-def teleportacion(qc, qr, crz, crx):
-    # Par EPR. Puerta de Hadamard a qr[1] y luego Cnot.
-    qc.h(qr[1])
-    qc.cx(qr[1], qr[2])
-    
-    # Alice aplica Cnot (control qr[0]) y Hadamard a qr[0]
-    qc.cx(qr[0], qr[1])
-    qc.h(qr[0])
-    
-    # Medimos
-    qc.measure(qr[0], crz)
-    qc.measure(qr[1], crx)
-        
-    # Alice manda las mediciones a Bob y aplica
-    # X si el segundo qubit es 1 (01)
-    # Z si el primer qubit es 1 (10)
-    # Y = XZ si ambos son 1 (11)
-    qc.x(qr[2]).c_if(crx, 1)
-    qc.z(qr[2]).c_if(crz, 1)
-
-qr = QuantumRegister(3)
-crx = ClassicalRegister(1)
-crz = ClassicalRegister(1)
-qc = QuantumCircuit(qr, crz, crx)
-
-# Antes de llamar al algoritmo debemos poner el qubit
-# qr[0] que queremos mandar al estado deseado. Lo
-# dejamos en |0>.
-
-teleportacion(qc, qr, crz, crx)
-\end{lstlisting}
-\caption{Implementación de teleportación cuántica en \textit{Qiskit}.}
-\label{fig:code53}
-\end{figure}
-
-Una solución a este problema es aplicar el \textit{Principio de Medición Diferida} [\cite{nielsen2001quantum}]. El principio nos dice que cualquier medición realizada en una etapa intermedia de un circuito puede ser pospuesta al final del mismo y si dichas mediciones son usadas en puertas de control, estas pueden ser sustituidas por las puertas de control cuánticas usuales. En nuestro caso, hemos de notar que los cálculos realizados tras la medición que prueban el correcto funcionamiento del algoritmo de teleportación sólo son una división de casos en función del estado obtenido y por tanto el algoritmo funciona de igual manera si no se realizan dichas mediciones. La diferencia es meramente experimental, si antes Alice mandaba a Bob dos bits clásicos, ahora solo puede enviar sus dos qubits.  En la figura \ref{fig:code53} se muestra el código del algoritmo de teleportación ejecutable en simulador.
+Sin embargo, este tipo de instrucción sólo funciona en simuladores; los ordenadores cuánticos de IBM no soportan instrucciones tras mediciones. Una solución a este problema es aplicar el \textit{Principio de Medición Diferida} [\cite{nielsen2001quantum}]. Este principio nos dice que cualquier medición realizada en una etapa intermedia de un circuito puede ser pospuesta al final del mismo y si dichas mediciones son usadas en puertas de control, estas pueden ser sustituidas por las puertas de control cuánticas usuales. En nuestro caso, hemos de notar que los cálculos realizados tras la medición que prueban el correcto funcionamiento del algoritmo de teleportación sólo son una división de casos en función del estado obtenido y, por tanto, el algoritmo funciona de igual manera si no se realizan dichas mediciones. La diferencia es meramente experimental: si antes Alice mandaba a Bob dos bits clásicos, ahora solo puede enviar sus dos qubits.

@@ -1,27 +1,27 @@
 \chapter{Espacios normados y con producto interno}
 \label{chapter2}
 
-Aunque el contenido de este capítulo no es clave en el núcleo de esta investigación, sí lo es para definir con precisión qué es un espacio de \textit{Hilbert} o el por qué del uso de matrices unitarias como elemento operador de qubits. Necesitamos definir una serie de conceptos previos básicos. Dichos conceptos son estudiados en los primeros cursos del grado de Matemáticas.
+Aunque el contenido de este capítulo no es clave para el núcleo de la investigación que subyace a este proyecto, sí lo es para definir con precisión qué es un espacio de \textit{Hilbert} o el por qué del uso de matrices unitarias como elemento operador de qubits. Necesitamos definir una serie de conceptos previos básicos. Dichos conceptos son estudiados en los primeros cursos del grado de Matemáticas.
 
 Pese a que son definiciones y desarrollos ampliamente conocidos, son expuestos a continuación los estrictamente necesarios por si el lector precisara recordarlos. El material presentado se extrae fundamentalmente de Lokenath Debnath, Piotr Mikusinski y col. \textit{Introduction to Hilbert spaces with applications} y de las notas propias cosechadas en diferentes asignaturas.
 
 \section{Espacios vectoriales}
 
-Habitualmente se estudian tanto espacios vectoriales reales como complejos. Denotamos $\R$ al cuerpo de los reales y $\C$ al de los complejos y nos referiremos a cada uno de sus elementos como \textit{escalares}. En caso de que no queremos hacer distinción del cuerpo con el que trabajemos lo denotaremos por $\K:=\R$ o $\C$.
+Habitualmente se estudian tanto espacios vectoriales reales como complejos. Denotamos por $\R$ al cuerpo de los reales y por $\C$ al de los complejos y nos referiremos a cada uno de sus elementos como \textit{escalares}. En caso de que no queramos hacer distinción del cuerpo con el que trabajemos lo denotaremos por $\K:=\R$ ó $\C$.
 
 \begin{definition} Un \textit{espacio vectorial} sobre un cuerpo $\K$ es un conjunto no vacío $E$ que consta de las operaciones:
 \begin{itemize}
-\item \textbf{Suma}. $(x,y)\mapsto x+y$ de $E\times E$ en $E$.
-\item \textbf{Multiplicación por escalar}. $(\lambda,x)\mapsto \lambda x$ de $\K\times E$ en $E$.
+\item Suma. $(x,y)\mapsto x+y$ de $E\times E$ en $E$.
+\item Multiplicación por escalar. $(\lambda,x)\mapsto \lambda x$ de $\K\times E$ en $E$.
 \end{itemize}
 El conjunto $E$ con la operación suma es un \textit{grupo abeliano}. Esto es, para todo $x,y,z\in E$ se verifica:
 \begin{enumerate}[label=\alph*)]
 \item Conmutatividad. $x + y = y + x$.
 \item Asociatividad. $(x + y) + z = x + (y + z)$.
-\item Elemento neutro. $\exists 0\in E$ tal que $0+x=x+0=x$.
+\item Elemento neutro. $\exists\ e\in E$ tal que $e+x=x+e=x$.
 \item Elemento opuesto. Dado $x\in E$, $\exists -x\in E$ tal que $x+(-x)=(-x)+x=0$.
 \end{enumerate}
-Con respecto al producto por escalar se debe verificar, para todo $x,y\in E$ y para todo $\alpha,\beta\in\K$ que:
+Con respecto al producto por escalar se debe verificar, para todo $x,y\in E$ y para todo $\alpha,\beta\in\K$, que:
 \begin{enumerate}[label=\alph*)]
 \item $\alpha(\beta x)=(\alpha\beta)x$.
 \item $(\alpha + \beta)x=\alpha x +\beta x$.
@@ -31,10 +31,10 @@ Con respecto al producto por escalar se debe verificar, para todo $x,y\in E$ y p
 Nos referiremos cada uno de los elementos de $E$ como \textit{vectores}.
 \end{definition}
 
-Existen numerosas construcciones y resultados que cubren libros completos acerca de los espacios vectoriales, tanto de dimensión finita como infinita. Nuestra intención es conducir un desarrollo rápido hacia un tipo concreto de ellos, los $\C$-espacios vectoriales finitos dotados de producto interno. Como veremos serán espacios de \textit{Hilbert}. Antes de continuar hacia nuestro mencionado objetivo, mostramos algunos ejemplos de espacios vectoriales muy comunes.
+Existen numerosas construcciones y resultados que cubren libros completos acerca de los espacios vectoriales, tanto de dimensión finita como infinita. Nuestra intención es conducir un desarrollo rápido hacia un tipo concreto de ellos, los $\C$-espacios vectoriales finitos dotados de producto interno. Como veremos, se tratará de espacios de \textit{Hilbert}. Antes de continuar hacia nuestro mencionado objetivo, mostramos algunos ejemplos de espacios vectoriales muy comunes.
 
-\begin{example} $\K=\R$ o $\C$ son los espacios vectoriales más simples con las operaciones suma y multiplicación habituales. Además podemos definir $\R^n$ y $\C^n$ como:
-
+\begin{example} $\K=\R$ o $\C$ son los espacios vectoriales más simples con las operaciones suma y multiplicación habituales. Además, podemos definir $\R^n$ y $\C^n$ como:
+%
 \[
 \begin{split}
 &\R^n:=\{(x_1,x_2,...,x_n): x_1,x_2,...,x_n\in\R\} \\
@@ -42,31 +42,28 @@ Existen numerosas construcciones y resultados que cubren libros completos acerca
 \end{split}
 \]%\end{equation}
 
-donde si $x=(x_1,...,x_n),y=(y_1,...,y_n)\in\K^n=\R^n$ o $\C^n$ y $\lambda\in\K$ tenemos
+\noindent donde si $x=(x_1,...,x_n),y=(y_1,...,y_n)\in\K^n=\R^n$ o $\C^n$ y $\lambda\in\K$ entonces tenemos
 \[x+y=(x_1+y_1,...,x_n+y_n),\ \ \lambda x=(\lambda x_1,...,\lambda x_n).\]
 \end{example}
 
 \section{Espacios normados}
 
-\begin{definition} \label{def:def23} Sea $E$ un espacio vectorial, denominamos a la función $\function{\norm\cdot}{E}{\R}$ tal que $x\mapsto\norm{x}$ como \textit{norma} si verifica:
+\begin{definition} \label{def:def23} Sea $E$ un espacio vectorial. Decimos que una función $\function{\norm\cdot}{E}{\R}$, tal que $x\mapsto\norm{x}$, es una \textit{norma} si verifica:
 \begin{enumerate}[label=\alph*)]
 \item Si $\norm{x}=0$ entonces $x=0$.
 \item $\norm{\lambda x}=|\lambda|\norm{x}$ para todo $\lambda\in\K$ y para todo $x\in E$.
 \item $\norm{x+y}\leq \norm{x} + \norm{y}$ para todo $x,y\in E$, que denominamos \textit{desigualdad triangular}.
 \end{enumerate}
+Decimos que  un espacio vectorial dotado de norma es un \textit{espacio normado}.
 
-Denotamos como \textit{espacio normado} a un espacio vectorial dotado de norma.
-\end{definition}
-
-\begin{definition} Sea una sucesión $\{x_n\}$ de un espacio normado, decimos que es una \textit{sucesión de Cauchy} si verifica que para todo $\varepsilon>0$ existe un $M>0$ tal que $\norm{x_m-x_n}<\varepsilon$ para todos $m,n>M$.
-\end{definition}
-
-\begin{definition} Decimos que es un espacio normado es \textit{completo} si toda sucesión de Cauchy en $E$ converge a un elemento de $E$. En dicho caso, denominamos a tal espacio normado \textit{espacio de Banach}.
+Decimos que una sucesión $\{x_n\}$ de un espacio normado  es una \textit{sucesión de Cauchy} si verifica que para todo $\varepsilon>0$ existe un $M>0$ tal que $\norm{x_m-x_n}<\varepsilon$ para todos $m,n>M$.
+%
+Además, decimos que  un espacio normado es \textit{completo} si toda sucesión de Cauchy en $E$ converge a un elemento de $E$. En dicho caso, denominamos a tal espacio normado \textit{espacio de Banach}.
 \end{definition}
 
 \section{Espacios con producto interno}
 
-\begin{definition} Sea $E$ un espacio vectorial complejo, definimos la aplicación \\$\function{\dotproduct{\cdot}{\cdot}}{E\times E}{\C}$ como \textit{producto interno} o \textit{producto escalar} de $E$ si verifica, para todo $x,y,z\in E$ y para todo $\alpha,\beta\in\C$, que:
+\begin{definition} Sea $E$ un espacio vectorial complejo. Decimos que una función $\function{\dotproduct{\cdot}{\cdot}}{E\times E}{\C}$ es un \textit{producto interno} o \textit{producto escalar} de $E$ si verifica, para todo $x,y,z\in E$ y para todo $\alpha,\beta\in\C$, que:
 \begin{enumerate}[label=\alph*)]
 \item $\dotproduct{x}{y}=\overline{\dotproduct{y}{x}}$.
 \item $\dotproduct{\alpha x + \beta y}{z}= \alpha \dotproduct{x}{y} + \beta \dotproduct{y}{z}$.
@@ -74,7 +71,7 @@ Denotamos como \textit{espacio normado} a un espacio vectorial dotado de norma.
 \item $\dotproduct{x}{x}= 0$ implica que $x=0$.
 \end{enumerate}
 
-Decimos que un espacio vectorial (no necesariamente complejo) provisto de producto interno es un \textit{con producto interno} o \textit{espacio prehilbert}.
+Decimos que un espacio vectorial (no necesariamente complejo) provisto de producto interno es un  \textit{espacio prehilbert}.
 \end{definition}
 
 \begin{observation} Hemos definido el producto interno sobre un espacio vectorial complejo. Sin embargo, no hay problema si lo sustituimos por uno real en la definición. Basta definir el producto como $\function{\dotproduct{\cdot}{\cdot}}{E\times E}{\R}$ y ver que en la primera condición se verifica
@@ -88,22 +85,19 @@ El resto de condiciones están bien definidas en el caso de $\R$. Denominamos a 
 \begin{enumerate}[label=\alph*)]
 \item $0 = \norm{x} = \sqrt{\dotproduct{x}{x}}$ implica que $x=0$.
 \item $\norm{\lambda x} = \sqrt{\dotproduct{\lambda x}{\lambda x}} = \sqrt{\lambda\overline{\lambda}\dotproduct{x}{x}}=|\lambda|\norm{x}$.
-\item Para la tercera condición necesitamos hacer uso de la \textit{desigualdad de Schwarz} que presentamos a continuación. No incluiremos su demostración pese a no tener dificultad.
-
-\begin{thm} \textbf{Desigualdad de Schwarz}. Sean $x$ e $y$ cualquiera de un espacio dotado de producto interno, tenemos:
-\begin{equation}\label{eq:eq21}
-|\dotproduct{x}{y}|\leq\norm{x}\norm{y}.
-\end{equation}
-\end{thm}
-Una vez introducida la desigualdad, tenemos:
+\item Para la tercera condición necesitamos hacer uso de la \textit{desigualdad de Schwarz}, esto es,  dados $x$ e $y$ pertenecientes a un espacio dotado de producto interno, tenemos:
+$$|\dotproduct{x}{y}|\leq\norm{x}\norm{y}.
+$$
+A partir de este resultado, cuya demostración es inmediata, nuestra demostración continua de la siguiente manera:
 \[
 \begin{split}
 \norm{x+y}^2 &= \dotproduct{x}{x} + \dotproduct{x}{y} + \overline{\dotproduct{x}{y}} + \dotproduct{y}{y} = \dotproduct{x}{x} + 2\mathrm{Re}\dotproduct{x}{y} + \dotproduct{y}{y}\\
 &\leq \dotproduct{x}{x} + 2|\dotproduct{x}{y}| + \dotproduct{y}{y} = \norm{x}^2+ 2|\dotproduct{x}{y}|+\norm{y}^2\\
-&\overset{\textrm{\ref{eq:eq21}}}{\leq}\norm{x}^2+ 2\norm{x}\norm{y}+\norm{y}^2 = \left(\norm{x}+\norm{y}\right)^2
+&%\overset{\textrm{\ref{eq:eq21}}}
+{\leq}\norm{x}^2+ 2\norm{x}\norm{y}+\norm{y}^2 = \left(\norm{x}+\norm{y}\right)^2
 \end{split}
 \]
-Lo que concluye la demostración.
+donde la última desigualdad es consecuencia inmediata de la desigualdad de Schwarz y $\mathrm{Re}\dotproduct{x}{y}$ denota la parte real de $\dotproduct{x}{y}$.
 \end{enumerate}
 \end{proof}
 \end{proposition}
