@@ -12,7 +12,7 @@ $$\end{example}
 
 Uno de los primeros conceptos estudiados en álgebra lineal es el de {\it base de un espacio vectorial} que no es más que una familia de vectores $\B$ de $E$ linealmente independientes para la que cada elemento $x\in E$ puede escribirse de forma única como $\sum_{n=1}^m\lambda_nx_n$ donde $x_n\in\B$ y $\lambda_n$ son escalares para cada $1\leq n\leq m$. Decimos que $(\lambda_1,...,\lambda_n)$ son las coordenadas de $x$ respecto de la base $\B$ de $E$. Cuando el espacio está dotado de un producto interno, podemos obligar a que los elementos de nuestra base sean {\it ortogonales} y, más concretamente, {\it ortonormales}. Este es el caso de la habitual base canónica en $\C^n$ o $\R^n$, pero evidentemente no es la única. Este tipo de bases cobrarán gran importancia cuando más adelante expliquemos la noción de medida de un qubit.
 
-\begin{definition} Decimos que una base $\B$ de un espacio con producto interno $E$ es \textit{ortogonal} si para cualquiera par de elementos $x,y\in\B$ distintos, se verifica $x\perp y$. Si además se verifica que $\norm{x}=1$ para todo $x\in\B$ decimos que la base es \textit{ortonormal}.
+\begin{definition} Decimos que una base $\B$ de un espacio con producto interno $E$ es \textit{ortogonal} si para cualquier par de elementos $x,y\in\B$ distintos, se verifica $x\perp y$. Si además se verifica que $\norm{x}=1$ para todo $x\in\B$ decimos que la base es \textit{ortonormal}.
 
 Nótese que hemos usado una definición de base para un espacio vectorial de dimensión finita.
 \end{definition}
@@ -110,7 +110,7 @@ $$
 Añadimos una definición adicional. Sea $x$ un vector de un espacio de \textit{Hilbert}, usaremos la notación $x^{\otimes k}$ para denotar un producto tensorial de $x$ consigo mismo $k$ veces. Es decir,
 $$x^{\otimes k}=\overset{\underbrace{k\mathrm{\ veces}}}{x\otimes \hdots \otimes x}$$
 
-Por último, veamos qué pasa con los isomorfismos lineales. Consideremos dos isomorfismos lineales $\function{A}{V}{V}$ y \newline $\function{B}{W}{W}$,  con matrices asociadas $A$ y $B$, y sean $x\in V$ e $y\in W$. La aplicación $\function{A\otimes B}{V\otimes W}{V\otimes W}$ definida como
+Por último, veamos qué pasa con los isomorfismos lineales. Consideremos dos isomorfismos lineales $\function{A}{V}{V}$ y $\function{B}{W}{W}$,  con matrices asociadas $A$ y $B$, y sean $x\in V$ e $y\in W$. La aplicación $\function{A\otimes B}{V\otimes W}{V\otimes W}$ definida como
 \begin{equation}
 \label{eq:eq36}
 A\otimes B(x\otimes y) = Ax\otimes By
@@ -125,7 +125,7 @@ Terminaremos este capítulo con la construcción de un producto tensorial de dos
 \begin{example} Sean $\C^2$ y $\C^4$ con sus respectivas bases canónicas $\{e_{2_1}:=(1,0),e_{2_2}:=(0,1)\}$ y $\{e_{4_1}:=(1,0,0,0),e_{4_2}:=(0,1,0,0), e_{4_3}:=(0,0,1,0),e_{4_4}:=(0,0,0,1)\}$. Se cumple que $\C^2\otimes\C^4$ tiene por base $$\{e_{2_1}\otimes e_{4_1},e_{2_1}\otimes e_{4_2},e_{2_1}\otimes e_{4_3},e_{2_1}\otimes e_{4_4},e_{2_2}\otimes e_{4_1},e_{2_2}\otimes e_{4_2},e_{2_2}\otimes e_{4_3},e_{2_2}\otimes e_{4_4}\}$$ 
 que no es más que la base canónica de $\C^8$.
 
-Por tanto, $\C^2\otimes\C^4\equiv\C^8$. Sean $\function{X}{\C^2}{\C^2}$ y $\function{I}{\C^4}{\C^4}$ isomorfismos lineales con matrices asociadas $X=\left(\begin{matrix}
+Por tanto, $\C^2\otimes\C^4\equiv\C^8$. Sean $\function{X}{\C^2}{\C^2}$ e $\function{I}{\C^4}{\C^4}$ isomorfismos lineales con matrices asociadas $X=\left(\begin{matrix}
 0&1\\1&0\end{matrix}\right)$ y la matriz identidad $I_4$ respectivamente. La aplicación $\function{X\otimes I_4}{\C^8}{\C^8}$ tiene por matriz asociada
 \[
 X\otimes I_4=

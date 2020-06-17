@@ -7,7 +7,7 @@ Pese a que son definiciones y desarrollos ampliamente conocidos, son expuestos a
 
 \section{Espacios vectoriales}
 
-Habitualmente se estudian tanto espacios vectoriales reales como complejos. Denotamos por $\R$ al cuerpo de los reales y por $\C$ al de los complejos y nos referiremos a cada uno de sus elementos como \textit{escalares}. En caso de que no queramos hacer distinción del cuerpo con el que trabajemos lo denotaremos por $\K:=\R$ ó $\C$.
+Habitualmente se estudian tanto espacios vectoriales reales como complejos. Denotamos por $\R$ al cuerpo de los reales y por $\C$ al de los complejos y nos referiremos a cada uno de sus elementos como \textit{escalares}. En caso de que no queramos hacer distinción del cuerpo con el que trabajemos lo denotaremos por $\K:=\R$ o $\C$.
 
 \begin{definition} Un \textit{espacio vectorial} sobre un cuerpo $\K$ es un conjunto no vacío $E$ que consta de las operaciones:
 \begin{itemize}
@@ -31,9 +31,9 @@ Con respecto al producto por escalar se debe verificar, para todo $x,y\in E$ y p
 Nos referiremos cada uno de los elementos de $E$ como \textit{vectores}.
 \end{definition}
 
-Existen numerosas construcciones y resultados que cubren libros completos acerca de los espacios vectoriales, tanto de dimensión finita como infinita. Nuestra intención es conducir un desarrollo rápido hacia un tipo concreto de ellos, los $\C$-espacios vectoriales finitos dotados de producto interno. Como veremos, se tratará de espacios de \textit{Hilbert}. Antes de continuar hacia nuestro mencionado objetivo, mostramos algunos ejemplos de espacios vectoriales muy comunes.
+Existen numerosas construcciones y resultados que cubren libros completos acerca de los espacios vectoriales, tanto de dimensión finita como infinita. Nuestra intención es conducir un desarrollo rápido hacia un tipo concreto de ellos, los $\C$-espacios vectoriales finitos dotados de producto interno. Como veremos, se tratarán de espacios de \textit{Hilbert}. Antes de continuar hacia nuestro mencionado objetivo, mostramos algunos ejemplos de espacios vectoriales muy comunes.
 
-\begin{example} $\K=\R$ o $\C$ son los espacios vectoriales más simples con las operaciones suma y multiplicación habituales. Además, podemos definir $\R^n$ y $\C^n$ como:
+\begin{example} $\K=\R$ o $\C$ son los espacios vectoriales más simples no triviales con las operaciones suma y multiplicación habituales. Además, podemos definir $\R^n$ y $\C^n$ como:
 %
 \[
 \begin{split}
@@ -63,7 +63,7 @@ Además, decimos que  un espacio normado es \textit{completo} si toda sucesión 
 
 \section{Espacios con producto interno}
 
-\begin{definition} Sea $E$ un espacio vectorial complejo. Decimos que una función $\function{\dotproduct{\cdot}{\cdot}}{E\times E}{\C}$ es un \textit{producto interno} o \textit{producto escalar} de $E$ si verifica, para todo $x,y,z\in E$ y para todo $\alpha,\beta\in\C$, que:
+\begin{definition} Sea $E$ un espacio vectorial complejo y una función $\function{\dotproduct{\cdot}{\cdot}}{E\times E}{\C}$. Decimos que $\dotproduct{\cdot}{\cdot}$ es un \textit{producto interno} o \textit{producto escalar} de $E$ si verifica, para todo $x,y,z\in E$ y para todo $\alpha,\beta\in\C$, que:
 \begin{enumerate}[label=\alph*)]
 \item $\dotproduct{x}{y}=\overline{\dotproduct{y}{x}}$.
 \item $\dotproduct{\alpha x + \beta y}{z}= \alpha \dotproduct{x}{y} + \beta \dotproduct{y}{z}$.
@@ -88,7 +88,7 @@ El resto de condiciones están bien definidas en el caso de $\R$. Denominamos a 
 \item Para la tercera condición necesitamos hacer uso de la \textit{desigualdad de Schwarz}, esto es,  dados $x$ e $y$ pertenecientes a un espacio dotado de producto interno, tenemos:
 $$|\dotproduct{x}{y}|\leq\norm{x}\norm{y}.
 $$
-A partir de este resultado, cuya demostración es inmediata, nuestra demostración continua de la siguiente manera:
+A partir de este resultado, cuya demostración es inmediata, nuestra demostración continúa de la siguiente manera:
 \[
 \begin{split}
 \norm{x+y}^2 &= \dotproduct{x}{x} + \dotproduct{x}{y} + \overline{\dotproduct{x}{y}} + \dotproduct{y}{y} = \dotproduct{x}{x} + 2\mathrm{Re}\dotproduct{x}{y} + \dotproduct{y}{y}\\

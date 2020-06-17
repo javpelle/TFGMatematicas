@@ -15,7 +15,7 @@ En nuestra andadura por \textit{Qiksit} nos bastará con el uso de los dos prime
 
 \section{Sintaxis de Qiskit}
 
-\textit{Qiskit} es un conjunto de librerías de \textit{Python} y, por tanto, adopta la sintaxis propia de dicho lenguaje. \textit{Python}, además de ser un lenguaje de programación orientado a objetos e imperativo, se caracteriza por ser un lenguaje interpretado multiplataforma con tipado dinámico y por su simplicidad. Cuando escribimos cualquier tipo de código haciendo uso \textit{Qiskit} podemos aplicar cualquier instrucción o herramienta presente en \textit{Python}, desde instrucciones básicas como \texttt{for}, \texttt{if} o \texttt{while} hasta uso de funciones, tratamiento de excepciones o librerías externas.
+\textit{Qiskit} es un conjunto de librerías de \textit{Python} y, por tanto, adopta la sintaxis propia de dicho lenguaje. \textit{Python}, además de ser un lenguaje de programación orientado a objetos e imperativo, se caracteriza por ser un lenguaje interpretado multiplataforma con tipado dinámico y por su simplicidad. Cuando escribimos cualquier tipo de código haciendo uso de \textit{Qiskit} podemos aplicar cualquier instrucción o herramienta presente en \textit{Python}, desde instrucciones básicas como \texttt{for}, \texttt{if} o \texttt{while} hasta uso de funciones, tratamiento de excepciones o librerías externas.
 
 Como cualquier librería, \textit{Qiskit} está compuesto por un conjunto de clases con sus métodos, además de otras herramientas, y su propia sintaxis se resume en crear instancias de dichas clases para poder llamar a sus métodos. En general, un programa de \textit{Qiskit} comienza con con la creación de instancias de las clases \textit{QuantumRegister} que es un registro de qubits, \textit{ClassicalRegister} que es un registro de bits clásicos donde se almacenan las mediciones de uno o varios qubits y \textit{QuantumCircuit} que gestiona el circuito que vamos a crear y almacena los registros, ya sean clásicos o cuánticos. Las tres son clases pertenecientes a \textit{Qiskit Terra}. En la figura~\ref{fig:code51} podemos ver la inicialización general de un circuito. Podemos añadir registros no sólo durante la creación de la instancia del circuito, sino también después mediante el método \texttt{add\_register()}.
 
@@ -25,7 +25,7 @@ qr = QuantumRegister(5)
 cr = ClassicalRegister(5)
 qc = QuantumCircuit(qr, cr)
 \end{lstlisting}
-\caption{Instrucciones para la creación de un circuito en \textit{Qiskit} y con sus registros.}
+\caption{Instrucciones para la creación de un circuito en \textit{Qiskit} y sus registros.}
 \label{fig:code51}
 \end{figure}
 

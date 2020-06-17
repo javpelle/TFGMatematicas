@@ -51,7 +51,7 @@ Estos postulados justifican el desarrollo de los dos capítulos anteriores que n
 \section{Qubits}
 \label{sec:sec43}
 
-Un \textit{qubit}  es el elemento de información mínima en la teoría de computación cuántica. No entraremos en cómo se puede representar dicho elemento físicamente en el mundo real. Al igual que un bit clásico se corresponde con un estado que típicamente puede ser~0 o~1, lo mismo ocurre con un qubit. Denotamos a dichos posibles estados por $\ket{0}$ y $\ket{1}$ y se corresponderán respectivamente con los elementos de una base ortonormal de $\C^2$. De ser necesario darles forma vectorial, los identificaremos normalmente con los vectores $\twovector{1}{0}$ y $\twovector{0}{1}$. Además de en estos posibles estados, y es aquí donde reside la diferencia con respecto al bit clásico, un qubit puede estar en una combinación lineal de los mismos que denominamos \textit{superposición} y escribimos:
+Un \textit{qubit}  es el elemento de información mínima en la teoría de computación cuántica. No entraremos en cómo se puede representar dicho elemento físicamente en el mundo real. Al igual que un bit clásico se corresponde con un estado que típicamente puede ser~0 o~1, lo mismo ocurre con un qubit. Denotamos a dichos posibles estados por $\ket{0}$ y $\ket{1}$ y se corresponderán, respectivamente, con los elementos de una base ortonormal de $\C^2$. De ser necesario darles forma vectorial, los identificaremos con los vectores $\twovector{1}{0}$ y $\twovector{0}{1}$. Además de en estos posibles estados, y es aquí donde reside la diferencia con respecto al bit clásico, un qubit puede estar en una combinación lineal de los mismos que denominamos \textit{superposición} y escribimos:
 \[\ket{\psi}=\alpha\ket{0}+\beta\ket{1}\]
 
 \noindent donde $\alpha$ y $\beta$ son números complejos que verifican $|\alpha|^2+|\beta|^2=1$. Podemos decir así que el estado de un qubit es un vector unitario de $\C^2$ o, equivalentemente, un elemento de la 3-esfera, subconjunto de $\C^2$ que definimos como:
@@ -114,7 +114,7 @@ Hasta ahora hemos establecido las bases de la computación cuántica y hemos enu
 En cuanto al segundo, recordemos que nos decía que los estados de sistemas cerrados varían de acuerdo a transformaciones lineales unitarias. Recordemos que una aplicación lineal unitaria es aquella que verifica $UU^\dag=I$. En lo sucesivo, denominaremos a estas aplicaciones por el nombre de \textit{puertas cuánticas}. Uno de los aspectos más relevantes de estas puertas es que tienen inversa dada por $U^{-1}=U^\dag$. Esto quiere decir que estas transformaciones son reversibles y supone algo novedoso. En computación clásica, la mayoría de puertas binarias no sólo tienen un único bit de salida (por ser isomorfismos unitarios, nosotros tendremos los mismos qubits de salida que de entrada), sino que no son invertibles. Por ejemplo, tras aplicar una puerta \textit{AND} con salida cero, no podríamos volver a la situación  anterior a la transformación, pues tenemos 3 entradas posibles ($(0,0)$, $(1,0)$ y $(0,1)$). Antes de empezar con las puertas cuánticas más importantes, vamos a ver un impedimento crucial que surge de la propiedad unitaria de las puertas: la imposibilidad de clonar un estado.
 
 \section{Teorema de no clonación}
-En computación clásica es altamente frecuente hacer uso de la copia del contenido de un bit (o variable) en otro bit (o variable) sin que esto suponga la destrucción de dicho contenido en el primero. Basta con obtener el valor del primer bit (o variable), lo que podemos denominar como medición clásica, y copiar su contenido en el segundo. Por lo visto anteriormente, es obvio que si queremos copiar un estado $\ket{\psi}=\alpha\ket{0}+\beta\ket{1}$ de un qubit en otro, no podemos hacer uso de la medición pues corrompería su estado. Por tanto sólo nos queda recurrir al uso de una o varias puertas cuánticas. Sin embargo, no podemos tampoco conseguir nuestro objetivo mediante esta técnica
+En computación clásica es altamente frecuente hacer uso de la copia del contenido de un bit en otro bit sin que esto suponga la destrucción de dicho contenido en el primero. Basta con obtener el valor del primer bit, lo que podemos denominar como medición clásica, y copiar su contenido en el segundo. Por lo visto anteriormente, es obvio que si queremos copiar un estado $\ket{\psi}=\alpha\ket{0}+\beta\ket{1}$ de un qubit en otro, no podemos hacer uso de la medición pues corrompería su estado. Por tanto sólo nos queda recurrir al uso de una o varias puertas cuánticas. Sin embargo, no podemos tampoco conseguir nuestro objetivo mediante esta técnica.
 
 \begin{thm} \textit{Teorema de no clonación}. Un estado cuántico no puede ser copiado o clonado.
 \begin{proof}
@@ -225,7 +225,7 @@ Hemos definido la puerta \textit{Toffoli} y ahora vamos a ver dos propiedades mu
 \[
 \begin{split}
 \mathrm{AND:\ }&T\ket{x,y,0}=\ket{x,y,x\wedge y}\\
-\mathrm{NOT:\ }&T\ket{x,x,0}=\ket{x,x,\neg x}
+\mathrm{NOT:\ }&T\ket{1,1,x}=\ket{1,1,\neg x}
 \end{split}
 \]
 
@@ -244,7 +244,7 @@ que junto a $k$ qubits adicionales en estado $\ket{0}$ y la transformación $U_f
 U_f\left(\left(\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}\ket{i}\right)\otimes\ket0\right)&=U_f\left(\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}\ket{i,0}\right)\\&=\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}U_f\ket{i,0}=\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}\ket{i,f(i)}
 \end{split}\]
 
-Es decir, por la linealidad de las transformación $U_f$, hemos logrado obtener en un solo cómputo los resultados de todas las posibles entradas que admite $f$. A este poder de cómputo lo denominamos \textit{paralelismo cuántico} y podemos ver un circuito representativo de lo visto anteriormente en la figura~\ref{fig:fig42}.
+Es decir, por la linealidad de las transformación $U_f$, hemos logrado obtener en un solo cómputo los resultados de todas las posibles entradas que admite $f$. A este poder de cómputo lo denominamos \textit{paralelismo cuántico} cuyo circuito representativo se encuentra en la figura~\ref{fig:fig42}.
 \begin{figure}[!htb]
 \[\Qcircuit @R=1.5em@C=1em{
 \lstick{\ket{0}} & {/^m}\qw & \gate{H^{\otimes m}}& \qw & \multigate{1}{U_f} & \qw \\
@@ -312,10 +312,10 @@ Ahora Bob puede medir ambos qubits de manera determinista y decodificar el mensa
 
 \subsection{Teleportación cuántica}
 
-De nuevo nos encontramos con que Alice y Bob tienen cada uno un qubit de un par EPR. Alice tiene un tercer qubit con estado desconocido $\ket\phi=\alpha\ket0+\beta\ket1$ que quiere transmitir a Bob disponiendo solo de un canal clásico por el que puede enviar dos bits. Denotamos de nuevo al estado del par EPR por $\ket{\psi_0}=\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})$. El estado inicial del sistema es por tanto:
+De nuevo nos encontramos con que Alice y Bob tienen cada uno un qubit de un par EPR. Alice tiene un tercer qubit con estado desconocido $\ket\phi=\alpha\ket0+\beta\ket1$ que quiere transmitir a Bob disponiendo sólo de un canal clásico por el que puede enviar dos bits. Denotamos de nuevo al estado del par EPR por $\ket{\psi_0}=\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})$. El estado inicial del sistema es por tanto:
 $$\ket\phi\otimes\ket{\psi_0}=(\alpha\ket0+\beta\ket1)\otimes\left(\dfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})\right)=\dfrac{1}{\sqrt{2}}(\alpha\ket{000}+\alpha\ket{011}+\beta\ket{100}+\beta\ket{111})
 $$
-donde Alice está en posesión del primer y segundo qubits y Bob del tercero. Alice aplica ahora una puerta C$_\textrm{not}$ sobre el segundo qubit tomando como control el primero y después una puerta \textit{Hadamard} al primero, consiguiendo así:
+donde Alice está en posesión del primer y segundo qubit y Bob del tercero. Alice aplica ahora una puerta C$_\textrm{not}$ sobre el segundo qubit tomando como control el primero y después una puerta \textit{Hadamard} al primero, consiguiendo así:
 \[
 \begin{split}
 &(H\otimes I\otimes I)(C_{\textrm{not}}\otimes I)(\ket\phi\otimes\ket{\psi_0})\\
