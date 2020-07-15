@@ -24,7 +24,7 @@ def codificacionSuperdensa(qc, qr, bits):
         qc.x(qr[0])
     elif bits == 2:
         qc.y(qr[0])
-    else: # bites == 3
+    else: # bits == 3
         qc.z(qr[0])
         
     # Alice transmite el qubit a Bob que aplica Cnot y luego Hadamard al qubit recibido
