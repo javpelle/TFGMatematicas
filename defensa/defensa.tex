@@ -1,0 +1,182 @@
+\documentclass{beamer}
+
+\input{conf.tex}
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+	\begin{center} Doble Grado en Matemáticas e Ingeniería Informática\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Índice}
+	\tableofcontents
+\end{frame}
+
+\section{Espacios de Hilbert}
+\begin{frame}
+	\frametitle{Espacio de Hilbert}
+	\begin{itemize}
+		\item  Un \emph{espacio de Hilbert} es un espacio vectorial dotado de producto interno y cuyo espacio normado definido por la norma
+		$$\norm{x}\coloneqq\sqrt{\dotproduct{x}{x}}$$
+es completo.
+		\item En particular, $\C$ es un espacio de Hilbert con el producto interno $\dotproduct{x}{y}=x\overline{y}$ y lo mismo podemos decir de $\C^n$ con el producto interno $\dotproduct{x}{y}=\sum_{i=1}^n x_i\overline{y_i}$.
+	\end{itemize}
+\end{frame}
+
+\subsection*{Isomorfismos lineales}
+\begin{frame}
+	\frametitle{Aplicaciones lineales}
+	\begin{itemize}
+		\item  Sean $V$ y $W$ dos espacios vectoriales sobre un cuerpo $\K$. $\function{f}{V}{W}$ es una \emph{aplicación lineal} si verifica
+		$$f(\alpha x+ \beta y)= \alpha f(x)+\beta f(y)$$
+		para todo $\alpha,\beta\in\K$ y para todo $x,y\in V$.
+		\item Una aplicación lineal está totalmente determinada por su matriz asociada perteneciente a $\mathfrak{M}_{m,n}(\K)$ donde $m$ es la dimensión del espacio de entrada $V$ y $n$ la dimensión del espacio de salida $W$.
+		\item Si $A$ es la matriz asociada a la aplicación lineal $f$ se verifica
+		$$Ax=y \textrm{ para todos }x\in V \textrm{ e } y\in W$$
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Isomorfismos lineales en espacios de Hilbert}
+	\begin{itemize}
+		\item Nosotros estamos interesados en isomorfismos lineales sobre espacios de Hilbert.
+		\item Un isomorfismo lineal $f$ con matriz asociada $U$ es \emph{unitario} si verifica $UU^\dag=I$. $U^\dag$ es la matriz adjunta de $U$ ($U^\dag=\overline{U}^t$) y además está asociada al isomorfismo adjunto de $f$ que es aquel que verifica
+		$$\dotproduct{x}{Uy}=\dotproduct{U^\dag x}{y}$$
+		\item Las matrices unitarias preservan el producto interno y, por tanto, la ortonormalidad.
+		$$\dotproduct{Ux}{Uy}=(Ux)^t\overline{Uy}=x^tU^t\overline{U}\overline{y}=x^tI\overline{y}=\dotproduct{x}{y}$$
+		Luego si $x\perp y$, entonces $Ux\perp Uy$.
+	\end{itemize}
+\end{frame}
+
+
+
+\subsection*{Producto tensorial}
+
+\begin{frame}
+	\frametitle{Producto tensorial}
+	\begin{itemize}
+		\item El producto tensorial de dos espacios de Hilbert $V$ y $W$ con bases ortonormales $\B_V$ y $\B_W$, respectivamente, es el espacio de Hilbert $V\otimes W$ con base ortonormal dada por el conjunto $$\B=\{v\otimes w:v\in\B_V,w\in\B_W\}$$
+		\item Sean $m$ y $n$ las dimensiones de $V$ y $W$ respectivamente, el espacio $V\otimes W$ generado tiene dimensiones $mn$.
+		\item Dotamos a $V\otimes W$ de estructura de espacio de Hilbert con el producto interno definido por
+		$$\dotproduct{v_1\otimes w_1}{v_2\otimes w_2}=\dotproduct{v_1}{v_2}_V\dotproduct{w_1}{w_2}_W,\ v_1,v_2\in V,\ w_1,w_2\in W$$
+		siendo $\dotproduct{\cdot}{\cdot}_V$ el producto interno de $V$ y $\dotproduct{\cdot}{\cdot}_W$ el de $W$.
+	\end{itemize}
+\end{frame}
+
+\section{Postulados cuánticos}
+
+\subsection*{Postulados}
+\begin{frame}
+	\frametitle{Primer postulado. Sistemas cuánticos}
+	
+	\begin{postulate} Un sistema físico aislado es un espacio vectorial con coeficientes en los complejos dotado de producto interno, es decir, un espacio de Hilbert complejo. El sistema es completamente descrito por un estado que no es más que un vector unitario de dicho sistema.
+\end{postulate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Segundo postulado. Evolución de un sistema cuántico}
+	
+	\begin{postulate} La evolución de un sistema cuántico cerrado en dos instantes de tiempo viene dada por una transformación lineal unitaria. Es decir, el estado del sistema $\ket{\psi}$ en el instante~$t_1$ se transforma en $\ket{\psi'}$ en~$t_2$ por la aplicación lineal unitaria $U$ que depende únicamente de $t_1$ y $t_2$:
+\[\ket{\psi'}=U\ket{\psi}\]
+\end{postulate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Tercer postulado. Medición de un sistema cuántico}
+	
+	\begin{postulate} Las medidas de un sistema cuántico son descritas por un conjunto $\{M_m \}$ de \textit{aplicaciones de medida}. Cada índice $m$ se identifica con un posible valor de medición $\ket\psi$. Se verifica:
+	
+	\begin{itemize}
+	\item Probabilidad $p(m)=\bra{\psi}M_m^\dag M_m\ket{\psi}$
+	\item Estado tras la medición $\dfrac{M_m\ket{\psi}}{\sqrt{\bra{\psi}M_m^\dag M_m\ket{\psi}}}=e^{i\theta}\ket\psi\overset{\textcolor{red}{!!}}=\ket\psi$
+	\item Ecuación de completitud $\sum_m M_m^\dag M_m = I$
+	\item La suma de probabilidades es 1. $\sum_m p(m)=\sum_m \bra{\psi}M_m^\dag M_m\ket{\psi} = 1$
+	\end{itemize}
+\end{postulate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Cuarto postulado. Composición de sistemas cuánticos}
+	
+	\begin{postulate} El sistema resultante de la composición de dos o más sistemas físicos es el producto tensorial de los mismos. Si denotamos a estos sistemas por $1,2,...,n$ representados por los vectores unitarios $\ket{\psi_i}$ para todo $i=1,2,...,n$, entonces el estado del sistema final total es:
+	$$\ket{\psi_1}\otimes\ket{\psi_2}\otimes\hdots\otimes\ket{\psi_n}$$
+\end{postulate}
+\end{frame}
+
+\subsection*{Consecuencias de los postulados}
+\begin{frame}
+	\frametitle{Primer postulado. Qubit}
+	
+	\begin{itemize}
+	\item El \emph{qubit} será nuestro elemento de información mínima.
+	\item Vector unitario de $\C^2$. Tomando la base ortonormal $\{\ket0,\ket1\}$ (normalmente asociada a la base canónica) podemos escribir cualquier estado cuántico como
+	$$\ket\psi=\alpha\ket0+\beta\ket1\textrm{ con }|\alpha|^2+|\beta|^2=1$$
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Tercer postulado. Mediciones}
+	
+	\begin{itemize}
+	\item Aplicaciones de medida $M_{\ket{0}}\coloneqq\left(\begin{matrix}1&0\\0&0\end{matrix}\right)$ y $M_{\ket{1}}\coloneqq\left(\begin{matrix}0&0\\0&1\end{matrix}\right)$.
+	\item Para $\ket\psi=\alpha\ket0+\beta\ket1$, $p(\ket0)=|\alpha|^2$ y $p(\ket1)=|\beta|^2$.
+	\item El estado tras la medición es:
+		$$\dfrac{\alpha}{|\alpha|}\ket0\overset{\textcolor{red}{!!}}=\ket0\textrm{ o }\dfrac{\beta}{|\beta|}\ket1\overset{\textcolor{red}{!!}}=\ket1$$
+	\item Se verifica la ecuación de completitud: $M_{\ket{0}} + M_{\ket{1}}=I$.
+	\item $p(\ket0)+p(\ket1)=1$.
+	
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Cuarto postulado. Sistemas de múltiples qubits}
+	
+	\begin{itemize}
+	\item Un sistema de $n$ qubits vendrá representado por un vector unitario de $\C^{2^n}$.
+	\item Una base ortonormal del sistema será $\{\ket{\psi_1}\otimes\hdots\otimes\ket{\psi_n}:\ket{\psi_1},\hdots,\ket{\psi_n}\in\{\ket0,\ket1\}\}=\{\ket i: 0\leq i\leq 2^n-1\}$
+	\item Un estado conformado por un sistema de $n$ qubits verificará
+	$$\ket\psi=\alpha_0\ket0+\hdots+\alpha_{2^n-1}\ket{2^n-1}\textrm{ con }\sum_{i=0}^{2^n-1}|\alpha_i|^2=1$$
+	
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Segundo postulado. Puertas cuánticas}
+	\begin{itemize}
+ 	\item Las transformaciones del sistema vienen dadas por isomorfismos lineales unitarios que denominamos puertas cuánticas.
+ 	\item Estas puertas son reversibles: Se verifica $UU^\dag=I$, luego dicha inversa viene dada por $U^\dag$.
+	\end{itemize}
+	\begin{thm} \emph{Teorema de no clonación}. No podemos copiar el contenido de un qubit en otro sin destruir el primero.
+	\end{thm}
+	\begin{itemize}
+ 	\item Algunas puertas importantes de un qubit: \emph{Hadamard} y \emph{Puertas de Pauli}.
+ 	\item Otras puertas importantes de más de un qubit: \emph{C$_\mathrm{not}$ } y \emph{Toffoli}.
+	\end{itemize}
+\end{frame}
+\section{Quantum gate arrays y paralelismo cuántico}
+
+\begin{frame}
+	\frametitle{Quantum gate arrays y paralelismo cuántico}
+	\begin{itemize}
+ 	\item Dada cualquier función clásica $\function{f}{\{0,1\}^m}{\{0,1\}^k}$ existe una concatenación de puerta cuánticas $U_f$ que denominamos \emph{gate array} que verifica
+ 	$$\function{U_f}{\ket{x,y}}{\ket{x,f(x)\oplus y}}$$
+ 	\item Inicializando $\ket{x}=H\ket0\otimes\hdots\otimes H\ket0=\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}\ket i$ e $\ket y=\ket{0\hdots0}$ obtenemos:
+ 	$$U\ket{x,y}=\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}\ket {i,f(i)}$$
+ 	\item Hemos evaluado todas las entradas de $f$ en un único cómputo.
+	\end{itemize}
+\end{frame}
+
+% Experimentos cuánticos???
+
+\section{Qiskit}
+\begin{frame}
+	\frametitle{Qiskit}
+	\begin{itemize}
+ 	\item \textit{Framework} de computación cuántica para Python.
+	\end{itemize}
+\end{frame}
+
+
+\end{document}

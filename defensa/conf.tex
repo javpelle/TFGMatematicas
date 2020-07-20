@@ -1,0 +1,71 @@
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+
+\setlength{\parskip}{1em}
+\setlength{\parindent}{1em}
+
+\xdefinecolor{rojito}{rgb}{1,0.3,0.3}
+\xdefinecolor{oliva}{cmyk}{0.64,0,0.95,0.4}
+\xdefinecolor{minaranja}{rgb}{0.94,0.48,0.2}
+
+\usetheme{Madrid}
+\usecolortheme[named=rojito]{structure}
+
+\usepackage{mathtools}
+\usepackage{amsmath}
+%------------------------
+%------- TEOREMAS -------
+%------------------------
+
+\newtheorem{thm}{Teorema} % Estilo de texto cursivo
+
+\newtheorem{postulate}{Postulado} % Numeración general sin subíndices
+
+\title[Computación Cuántica con Qiskit]{Introducción a la Computación Cuántica con Qiskit}
+\author{Javier Pellejero Ortega}
+\institute[UCM]{Universidad Complutense de Madrid\\ Facultad de Matemáticas}
+
+% Conjuntos y constantes matemáticas
+\newcommand{\R}{\mathbb{R}} % Reales
+\newcommand{\C}{\mathbb{C}} % Complejos
+\newcommand{\K}{\mathbb{K}} % Cuerpo K (reales o complejos)
+\newcommand{\Sp}{\mathbb{S}} % Esfera
+\newcommand{\e}{\mathrm{e}} % número e
+\newcommand{\N}{\mathbb{N}} % Naturales
+\newcommand{\Q}{\mathbb{Q}} % Racionales
+\newcommand{\B}{\mathcal{B}} % Base
+
+\newcommand{\qsh}{\textsf{Q}\texttt{\#}} % Q#
+\newcommand{\csh}{\textsf{C}\texttt{\#}} % C#
+
+\newcommand{\orden}[1]{\mathcal{O}\left(#1\right)}
+
+\newcommand{\oversim}[1]{\overset{_\sim}{#1}} % Para poner ~ sobre algo
+
+% Para poner datos encima y/o debajo de implica
+\newcommand{\ximplies}[2]{\underset{#2}{\overset{#1}\implies}}
+\newcommand{\xiff}[2]{\underset{#2}{\overset{#1}\iff}}
+\newcommand{\ximpliedby}[2]{\underset{#2}{\overset{#1}\impliedby}}
+
+% Producto escalar y norma
+\newcommand{\dotproduct}[2]{\langle#1,#2\rangle}
+\newcommand{\norm}[1]{\left|\left|#1\right|\right|}
+
+% Notación de Dirac -- SUSTITUIR POR PAQUETE DE LUIS
+\newcommand{\ket}[1]{\left|#1\right\rangle}
+\newcommand{\bra}[1]{\left\langle#1\right|}
+\newcommand{\braket}[2]{\left\langle#1|#2\right\rangle}
+
+% Vectores
+\newcommand{\twovector}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}} % Vector de dim 2
+
+% Funciones e info debajo de funciones
+\newcommand{\function}[3]{#1\colon #2\longrightarrow #3}
+\newcommand{\xfunction}[4]{\underset{#4}{{#1\colon #2\longrightarrow #3}}}
+
+% Funcion que transforma estados |0> y |1>
+\newcommand{\gatetwo}[3]{#1\colon \begin{matrix}\ket0&\longrightarrow& #2\\ \ket1&\longrightarrow& #3\end{matrix}}
+
+% Funcion que transforma estados |00>, |01>, |10> y |11>
+\newcommand{\gatefour}[5]{#1\colon \begin{matrix} \ket{00}&\longrightarrow& #2\\ \ket{01}&\longrightarrow& #3\\ \ket{10}&\longrightarrow& #4\\ \ket{11}&\longrightarrow& #5 \end{matrix}}
