@@ -2,6 +2,36 @@
 
 \input{conf.tex}
 
+% Para código
+\usepackage{listings}
+%\usepackage[table,xcdraw]{xcolor} % tambíen incluye colores para tablas.
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
 \begin{document}
 
 \begin{frame}
@@ -155,6 +185,26 @@ es completo.
  	\item Otras puertas importantes de más de un qubit: \emph{C$_\mathrm{not}$ } y \emph{Toffoli}.
 	\end{itemize}
 \end{frame}
+
+\begin{frame}
+	\frametitle{Puertas cuánticas de un qubit}
+	\begin{itemize}
+\item<1-> $\gatetwo{X}{\ket1}{\ket0}$ 
+\item<2-> $\gatetwo{Z}{\ket0}{-\ket1}$
+\item<3-> $\gatetwo{Y}{-\ket1}{\ket0}$
+\item<4-> $\gatetwo{H}{\dfrac{1}{\sqrt{2}}(\ket0+\ket1)}{\dfrac{1}{\sqrt{2}}(\ket0-\ket1)}$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Puertas cuánticas de múltiples qubits}
+	\begin{itemize}
+\item<1-> $\mathrm{C_{not}}\colon \begin{aligned}\ket{0x}&\longrightarrow&\ket{0x}\\\ket{1x}&\longrightarrow&\ket{1\neg X(x)}\end{aligned}$
+\item<2-> $T\ket{xyz}=\left\{\begin{aligned}
+\ket{xyX(z)}&\mathrm{\ si\ } x=1\mathrm{\ e\ } y=1\\
+\ket{xyz}&\mathrm{\ en\ otro\ caso.}\end{aligned}\right.$
+\end{itemize}
+\end{frame}
 \section{Quantum gate arrays y paralelismo cuántico}
 
 \begin{frame}
@@ -163,12 +213,92 @@ es completo.
  	\item Dada cualquier función clásica $\function{f}{\{0,1\}^m}{\{0,1\}^k}$ existe una concatenación de puerta cuánticas $U_f$ que denominamos \emph{gate array} que verifica
  	$$\function{U_f}{\ket{x,y}}{\ket{x,f(x)\oplus y}}$$
  	\item Inicializando $\ket{x}=H\ket0\otimes\hdots\otimes H\ket0=\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}\ket i$ e $\ket y=\ket{0\hdots0}$ obtenemos:
- 	$$U\ket{x,y}=\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}\ket {i,f(i)}$$
+ 	$$U_f\ket{x,y}=\dfrac{1}{\sqrt{2^m}}\sum_{i=0}^{2^m-1}\ket {i,f(i)}$$
  	\item Hemos evaluado todas las entradas de $f$ en un único cómputo.
 	\end{itemize}
 \end{frame}
 
-% Experimentos cuánticos???
+\begin{frame}
+	\frametitle{Teleportación}
+\only<1>{
+ \[\Qcircuit @R=1.4em@C=1em{
+\lstick{\ket\phi} &\qw&\qw&\qw&\qw&\qw&\qw&\qw\\
+                  &   &   &\ustick{\textrm{Alice}}&\qw&\qw&\qw&\qw\vspace{5em}\\
+\lstick{\ket0} & \gate{H} & \ctrl{1} & \qw \qwx[-1]\\
+\lstick{\ket0} & \qw & \targ &\qw \qwx[1] \\
+& & &\dstick{\textrm{Bob}}&\qw&\qw&\qw&\qw
+}\]
+\begin{center}
+Estado inicial: $\ket\phi\otimes\dfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})$
+\end{center}
+}
+\only<2>{
+ \[\Qcircuit @R=1em@C=1em{
+\lstick{\ket\phi} &\qw&\qw&\qw                    &\ctrl{1}&\gate{H}&\qw \\
+                  &   &   &\ustick{\textrm{Alice}}&\targ   &\qw     &\qw \\
+\lstick{\ket0} & \gate{H} & \ctrl{1} & \qw \qwx[-1]\\
+\lstick{\ket0} & \qw & \targ &\qw \qwx[1] \\
+& & &\dstick{\textrm{Bob}} & \qw & \qw & \qw
+}\]
+
+\[\begin{split}
+\textrm{Obtenemos el estado: }&\dfrac{1}{2}(\ket{00}(\alpha\ket0+\beta\ket1)+\ket{01}(\beta\ket0+\alpha\ket1)\\
++&\ket{10}(\alpha\ket0-\beta\ket1)+\ket{11}(-\beta\ket0+\alpha\ket1))
+\end{split}\]
+}
+\only<3>{
+ \[\Qcircuit @R=1em@C=1em{
+\lstick{\ket\phi} &\qw&\qw&\qw                    &\ctrl{1}&\gate{H}&\meter &\controlo\cw\cwx[1] \\
+                  &   &   &\ustick{\textrm{Alice}}&\targ   &\qw     &\meter &\controlo\cw\cwx[3] \\
+\lstick{\ket0} & \gate{H} & \ctrl{1} & \qw \qwx[-1]\\
+\lstick{\ket0} & \qw & \targ &\qw \qwx[1] \\
+& & &\dstick{\textrm{Bob}} & \qw & \qw & \qw & \gate{I} & \qw & \ket\phi
+}\]
+
+\begin{center}
+Si la medición de Bob fue $\ket{00}$ el qubit de Bob tiene estado $\alpha\ket0+\beta\ket1$. Aplicamos $I$.
+\end{center}
+}
+\only<4>{
+ \[\Qcircuit @R=1em@C=1em{
+\lstick{\ket\phi} &\qw&\qw&\qw                    &\ctrl{1}&\gate{H}&\meter &\controlo\cw\cwx[1] \\
+                  &   &   &\ustick{\textrm{Alice}}&\targ   &\qw     &\meter &\controlo\cw\cwx[3] \\
+\lstick{\ket0} & \gate{H} & \ctrl{1} & \qw \qwx[-1]\\
+\lstick{\ket0} & \qw & \targ &\qw \qwx[1] \\
+& & &\dstick{\textrm{Bob}} & \qw & \qw & \qw & \gate{X} & \qw & \ket\phi
+}\]
+
+\begin{center}
+Si la medición de Bob fue $\ket{01}$ el qubit de Bob tiene estado $\beta\ket0+\alpha\ket1$. Aplicamos $X$.
+\end{center}
+}
+\only<5>{
+ \[\Qcircuit @R=1em@C=1em{
+\lstick{\ket\phi} &\qw&\qw&\qw                    &\ctrl{1}&\gate{H}&\meter &\controlo\cw\cwx[1] \\
+                  &   &   &\ustick{\textrm{Alice}}&\targ   &\qw     &\meter &\controlo\cw\cwx[3] \\
+\lstick{\ket0} & \gate{H} & \ctrl{1} & \qw \qwx[-1]\\
+\lstick{\ket0} & \qw & \targ &\qw \qwx[1] \\
+& & &\dstick{\textrm{Bob}} & \qw & \qw & \qw & \gate{Z} & \qw & \ket\phi
+}\]
+
+\begin{center}
+Si la medición de Bob fue $\ket{10}$ el qubit de Bob tiene estado $\alpha\ket0-\beta\ket1$. Aplicamos $Z$.
+\end{center}
+}
+\only<6>{
+ \[\Qcircuit @R=1em@C=1em{
+\lstick{\ket\phi} &\qw&\qw&\qw                    &\ctrl{1}&\gate{H}&\meter &\controlo\cw\cwx[1] \\
+                  &   &   &\ustick{\textrm{Alice}}&\targ   &\qw     &\meter &\controlo\cw\cwx[3] \\
+\lstick{\ket0} & \gate{H} & \ctrl{1} & \qw \qwx[-1]\\
+\lstick{\ket0} & \qw & \targ &\qw \qwx[1] \\
+& & &\dstick{\textrm{Bob}} & \qw & \qw & \qw & \gate{Y} & \qw & \ket\phi
+}\]
+
+\begin{center}
+Si la medición de Bob fue $\ket{11}$ el qubit de Bob tiene estado $-\beta\ket0+\alpha\ket1$. Aplicamos $Y$.
+\end{center}
+}
+\end{frame}
 
 \section{Qiskit}
 \begin{frame}
@@ -181,10 +311,99 @@ es completo.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 	\frametitle{Ejemplo de ejecución}
+\begin{lstlisting}[language=Python]
+# Creacion de registros y circuito
+qr = QuantumRegister(2)
+cr = ClassicalRegister(2)
+qc = QuantumCircuit(qr, cr)
+
+# Aplicacion de puertas cuanticas
+qc.h(qr[0])
+qc.cx(qr[0], qr[1])
+
+# Medicion
+qc.measure(qr, cr)
+
+# Ejecucion y obtencion de resultados
+backend = Aer.get_backend('qasm_simulator')
+ex = execute(qc, backend = backend, shots = 1)
+ex.result().get_counts()
+
+\end{lstlisting}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Principales ventajas e inconvenientes de Qiskit}
+	\begin{block}{Inconvenientes}
+		\begin{itemize}
+ 		\item Las instrucciones crean el circuito pero no se ejecutan hasta la finalización del mismo.
+ 		\item No podemos depender de los valores de las mediciones como en teleportación. Debemos hacer uso del \emph{principio de medición diferida}.
+		\end{itemize}
+	\end{block}
+	
+	\begin{block}{Ventajas}
+		\begin{itemize}
+		\item Ejecutable por cualquier usuario en un ordenador cuántico real en línea ofrecido por IBM.
+ 		\item La ejecución a posteriori facilita el uso de dichos ordenadores.
+ 		\item Facilita además la ejecución múltiples veces del mismo circuito para extraer un estudio estadístico.
+		\end{itemize}
+	\end{block}
 	
 \end{frame}
+
+\section{Algoritmo de Deutsch-Jozsa}
+\begin{frame}
+	\frametitle{Algoritmo de Deutsch-Jozsa}
+	\begin{block}{Input}
+		Gate array $U_f$ asociado a una función $\function{f}{\{0,1\}^n}{\{0,1\}}$ que puede ser constante o balanceada.
+	\end{block}
+	\begin{block}{Output}
+		$\ket{0}^{\otimes n}$ si $f$ es constante, o cualquier otro valor si $f$ es balanceada.
+	\end{block}
+	Se trata de un algoritmo cuántico determinista de coste computacional constante. En el caso clásico el coste es de orden exponencial.
+	\[\Qcircuit @C=1em @R=.7em {
+\lstick{\ket{0}} & {/^n} \qw & \gate{H^{\otimes n}} & \qw &\multigate{1}{U_f}&\qw& \gate{H^{\otimes n}} & \qw & \meter & \qw \\
+\lstick{\ket{1}} & \qw & \gate{H} & \qw & \ghost{U_f}      &\qw& \qw      & \qw & \qw    & \qw}\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Evaluación del algoritmo}
+Evaluación para $f_1(x_1,x_2,x_3,x_4)=\left\{\begin{matrix}1\textrm{ si } x_1=1\\0\textrm{ si } x_1=0\end{matrix}\right.$ tras 1024 ejecuciones. 
+\begin{figure}[htb!]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{../tex/images/simulator_balanced}
+        Resultados con función balanceada en simulador.
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{../tex/images/ibmq_balanced}
+        Resultados con función balanceada en ordenador cuántico de IBM.
+    \end{minipage}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Evaluación del algoritmo}
+Evaluación para $f\equiv1$ de 4 bits de entrada tras 1024 ejecuciones. 
+\begin{figure}[htb!]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{../tex/images/simulator_constant}
+        Resultados con función constante en simulador.
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{../tex/images/ibmq_constant}
+        Resultados con función constante en ordenador cuántico de IBM.
+    \end{minipage}
+\end{figure}
+\end{frame}
+
 
 
 \end{document}
